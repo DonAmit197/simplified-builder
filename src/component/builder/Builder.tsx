@@ -1,19 +1,17 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {useEffect, useState} from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import Card from 'react-bootstrap/Card';
+import {allExpanded, defaultStyles, JsonView,} from 'react-json-view-lite';
+// @ts-expect-error Bla
 import builderSettings from './builderSettings';
+// @ts-expect-error Bla
 import formioWebFormBuilder from './formioWebformBuilder';
-import {
-  JsonView,
-  allExpanded,
-  darkStyles,
-  defaultStyles,
-} from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
+import './builder.css';
 
-function Builder({ defaultComponents }) {
+// @ts-expect-error Bla
+function Builder({defaultComponents}) {
   formioWebFormBuilder();
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
@@ -80,6 +78,7 @@ function Builder({ defaultComponents }) {
     </>
   );
 }
+
 Builder.propTypes = {
   defaultComponents: PropTypes.object.isRequired,
 };
