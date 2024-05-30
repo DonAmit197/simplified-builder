@@ -5,12 +5,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Card from 'react-bootstrap/Card';
 import builderSettings from './builderSettings';
 import formioWebFormBuilder from './formioWebformBuilder';
-import {
-  JsonView,
-  allExpanded,
-  darkStyles,
-  defaultStyles,
-} from 'react-json-view-lite';
+import { JsonView, allExpanded, defaultStyles } from 'react-json-view-lite';
 import 'react-json-view-lite/dist/index.css';
 
 function Builder({ defaultComponents }) {

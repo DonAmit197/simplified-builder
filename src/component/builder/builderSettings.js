@@ -116,17 +116,14 @@ const builderSettings = (
         ).then((instance) => {
 
             builder = instance;
-
-
+            // eslint-disable-next-line no-unused-vars
             function onForm(form) {
-
-
                 instance.on('change', function () {
-                    console.log('change', instance.form);
+                    //console.log('change', instance.form);
                     subJSON.innerHTML = '';
-                    // subJSON.appendChild(
-                    //     document.createTextNode(JSON.stringify(instance.form, null, 4))
-                    // );
+                    subJSON.appendChild(
+                        document.createTextNode(JSON.stringify(instance.form, null, 4))
+                    );
                 });
 
                 onSchemaChange(instance.schema);

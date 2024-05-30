@@ -19,10 +19,12 @@ function addFormActionEvent(btn, component, builderComponent) {
         if (event.keyCode === 13) {
             event.preventDefault();
             event.stopPropagation();
-            const getRef = event.target.getAttribute('ref')
+            console.log(event)
+            const getRef = event.target.getAttribute('ref');
+            console.log(getRef)
             if (builderComponent !== undefined) {
                 builderComponent.selectedComponent = component;
-                if (getRef === 'down') {
+                if (getRef.includes('down')) {
                     builderComponent.updateComponentPlacement(false);
                 }
 
@@ -49,7 +51,8 @@ function buttonMovement(move, parentElem, component, builderComponent) {
 
         if (btnConfig.move === move) {
             btnElem.classList.add(btnConfig.customCSS);
-            btnElem.classList.add('btn-move')
+            btnElem.classList.add('btn-move');
+            btnElem.tabIndex = '0';
             btnElem.setAttribute('ref', btnConfig.move);
 
         }

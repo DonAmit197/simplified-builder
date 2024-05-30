@@ -1,5 +1,3 @@
-import buttonMovement from './buttonEvents';
-
 function formioWebFormBuilder() {
     import('bcformiojs/WebformBuilder').then((module) => {
         const WebformBuilder = module;
@@ -33,34 +31,73 @@ function formioWebFormBuilder() {
                 }
             });
 
+            // Move Down Button
             const btnElem = document.createElement('a');
-            btnElem.setAttribute('class', 'moveDn');
-            btnElem.setAttribute('class', 'btn-move');
+            btnElem.classList.add('moveDn');
+            btnElem.classList.add('btn-move');
             btnElem.textContent = 'Move Down';
             btnElem.setAttribute('tabindex', '0');
+
+            // Move Up Button
             const upMoveBtn = document.createElement('a');
             upMoveBtn.classList.add('move-up');
             upMoveBtn.setAttribute('tabindex', '0');
-            upMoveBtn.setAttribute('class', 'btn-move');
-
+            upMoveBtn.classList.add('btn-move');
             upMoveBtn.textContent = 'Move Up';
+            // Edit button
+            const editButton = document.createElement('a');
+            editButton.classList.add('edit-button');
+            editButton.classList.add('btn-move');
+            editButton.setAttribute('tabindex', '0');
+            editButton.textContent = 'Edit';
+            // Remove Button
+            const removeBtn = document.createElement('a');
+            removeBtn.classList.add('btn-move', 'remove-component');
+            removeBtn.setAttribute('tabindex', '0');
+            removeBtn.textContent = 'Remove';
+
             // /**
-            //  * Append Move down button
+            //  * Append Move buttons
             //  */
             actionBtns.appendChild(btnElem);
-            // /**
-            //  * Append Move up button
-            //  */
             actionBtns.appendChild(upMoveBtn);
+            actionBtns.appendChild(editButton);
+            actionBtns.appendChild(removeBtn);
+            if (actionBtns) {
+                const keyBoardEventsBtns = actionBtns.querySelectorAll('.btn-move');
+                Array.from(keyBoardEventsBtns).map((keyboardEventBtn) => {
+                    console.log(keyboardEventBtn);
+                    const iconElem = document.createElement('i');
+
+                    iconElem.classList.add('icon', 'fa');
+                    if (keyboardEventBtn.classList.contains('moveDn')) {
+                        iconElem.classList.add('fa-arrow-down')
+                    }
+
+                    if (keyboardEventBtn.classList.contains('move-up')) {
+                        iconElem.classList.add('fa-arrow-up')
+                    }
+
+                    if (keyboardEventBtn.classList.contains('edit-button')) {
+                        iconElem.classList.add('fa-cog')
+                    }
+
+                    if (keyboardEventBtn.classList.contains('remove-component')) {
+                        iconElem.classList.add('fa-remove')
+                    }
+
+                    keyboardEventBtn.insertBefore(iconElem, keyboardEventBtn.firstChild);
+                })
+            }
+
+
             /**
              * Attach Action buttons to element Move down button
              */
             element.appendChild(actionBtns);
-            const BuilderComponent = this;
-
-            buttonMovement('up', actionBtns, component, BuilderComponent);
-            buttonMovement('down', actionBtns, component, BuilderComponent);
-
+            /**
+             * Move down button event 
+             */
             component.addEventListener(btnElem, 'keydown', (e) => {
                 if (e.keyCode === 13) {
                     e.stopPropagation();
@@ -88,6 +125,38 @@ function formioWebFormBuilder() {
                     this.emit('change', this.form);
                 }
             });
+            /**
+             * Attach Event to Edit Button
+             */
+            if (editButton) {
+                editButton.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        this.selectedComponent = component;
+                        console.log('Edit Component', this.editComponent);
+                        this.editComponent(
+                            component.schema,
+                            parent,
+                            false,
+                            false,
+                            component.component,
+                            { inDataGrid: component.isInDataGrid }
+                        )
+                    }
+                })
+            }
+            /** Attach event to Remove Button */
+            if (removeBtn) {
+                removeBtn.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter') {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        this.removeComponent(component.schema, parent, component.component)
+                    }
+                })
+            }
+
             element.formioComponent = component;
 
             component.loadRefs(element, {

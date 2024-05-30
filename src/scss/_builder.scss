@@ -1,0 +1,96 @@
+#group-container-basic,
+#group-container-advanced,
+#group-container-layout,
+#group-container-premium,
+#group-container-data {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.builder-group-button {
+  width: 100%;
+}
+.builder-component {
+  text-align: left;
+}
+
+[ref='sidebar-container'] > .btn {
+  width: 100%;
+  &:focus-visible,
+  &:focus {
+    outline: none;
+    background-color: $focus;
+    color: $base-color;
+    //  border-color: $focus;
+    box-shadow: 0 0 0 0.25rem rgba(215, 221, 0, 0.25);
+  }
+}
+.builder-component.essential-item {
+  border: 2px dashed #dadada;
+  padding: 32px;
+}
+.builder-component.essential-item:before {
+  content: 'Essential';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #e3e9f3;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 2px;
+  border: 2px solid #ffffff;
+  color: #5d5d5d;
+}
+.widget-action-btn {
+  display: none;
+  background-color: $light-gray;
+  padding: $grid-8;
+  margin-top: $grid-4;
+  overflow: hidden;
+
+  & > a {
+    text-decoration: none;
+    color: $base-color;
+    display: inline-block;
+    vertical-align: middle;
+    & > .icon {
+      margin-right: $grid-4;
+    }
+    &:focus-visible,
+    &:focus {
+      outline: none;
+      background-color: $focus;
+      color: $base-color;
+      box-shadow: 0 0 0 0.25rem rgba(215, 221, 0, 0.25);
+    }
+  }
+  & .remove-component {
+    color: $white;
+    background-color: $error-color;
+    &:focus-visible,
+    &:focus {
+      color: $error-color;
+    }
+  }
+}
+.btn-move {
+  padding: 4px 12px;
+}
+.ag-component-selected {
+  border: 3px solid #aa2525;
+}
+.card {
+  padding: 0;
+}
+.builder-component {
+  & [ref='editJson'],
+  & [ref='copyComponent'] {
+    display: none;
+  }
+}
+.builder-component.builder-component-selected {
+  padding: $grid-12;
+}
