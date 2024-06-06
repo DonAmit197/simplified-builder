@@ -1,0 +1,30 @@
+.sidebar {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .menuButton {
+      margin: 5px;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &.collapsed {
+    width: 90px;
+
+    .header {
+      flex-direction: row;
+      align-self: center;
+    }
+  }
+}
+

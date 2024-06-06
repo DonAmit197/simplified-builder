@@ -14,3 +14,7 @@
 .builder-component {
     text-align: left;
 }
+
+.builder-tab {
+    max-width: 80vw;
+}
