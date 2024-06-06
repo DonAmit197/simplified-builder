@@ -1,6 +1,5 @@
-import './App.css'
+import './App.css';
 import Builder from './component/builder/Builder.tsx';
-// @ts-expect-error Bla
 import staticComponents from './component/builder/staticComponents';
 
 function App() {
@@ -9,4 +8,4 @@ function App() {
   return <Builder defaultComponents={d_Comp}></Builder>;
 }
 
-export default App
+export default App;
