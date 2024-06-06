@@ -1,11 +1,7 @@
-import Box from '@mui/material/Box';
+import {Typography} from '@mui/material';
 
 const LoginPage = () => {
-  return (
-    <Box>
-      <div>Login page</div>
-    </Box>
-  )
+  return <Typography variant="h1">Login</Typography>;
 }
 
 export default LoginPage;

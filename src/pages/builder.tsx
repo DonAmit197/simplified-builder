@@ -1,4 +1,5 @@
 import Builder from '../component/builder/Builder.tsx';
+// @ts-expect-error Bla
 import staticComponents from '../component/builder/staticComponents';
 
 const BuilderPage = () => {

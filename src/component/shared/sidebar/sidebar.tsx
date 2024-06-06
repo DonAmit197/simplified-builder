@@ -1,7 +1,9 @@
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CloseIcon from '@mui/icons-material/Close';
-import ConstructionIcon from '@mui/icons-material/Construction';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
+import TableChartIcon from '@mui/icons-material/TableChart';
 import {IconButton} from '@mui/material';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -12,12 +14,10 @@ import ListItemText from '@mui/material/ListItemText';
 import {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {RoutesEnum} from '../../../routes.tsx';
-import classes from './sidebar.module.scss';
 
 interface NavbarLinkProps {
   icon: JSX.Element;
   label: string;
-  active?: boolean;
   route: RoutesEnum;
 
   onClick?(): void;
@@ -38,23 +38,27 @@ const Sidebar = () => {
     setActiveRoute(currentRoute);
   }
 
-  if (pathname.endsWith(RoutesEnum.Builder)) {
-    setActive(RoutesEnum.Builder);
+  if (pathname.endsWith(RoutesEnum.MyForms) || pathname.endsWith(RoutesEnum.Builder)) {
+    setActive(RoutesEnum.MyForms);
+  } else if (pathname.endsWith(RoutesEnum.Analytics)) {
+    setActive(RoutesEnum.Analytics);
+  } else if (pathname.endsWith(RoutesEnum.Help)) {
+    setActive(RoutesEnum.Help);
   } else {
     setActive(RoutesEnum.Home);
   }
 
   const data = [
     {icon: <HomeIcon/>, route: RoutesEnum.Home, label: 'Home'},
-    {icon: <ConstructionIcon/>, route: RoutesEnum.Builder, label: 'Form Builder'},
+    {icon: <TableChartIcon/>, route: RoutesEnum.MyForms, label: 'My Forms'},
+    {icon: <AnalyticsIcon/>, route: RoutesEnum.Analytics, label: 'Analytics'},
+    {icon: <HelpCenterIcon/>, route: RoutesEnum.Help, label: 'Help & Support'},
   ];
 
-  const NavbarLink = ({route, icon, label, active, onClick}: NavbarLinkProps) => {
-    const buttonClass = active ? classes.active : '';
-
+  const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
     return (
       <ListItem key={label}>
-        <ListItemButton onClick={onClick} className={buttonClass} selected={route === activeRoute} aria-label={label}>
+        <ListItemButton onClick={onClick} selected={route === activeRoute} aria-label={label}>
           <ListItemIcon>
             {icon}
           </ListItemIcon>
@@ -70,21 +74,25 @@ const Sidebar = () => {
       icon={link.icon}
       label={link.label}
       route={link.route}
-      active={false}
       onClick={() => navigate(link.route)}
     />
   ));
 
-  const coll = collapsed ? classes.collapsed : '';
   const icon = collapsed ? <MenuIcon/> : <CloseIcon/>
   const ariaLabel = collapsed ? 'Expand menu' : 'Collapse menu';
+
+  const width = collapsed ? '90px' : '240px';
+  const headerDirection = collapsed ? 'row' : 'row-reverse';
+  const headerAlignSelf = collapsed ? 'center' : 'flex-end';
+
   return (
-    <Box className={`${classes.sidebar} ${coll}`}>
-      <Box className={`${classes.header} ${coll}`}>
-        <IconButton aria-label={ariaLabel} className={classes.menuButton} onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>
+    <Box sx={{display: 'flex', flexDirection: 'column', width: width}}>
+      <Box sx={{display: 'flex', flexDirection: headerDirection, alignSelf: headerAlignSelf}}>
+        <IconButton aria-label={ariaLabel} sx={{margin: '5px'}}
+                    onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>
       </Box>
 
-      <List className={classes.list}>
+      <List sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
         {links}
       </List>
     </Box>

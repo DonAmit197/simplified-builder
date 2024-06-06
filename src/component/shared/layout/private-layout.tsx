@@ -8,12 +8,17 @@ import Sidebar from '../sidebar/sidebar.tsx';
 
 const PrivateLayout = () => {
   // TODO: Check if the user is actually logged in before showing the app in all its glory
-  const [useDarkMode, setUseDarkMode] = useState(true);
+  const [useDarkMode, setUseDarkMode] = useState(false);
 
   const theme = createTheme({
     palette: {
       mode: useDarkMode ? 'dark' : 'light',
     },
+    typography: {
+      h1: {
+        fontSize: '4em',
+      }
+    }
   });
 
   const ariaLabel = `Switch to ${useDarkMode ? 'light' : 'dark'} mode`;
@@ -26,7 +31,6 @@ const PrivateLayout = () => {
         header={<IconButton aria-label={ariaLabel} onClick={() => setUseDarkMode(!useDarkMode)}>{icon}</IconButton>}
         main={<Outlet/>}
         sidebar={<Sidebar/>}
-        footer={<div>Private layout</div>}
       />
     </ThemeProvider>
   );

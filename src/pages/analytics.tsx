@@ -1,12 +1,12 @@
 import {Typography} from '@mui/material';
 import Box from '@mui/material/Box';
 
-const HomePage = () => {
+const AnalyticsPage = () => {
   return (
     <Box className="mainHeader">
-      <Typography variant="h1">Home</Typography>
+      <Typography variant="h1">Analytics</Typography>
     </Box>
   );
 }
 
-export default HomePage;
+export default AnalyticsPage;
