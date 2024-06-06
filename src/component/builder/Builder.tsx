@@ -73,14 +73,14 @@ function Builder({
   return (
     <>
       <Tabs defaultActiveKey="edit" id="builderTabs" className="mb-3">
-        <Tab eventKey="edit" title="Edit">
+        <Tab eventKey="edit" title="Edit" className='builder-tab'>
           <div id="builder"></div>
           <div id="subjson" className="hidden"></div>
         </Tab>
-        <Tab eventKey="view" title="View">
+        <Tab eventKey="view" title="View" className='builder-tab'>
           <div id="formio"></div>
         </Tab>
-        <Tab eventKey="json" title="Json">
+        <Tab eventKey="json" title="Json" className='builder-tab'>
           <JsonView
             data={schema}
             shouldExpandNode={allExpanded}
