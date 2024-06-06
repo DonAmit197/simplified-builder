@@ -137,13 +137,13 @@ type BuilderSettingsFn = (
 const builderSettings: BuilderSettingsFn = (
   builder,
   _formiojs,
-  components,
+  _components,
   display,
   defaultComp,
   subJSON,
   jsonElement,
   formElement,
-  schema,
+  _schema,
   onSchemaChange
 ) => {
   let _builder: any = null;
@@ -167,7 +167,7 @@ const builderSettings: BuilderSettingsFn = (
       .then((instance: any) => {
         _builder = instance;
 
-        const onForm = (form: any) => {
+        const onForm = () => {
           instance.on('change', () => {
             subJSON.innerHTML = '';
             subJSON.appendChild(
