@@ -1,21 +1,34 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {useEffect, useState} from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import {allExpanded, defaultStyles, JsonView,} from 'react-json-view-lite';
-// @ts-expect-error Bla
+import Card from 'react-bootstrap/Card';
 import builderSettings from './builderSettings';
-// @ts-expect-error Bla
 import formioWebFormBuilder from './formioWebformBuilder';
-import 'react-json-view-lite/dist/index.css';
-import './builder.css';
 
-// @ts-expect-error Bla
-function Builder({defaultComponents}) {
+import { JsonView, allExpanded, defaultStyles } from 'react-json-view-lite';
+import 'react-json-view-lite/dist/index.css';
+
+interface Component {
+  label: string;
+  tableView: boolean;
+  key: string;
+  input: boolean;
+  showSidebar: boolean;
+  html?: string;
+}
+interface DefaultComponents {
+  components: Component[];
+}
+function Builder({
+  defaultComponents,
+}: {
+  defaultComponents: DefaultComponents;
+}) {
   formioWebFormBuilder();
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
-  const [schema, setSchema] = useState(defaultComp);
+  const [schema, setSchema] = useState<Component[]>(defaultComp);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSchemaChange = () => {
     setSchema(defaultComponents.components);
@@ -26,11 +39,12 @@ function Builder({defaultComponents}) {
     const handleLoad = () => {
       import('bcformiojs').then((module) => {
         const Formio = module.Formio;
-        const _builder = document.getElementById('builder');
-        const jsonElement = document.getElementById('json');
-        const formElement = document.getElementById('formio');
-        const subJSON = document.getElementById('subjson');
+        const _builder = document.getElementById('builder') as HTMLElement;
+        const jsonElement = document.getElementById('json') as HTMLElement;
+        const formElement = document.getElementById('formio') as HTMLElement;
+        const subJSON = document.getElementById('subjson') as HTMLElement;
         const components = defaultComponents.components;
+
         builderSettings(
           _builder,
           Formio,
@@ -78,7 +92,6 @@ function Builder({defaultComponents}) {
     </>
   );
 }
-
 Builder.propTypes = {
   defaultComponents: PropTypes.object.isRequired,
 };
