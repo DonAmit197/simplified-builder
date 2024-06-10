@@ -3,8 +3,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import {createTheme, CssBaseline, IconButton, ThemeProvider} from '@mui/material';
 import {useState} from 'react';
 import {Outlet} from 'react-router-dom';
-import AppShell from '../app-shell/app-shell.tsx';
-import Sidebar from '../sidebar/sidebar.tsx';
+import AppShell from 'src/component/shared/app-shell/app-shell.tsx';
+import Sidebar from 'src/component/shared/sidebar/sidebar.tsx';
 
 const PrivateLayout = () => {
   // TODO: Check if the user is actually logged in before showing the app in all its glory

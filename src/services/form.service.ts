@@ -1,6 +1,6 @@
 import {useApolloClient} from '@apollo/client';
-import {Form} from '../__generated__/graphql.ts';
-import {GET_FORMS} from '../graphql/queries/form.query.ts';
+import {Form} from 'src/__generated__/graphql.ts';
+import {GET_FORMS} from 'src/graphql/queries/form.query.ts';
 
 export class FormService {
   client;

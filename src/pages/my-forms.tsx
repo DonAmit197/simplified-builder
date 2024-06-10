@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import {Button, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
-import {RoutesEnum} from '../routes.tsx';
+import {RoutesEnum} from 'src/routes.tsx';
 
 const MyFormsPage = () => {
   const nav = () => {

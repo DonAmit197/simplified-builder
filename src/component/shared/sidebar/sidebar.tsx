@@ -4,7 +4,7 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import {IconButton} from '@mui/material';
+import {IconButton, SvgIcon} from '@mui/material';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,7 +13,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {RoutesEnum} from '../../../routes.tsx';
+import Logo from 'src/assets/logo.svg?react';
+import {RoutesEnum} from 'src/routes.tsx';
 
 interface NavbarLinkProps {
   icon: JSX.Element;
@@ -81,14 +82,16 @@ const Sidebar = () => {
   const icon = collapsed ? <MenuIcon/> : <CloseIcon/>
   const ariaLabel = collapsed ? 'Expand menu' : 'Collapse menu';
 
-  const width = collapsed ? '90px' : '240px';
-  const headerDirection = collapsed ? 'row' : 'row-reverse';
-  const headerAlignSelf = collapsed ? 'center' : 'flex-end';
+  const width = collapsed ? '90px' : '300px';
+  const headerJustify = collapsed ? 'center' : 'space-between';
+  const buttonMargin = collapsed ? '15px' : '5px';
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', width: width}}>
-      <Box sx={{display: 'flex', flexDirection: headerDirection, alignSelf: headerAlignSelf}}>
-        <IconButton aria-label={ariaLabel} sx={{margin: '5px'}}
+    <Box sx={{display: 'flex', flexDirection: 'column', width: width, marginTop: '10px'}}>
+      <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: headerJustify}}>
+        <SvgIcon aria-label="FormBuilder logo" component={Logo} viewBox="0 0 196 26"
+                 sx={{width: collapsed ? '0' : '196px', height: '26px', marginLeft: '20px', alignSelf: 'center'}}/>
+        <IconButton aria-label={ariaLabel} sx={{marginRight: buttonMargin, alignSelf: 'center'}}
                     onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>
       </Box>
 
