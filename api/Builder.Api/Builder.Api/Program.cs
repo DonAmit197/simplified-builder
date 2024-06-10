@@ -1,5 +1,4 @@
 using Builder.Api.Cqrs.Infrastructure;
-using Builder.Api.GraphQl.Queries;
 using Builder.Api.Orm.Context;
 using Builder.Api.Orm.Services;
 
@@ -14,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddDbContext<BuilderContext>(options => { options.UseSqlServer("name=BuilderDb"); })
     .AddScoped<BuilderDataService>()
+    .AddScoped<HashService>()
     .AddCommandsQueries(executingAssembly)
     .AddGraphQLServer()    
     .AddProjections()

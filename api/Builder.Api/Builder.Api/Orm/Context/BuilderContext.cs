@@ -13,5 +13,8 @@ public class BuilderContext(DbContextOptions<BuilderContext> options) : DbContex
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Form>().ToTable("Form", f => f.IsTemporal());
+        modelBuilder.Entity<Form>().Property(f => f.Url).IsRequired(false);
+        
+        modelBuilder.Entity<FormSettings>().Property(f => f.DataEmailAddresses).IsRequired(false);
     }
 }
