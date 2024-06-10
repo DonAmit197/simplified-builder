@@ -4,7 +4,7 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import {IconButton, SvgIcon} from '@mui/material';
+import {IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,6 +14,7 @@ import ListItemText from '@mui/material/ListItemText';
 import {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Logo from 'src/assets/logo.svg?react';
+import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import {RoutesEnum} from 'src/routes.tsx';
 
 interface NavbarLinkProps {
@@ -30,6 +31,7 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const {pathname} = location;
+  const isDark = useTheme().palette.mode === 'dark';
 
   const setActive = (currentRoute: RoutesEnum) => {
     if (activeRoute === currentRoute) {
@@ -89,8 +91,8 @@ const Sidebar = () => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', width: width, marginTop: '10px'}}>
       <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: headerJustify}}>
-        <SvgIcon aria-label="FormBuilder logo" component={Logo} viewBox="0 0 196 26"
-                 sx={{width: collapsed ? '0' : '196px', height: '26px', marginLeft: '20px', alignSelf: 'center'}}/>
+        <SvgIcon aria-label="FormBuilder logo" component={isDark ? LogoInverse : Logo} viewBox="0 0 196 26"
+                 sx={{width: collapsed ? '0' : '196px', height: '26px', marginLeft: '20px', alignSelf: 'center', fill: 'white'}}/>
         <IconButton aria-label={ariaLabel} sx={{marginRight: buttonMargin, alignSelf: 'center'}}
                     onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>
       </Box>
