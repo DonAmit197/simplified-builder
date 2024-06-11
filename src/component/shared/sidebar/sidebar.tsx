@@ -1,8 +1,8 @@
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CloseIcon from '@mui/icons-material/Close';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import {Divider, IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
@@ -49,15 +49,17 @@ const Sidebar = () => {
     setActive(RoutesEnum.Analytics);
   } else if (pathname.endsWith(RoutesEnum.Help)) {
     setActive(RoutesEnum.Help);
+  } else if (pathname.endsWith(RoutesEnum.Settings)) {
+    setActive(RoutesEnum.Settings);
   } else {
     setActive(RoutesEnum.Home);
   }
 
   const data = [
-    {icon: <HomeIcon/>, route: RoutesEnum.Home, label: 'Home'},
     {icon: <TableChartIcon/>, route: RoutesEnum.MyForms, label: 'My Forms'},
     {icon: <AnalyticsIcon/>, route: RoutesEnum.Analytics, label: 'Analytics'},
     {icon: <HelpCenterIcon/>, route: RoutesEnum.Help, label: 'Help & Support'},
+    {icon: <SettingsIcon/>, route: RoutesEnum.Settings, label: 'Settings'},
   ];
 
   const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
@@ -106,7 +108,8 @@ const Sidebar = () => {
                    height: '26px',
                    marginLeft: '20px',
                    alignSelf: 'center',
-                   fill: 'white'
+                   fill: 'white',
+                   cursor: 'pointer'
                  }}/>
         <IconButton aria-label={ariaLabel} sx={{marginRight: buttonMargin, alignSelf: 'center'}}
                     onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>

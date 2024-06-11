@@ -8,6 +8,7 @@ import HelpPage from './pages/help.tsx';
 import HomePage from './pages/home.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
+import SettingsPage from './pages/settings.tsx';
 
 export enum RoutesEnum {
   Root = '/',
@@ -15,6 +16,7 @@ export enum RoutesEnum {
   Login = 'login',
   Analytics = 'analytics',
   Help = 'help',
+  Settings = 'settings',
   MyForms = 'my-forms',
   Builder = 'form-builder'
 }
@@ -39,6 +41,10 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Help,
             element: <HelpPage/>
+          },
+          {
+            path: RoutesEnum.Settings,
+            element: <SettingsPage/>
           },
           {
             path: RoutesEnum.MyForms,
