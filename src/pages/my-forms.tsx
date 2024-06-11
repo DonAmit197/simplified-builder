@@ -10,14 +10,15 @@ const MyFormsPage = () => {
   };
 
   return (
-    <Box className="headerWithItem">
-      <Box className="mainHeader">
-        <Typography variant="h1">My Forms</Typography>
+    <Box className='headerWithItem'>
+      <Box className='mainHeader'>
+        <Typography variant='h1'>My Forms</Typography>
       </Box>
-      <StyledButton startIcon={<AddIcon/>} variant="contained"
-                    onClick={() => nav()}>Create New Form</StyledButton>
+      <StyledButton startIcon={<AddIcon />} variant='contained' onClick={() => nav()}>
+        Create New Form
+      </StyledButton>
     </Box>
   );
-}
+};
 
 export default MyFormsPage;

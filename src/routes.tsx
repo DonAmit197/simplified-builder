@@ -18,54 +18,54 @@ export enum RoutesEnum {
   Help = 'help',
   Settings = 'settings',
   MyForms = 'my-forms',
-  Builder = 'form-builder'
+  Builder = 'form-builder',
 }
 
 export const router = createBrowserRouter([
   {
-    element: <App/>,
+    element: <App />,
     children: [
       {
         path: RoutesEnum.Root,
-        element: <PrivateLayout/>,
+        element: <PrivateLayout />,
         children: [
           {
             path: RoutesEnum.Home,
             index: true,
-            element: <HomePage/>
+            element: <HomePage />,
           },
           {
             path: RoutesEnum.Analytics,
-            element: <AnalyticsPage/>
+            element: <AnalyticsPage />,
           },
           {
             path: RoutesEnum.Help,
-            element: <HelpPage/>
+            element: <HelpPage />,
           },
           {
             path: RoutesEnum.Settings,
-            element: <SettingsPage/>
+            element: <SettingsPage />,
           },
           {
             path: RoutesEnum.MyForms,
-            element: <MyFormsPage/>
+            element: <MyFormsPage />,
           },
           {
             path: RoutesEnum.Builder,
-            element: <BuilderPage/>
-          }
-        ]
+            element: <BuilderPage />,
+          },
+        ],
       },
       {
         path: RoutesEnum.Login,
-        element: <PublicLayout/>,
+        element: <PublicLayout />,
         children: [
           {
             index: true,
-            element: <LoginPage/>
-          }
-        ]
-      }
-    ]
-  }]
-);
+            element: <LoginPage />,
+          },
+        ],
+      },
+    ],
+  },
+]);
