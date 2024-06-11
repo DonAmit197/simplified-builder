@@ -21,6 +21,8 @@ const PrivateLayout = () => {
     }
   });
 
+  console.log(theme.palette);
+
   const ariaLabel = `Switch to ${useDarkMode ? 'light' : 'dark'} mode`;
   const icon = useDarkMode ? <DarkModeIcon fontSize="inherit"/> : <LightModeIcon fontSize="inherit"/>;
 
@@ -28,7 +30,7 @@ const PrivateLayout = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <AppShell
-        header={<IconButton aria-label={ariaLabel} onClick={() => setUseDarkMode(!useDarkMode)}>{icon}</IconButton>}
+        header={<IconButton aria-label={ariaLabel} sx={{alignSelf: 'center'}} onClick={() => setUseDarkMode(!useDarkMode)}>{icon}</IconButton>}
         main={<Outlet/>}
         sidebar={<Sidebar/>}
       />

@@ -1,6 +1,4 @@
-import {useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
-import {cyan, grey} from '@mui/material/colors';
 import {ReactNode} from 'react';
 
 interface AppShellProps {
@@ -11,9 +9,6 @@ interface AppShellProps {
 }
 
 const AppShell = (props: AppShellProps) => {
-  const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[900] : cyan[50];
-
   return (
     <Box
       sx={{
@@ -22,14 +17,7 @@ const AppShell = (props: AppShellProps) => {
         height: '100vh',
         width: '100vw'
       }}>
-      <Box role="navigation"
-           sx={{
-             display: 'flex',
-             alignItems: 'start',
-             bgcolor: background,
-             borderRight: '1px solid',
-             borderColor: 'divider'
-           }}>
+      <Box role="navigation" sx={{display: 'flex'}}>
         {props.sidebar ?? <></>}
       </Box>
       <Box
@@ -41,10 +29,7 @@ const AppShell = (props: AppShellProps) => {
         {props.header ? <Box role="banner" sx={{
           display: 'flex',
           flexDirection: 'row-reverse',
-          height: '50px',
-          bgcolor: background,
-          borderBottom: '1px solid',
-          borderColor: 'divider'
+          height: '60px',
         }}>{props.header}</Box> : null}
         <Box
           sx={{
@@ -59,9 +44,6 @@ const AppShell = (props: AppShellProps) => {
           <Box role="footer"
                sx={{
                  display: 'flex',
-                 bgcolor: background,
-                 borderTop: '1px solid',
-                 borderColor: 'divider'
                }}>
             {props.footer}
           </Box> : null}
