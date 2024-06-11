@@ -8,6 +8,7 @@ import HelpPage from './pages/help.tsx';
 import HomePage from './pages/home.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
+import SettingsPage from './pages/settings.tsx';
 
 export enum RoutesEnum {
   Root = '/',
@@ -15,51 +16,56 @@ export enum RoutesEnum {
   Login = 'login',
   Analytics = 'analytics',
   Help = 'help',
+  Settings = 'settings',
   MyForms = 'my-forms',
-  Builder = 'form-builder'
+  Builder = 'form-builder',
 }
 
 export const router = createBrowserRouter([
   {
-    element: <App/>,
+    element: <App />,
     children: [
       {
         path: RoutesEnum.Root,
-        element: <PrivateLayout/>,
+        element: <PrivateLayout />,
         children: [
           {
             path: RoutesEnum.Home,
             index: true,
-            element: <HomePage/>
+            element: <HomePage />,
           },
           {
             path: RoutesEnum.Analytics,
-            element: <AnalyticsPage/>
+            element: <AnalyticsPage />,
           },
           {
             path: RoutesEnum.Help,
-            element: <HelpPage/>
+            element: <HelpPage />,
+          },
+          {
+            path: RoutesEnum.Settings,
+            element: <SettingsPage />,
           },
           {
             path: RoutesEnum.MyForms,
-            element: <MyFormsPage/>
+            element: <MyFormsPage />,
           },
           {
             path: RoutesEnum.Builder,
-            element: <BuilderPage/>
-          }
-        ]
+            element: <BuilderPage />,
+          },
+        ],
       },
       {
         path: RoutesEnum.Login,
-        element: <PublicLayout/>,
+        element: <PublicLayout />,
         children: [
           {
             index: true,
-            element: <LoginPage/>
-          }
-        ]
-      }
-    ]
-  }]
-);
+            element: <LoginPage />,
+          },
+        ],
+      },
+    ],
+  },
+]);

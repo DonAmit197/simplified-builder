@@ -1,6 +1,5 @@
-import Builder from '../component/builder/Builder.tsx';
-// @ts-expect-error Bla
-import staticComponents from '../component/builder/staticComponents';
+import Builder from 'src/component/builder/Builder.tsx';
+import staticComponents from 'src/component/builder/staticComponents';
 
 const BuilderPage = () => {
   return <Builder defaultComponents={staticComponents}></Builder>;

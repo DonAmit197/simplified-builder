@@ -1,6 +1,4 @@
-import {useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
-import {cyan, grey} from '@mui/material/colors';
 import {ReactNode} from 'react';
 
 interface AppShellProps {
@@ -11,63 +9,56 @@ interface AppShellProps {
 }
 
 const AppShell = (props: AppShellProps) => {
-  const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[900] : cyan[50];
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'row',
         height: '100vh',
-        width: '100vw'
+        width: '100vw',
       }}>
-      <Box role="navigation"
-           sx={{
-             display: 'flex',
-             alignItems: 'start',
-             bgcolor: background,
-             borderRight: '1px solid',
-             borderColor: 'divider'
-           }}>
+      <Box role='navigation' sx={{display: 'flex'}}>
         {props.sidebar ?? <></>}
       </Box>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          flexGrow: 1
+          flexGrow: 1,
         }}>
-        {props.header ? <Box role="banner" sx={{
-          display: 'flex',
-          flexDirection: 'row-reverse',
-          height: '50px',
-          bgcolor: background,
-          borderBottom: '1px solid',
-          borderColor: 'divider'
-        }}>{props.header}</Box> : null}
+        {props.header ? (
+          <Box
+            role='banner'
+            sx={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              height: '60px',
+              paddingX: '30px',
+            }}>
+            {props.header}
+          </Box>
+        ) : null}
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'start',
-            padding: '10px'
+            padding: '30px',
           }}>
           {props.main}
         </Box>
-        {props.footer ?
-          <Box role="footer"
-               sx={{
-                 display: 'flex',
-                 bgcolor: background,
-                 borderTop: '1px solid',
-                 borderColor: 'divider'
-               }}>
+        {props.footer ? (
+          <Box
+            role='footer'
+            sx={{
+              display: 'flex',
+            }}>
             {props.footer}
-          </Box> : null}
+          </Box>
+        ) : null}
       </Box>
     </Box>
   );
-}
+};
 
 export default AppShell;

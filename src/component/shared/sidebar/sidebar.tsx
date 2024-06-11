@@ -1,11 +1,12 @@
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CloseIcon from '@mui/icons-material/Close';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import {IconButton} from '@mui/material';
+import {Divider, IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
+import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,7 +14,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {RoutesEnum} from '../../../routes.tsx';
+import LogoInverse from 'src/assets/logo-inverse.svg?react';
+import Logo from 'src/assets/logo.svg?react';
+import {RoutesEnum} from 'src/routes.tsx';
 
 interface NavbarLinkProps {
   icon: JSX.Element;
@@ -29,6 +32,8 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const {pathname} = location;
+  const isDark = useTheme().palette.mode === 'dark';
+  const background = isDark ? grey[900] : cyan[50];
 
   const setActive = (currentRoute: RoutesEnum) => {
     if (activeRoute === currentRoute) {
@@ -36,7 +41,7 @@ const Sidebar = () => {
     }
 
     setActiveRoute(currentRoute);
-  }
+  };
 
   if (pathname.endsWith(RoutesEnum.MyForms) || pathname.endsWith(RoutesEnum.Builder)) {
     setActive(RoutesEnum.MyForms);
@@ -44,25 +49,29 @@ const Sidebar = () => {
     setActive(RoutesEnum.Analytics);
   } else if (pathname.endsWith(RoutesEnum.Help)) {
     setActive(RoutesEnum.Help);
+  } else if (pathname.endsWith(RoutesEnum.Settings)) {
+    setActive(RoutesEnum.Settings);
   } else {
     setActive(RoutesEnum.Home);
   }
 
   const data = [
-    {icon: <HomeIcon/>, route: RoutesEnum.Home, label: 'Home'},
-    {icon: <TableChartIcon/>, route: RoutesEnum.MyForms, label: 'My Forms'},
-    {icon: <AnalyticsIcon/>, route: RoutesEnum.Analytics, label: 'Analytics'},
-    {icon: <HelpCenterIcon/>, route: RoutesEnum.Help, label: 'Help & Support'},
+    {icon: <TableChartIcon />, route: RoutesEnum.MyForms, label: 'My Forms'},
+    {icon: <AnalyticsIcon />, route: RoutesEnum.Analytics, label: 'Analytics'},
+    {icon: <HelpCenterIcon />, route: RoutesEnum.Help, label: 'Help & Support'},
+    {icon: <SettingsIcon />, route: RoutesEnum.Settings, label: 'Settings'},
   ];
 
   const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
     return (
       <ListItem key={label}>
-        <ListItemButton onClick={onClick} selected={route === activeRoute} aria-label={label}>
-          <ListItemIcon>
-            {icon}
-          </ListItemIcon>
-          {collapsed ? <></> : <ListItemText primary={label}/>}
+        <ListItemButton
+          onClick={onClick}
+          selected={route === activeRoute}
+          aria-label={label}
+          sx={{borderRadius: '20px'}}>
+          <ListItemIcon>{icon}</ListItemIcon>
+          {collapsed ? <></> : <ListItemText primary={label} />}
         </ListItemButton>
       </ListItem>
     );
@@ -78,25 +87,60 @@ const Sidebar = () => {
     />
   ));
 
-  const icon = collapsed ? <MenuIcon/> : <CloseIcon/>
+  const icon = collapsed ? <MenuIcon /> : <CloseIcon />;
   const ariaLabel = collapsed ? 'Expand menu' : 'Collapse menu';
 
-  const width = collapsed ? '90px' : '240px';
-  const headerDirection = collapsed ? 'row' : 'row-reverse';
-  const headerAlignSelf = collapsed ? 'center' : 'flex-end';
+  const width = collapsed ? '90px' : '300px';
+  const headerJustify = collapsed ? 'center' : 'space-between';
+  const buttonMargin = collapsed ? '20px' : '5px';
+  const logo = isDark ? LogoInverse : Logo;
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', width: width}}>
-      <Box sx={{display: 'flex', flexDirection: headerDirection, alignSelf: headerAlignSelf}}>
-        <IconButton aria-label={ariaLabel} sx={{margin: '5px'}}
-                    onClick={() => setCollapsed(!collapsed)}>{icon}</IconButton>
+    <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, width: width}}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: headerJustify,
+          marginY: '20px',
+        }}>
+        <SvgIcon
+          aria-label='FormBuilder logo'
+          component={logo}
+          inheritViewBox
+          onClick={() => navigate(RoutesEnum.Home)}
+          sx={{
+            width: collapsed ? '0' : '196px',
+            height: '26px',
+            marginLeft: '20px',
+            alignSelf: 'center',
+            fill: 'white',
+            cursor: 'pointer',
+          }}
+        />
+        <IconButton
+          aria-label={ariaLabel}
+          sx={{marginRight: buttonMargin, alignSelf: 'center'}}
+          onClick={() => setCollapsed(!collapsed)}>
+          {icon}
+        </IconButton>
       </Box>
 
-      <List sx={{display: 'flex', flexDirection: 'column', flexGrow: 1}}>
-        {links}
-      </List>
+      <Box sx={{flexGrow: 1, flexShrink: 0, borderRadius: '0 20px 20px 0', backgroundColor: background}}>
+        <List>
+          {links}
+          <Divider
+            sx={{
+              borderBottomWidth: '2px',
+              opacity: '1',
+              marginX: '30px',
+              visibility: collapsed ? 'hidden' : 'visible',
+            }}
+          />
+        </List>
+      </Box>
     </Box>
   );
-}
+};
 
 export default Sidebar;
