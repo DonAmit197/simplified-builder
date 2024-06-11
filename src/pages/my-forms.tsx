@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
-import {Button, Typography} from '@mui/material';
+import {Typography} from '@mui/material';
 import Box from '@mui/material/Box';
+import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
 const MyFormsPage = () => {
@@ -13,9 +14,8 @@ const MyFormsPage = () => {
       <Box className="mainHeader">
         <Typography variant="h1">My Forms</Typography>
       </Box>
-      <Button startIcon={<AddIcon/>} variant="contained"
-              onClick={() => nav()}>Create New
-        Form</Button>
+      <StyledButton startIcon={<AddIcon/>} variant="contained"
+                    onClick={() => nav()}>Create New Form</StyledButton>
     </Box>
   );
 }

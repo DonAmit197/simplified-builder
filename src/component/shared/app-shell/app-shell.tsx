@@ -30,13 +30,14 @@ const AppShell = (props: AppShellProps) => {
           display: 'flex',
           flexDirection: 'row-reverse',
           height: '60px',
+          paddingX: '30px'
         }}>{props.header}</Box> : null}
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'start',
-            padding: '10px'
+            padding: '30px'
           }}>
           {props.main}
         </Box>
