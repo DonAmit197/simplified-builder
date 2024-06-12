@@ -12,6 +12,19 @@ public class FormsQueryHandler(BuilderDataService dataService) : IFormsQueryHand
 {
     public IQueryable<Form> Execute(FormsQuery query)
     {
+        // FKB: Uncomment this once we get out of the 'mock data' phase
         return dataService.Get<Form>();
+
+        /*var forms = new List<Form>
+        {
+            new Form
+            {
+                Id = 1,
+                UserId = 1,
+                IsDeleted = false,
+                IsActive = true,
+
+            }
+        }*/
     }
 }
