@@ -5,7 +5,7 @@ using Microsoft.Extensions.Internal;
 
 namespace Builder.Api.Cqrs.Commands;
 
-public record UserCommand(string Email, string Password);
+public record UserCommand(string Name, string Email, string Password);
 
 public interface IUserCommandHandler : ICommandAsync<UserCommand, ValidationResult>;
 
@@ -22,6 +22,7 @@ public class UserCommandHandler(BuilderDataService dataService, HashService hash
 
         var user = new User
         {
+            Name = command.Name,
             EmailAddress = command.Email,
             PasswordHash = hashService.HashString(command.Password),
             CreatedAt = now,

@@ -7,6 +7,8 @@ public class FormSettings
     public int Id { get; set; }
     
     public int FormId { get; set; }
+    
+    public int FormCategoryId { get; set; }
 
     [MaxLength(200)]
     public string Title { get; set; }
@@ -15,4 +17,6 @@ public class FormSettings
     public string DataEmailAddresses { get; set; }
 
     public Form Form { get; set; }
+    
+    public FormCategory FormCategory { get; set; }
 }

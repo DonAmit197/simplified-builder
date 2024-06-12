@@ -21,8 +21,6 @@ const PrivateLayout = () => {
     },
   });
 
-  console.log(theme.palette);
-
   const ariaLabel = `Switch to ${useDarkMode ? 'light' : 'dark'} mode`;
   const icon = useDarkMode ? <DarkModeIcon fontSize='inherit' /> : <LightModeIcon fontSize='inherit' />;
 
