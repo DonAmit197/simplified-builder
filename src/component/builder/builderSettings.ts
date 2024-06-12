@@ -1,5 +1,7 @@
 import pageHeader from './_components/pageHeader/pageHeader';
 import imageViewComponent from './_components/image/imageViewComponent';
+import builderDragComponents from './builderDragComponentSettings';
+
 import('bcformiojs').then((module) => {
   pageHeader(module);
   imageViewComponent(module);
@@ -12,27 +14,10 @@ interface BuilderOptions {
     data: boolean;
     layout: boolean;
     premium: boolean;
-    custom: {
-      title: string;
-      weight: number;
-      components: {
-        [key: string]: any;
-      };
-    };
-    layouts: {
-      title: string;
-      weight: number;
-      components: {
-        [key: string]: boolean;
-      };
-    };
-    customBasic: {
-      title: string;
-      weight: number;
-      components: {
-        [key: string]: boolean;
-      };
-    };
+    custom: any;
+    layouts: any;
+    apiSearch: any;
+    additional: any;
   };
   editForm: {
     [key: string]: any[];
@@ -46,75 +31,10 @@ const builderOptions: BuilderOptions = {
     data: false,
     layout: false,
     premium: false,
-    custom: {
-      title: 'Fields',
-      weight: 0,
-      components: {
-        shortAnswer: {
-          title: 'Short Answer',
-          key: 'shortAnswer',
-          icon: 'terminal',
-          schema: {
-            label: 'Short Answer',
-            type: 'textfield',
-            key: 'shortAnswer',
-            input: true,
-          },
-        },
-        longAnswer: {
-          title: 'Long Answer',
-          key: 'longAnswer',
-          icon: 'terminal',
-          schema: {
-            label: 'Long Answer',
-            type: 'textarea',
-            key: 'longAnswer',
-            inputFormat: 'plain',
-            input: true,
-            wysiwyg: false,
-          },
-        },
-
-        number: true,
-
-        checkbox: true,
-        selectboxes: true,
-        select: true,
-        radio: true,
-        button: true,
-        email: true,
-        url: true,
-        phoneNumber: true,
-        address: true,
-        datetime: true,
-        day: true,
-        time: true,
-        currency: true,
-        datagrid: true,
-        file: true,
-        header: true,
-        imageComponent: true,
-      },
-    },
-    layouts: {
-      title: 'Layout',
-      weight: 2,
-      components: {
-        panel: true,
-        columns: true,
-        content: true,
-        htmlelement: true,
-        starrating: true,
-      },
-    },
-    customBasic: {
-      title: 'Custom Components',
-      weight: 3,
-
-      components: {
-        starrating: true,
-      },
-    },
+    custom: builderDragComponents.custom,
+    layouts: builderDragComponents.layouts,
+    apiSearch: builderDragComponents.apiSearch,
+    additional: builderDragComponents.additional,
   },
   editForm: {
     textarea: [],
@@ -170,9 +90,7 @@ const builderSettings: BuilderSettingsFn = (
         const onForm = () => {
           instance.on('change', () => {
             subJSON.innerHTML = '';
-            subJSON.appendChild(
-              document.createTextNode(JSON.stringify(instance.form, null, 4))
-            );
+            subJSON.appendChild(document.createTextNode(JSON.stringify(instance.form, null, 4)));
           });
           onSchemaChange(instance.schema);
         };
@@ -180,9 +98,7 @@ const builderSettings: BuilderSettingsFn = (
         const onBuild = () => {
           jsonElement.innerHTML = '';
           formElement.innerHTML = '';
-          jsonElement.appendChild(
-            document.createTextNode(JSON.stringify(instance.form, null, 4))
-          );
+          jsonElement.appendChild(document.createTextNode(JSON.stringify(instance.form, null, 4)));
           _formiojs.createForm(formElement, instance.form).then(onForm);
         };
 
