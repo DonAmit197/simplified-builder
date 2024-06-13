@@ -92,6 +92,7 @@ const builderSettings: BuilderSettingsFn = (
             subJSON.innerHTML = '';
             subJSON.appendChild(document.createTextNode(JSON.stringify(instance.form, null, 4)));
           });
+
           onSchemaChange(instance.schema);
         };
 
