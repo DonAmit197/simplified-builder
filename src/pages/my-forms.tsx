@@ -28,7 +28,7 @@ const MyFormsPage = () => {
       {
         accessorKey: 'formSettings.title', //access nested data with dot notation
         header: 'Title',
-        size: 200,
+        size: 150,
         Cell: ({renderedCellValue, row}) => (
           <Stack>
             <Typography variant='body1'>{renderedCellValue}</Typography>

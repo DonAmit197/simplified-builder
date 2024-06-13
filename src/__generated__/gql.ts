@@ -16,6 +16,7 @@ const documents = {
     "\n  fragment Form_Summary_Fields on Form {\n    id\n    isActive\n    updatedAt\n    updatedLocal\n    userId\n    formSettings {\n      title\n      formCategory {\n        name\n      }\n    }\n  }\n": types.Form_Summary_FieldsFragmentDoc,
     "\n  fragment Validation_Fields on ValidationResult {\n    success\n    errorMessage\n  }\n": types.Validation_FieldsFragmentDoc,
     "\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n": types.CreateUserDocument,
+    "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n": types.GetFormCategoriesDocument,
     "\n  \n  query GetForms {\n    forms {\n      ...Form_Summary_Fields\n    }\n  }\n": types.GetFormsDocument,
 };
 
@@ -45,6 +46,10 @@ export function gql(source: "\n  fragment Validation_Fields on ValidationResult 
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n"): (typeof documents)["\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

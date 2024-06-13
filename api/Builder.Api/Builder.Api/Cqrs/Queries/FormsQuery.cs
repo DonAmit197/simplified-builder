@@ -23,66 +23,9 @@ public class FormsQueryHandler(BuilderDataService dataService, ISystemClock cloc
             Id = 1,
             Name = "All Forms"
         };
-        
-        var forms = new List<Form>
-        {
-            new()
-            {
-                Id = 1,
-                IsActive = true,
-                UpdatedAt = now.AddDays(-5),
-                FormSettings = new FormSettings
-                {
-                    Title = "Advance notice of arrival",
-                    FormCategory = category
-                }
-            },
-            new()
-            {
-                Id = 2,
-                IsActive = true,
-                UpdatedAt = now.AddDays(-20),
-                FormSettings = new FormSettings
-                {
-                    Title = "Deferred Payment Account",
-                    FormCategory = category
-                }
-            },
-            new()
-            {
-                Id = 3,
-                IsActive = true,
-                UpdatedAt = now.AddDays(-17),
-                FormSettings = new FormSettings
-                {
-                    Title = "Secure Export Scheme",
-                    FormCategory = category
-                }
-            },
-            new()
-            {
-                Id = 4,
-                IsActive = false,
-                UpdatedAt = now.AddDays(-12),
-                FormSettings = new FormSettings
-                {
-                    Title = "Sponsorship for temporary entry",
-                    FormCategory = category
-                }
-            },
-            new()
-            {
-                Id = 5,
-                IsActive = true,
-                UpdatedAt = now.AddDays(-8),
-                FormSettings = new FormSettings
-                {
-                    Title = "Transport operators",
-                    FormCategory = category
-                }
-            }
-        };
 
+        var forms = MockData.GetForms(now);
+        
         return forms.OrderByDescending(f => f.UpdatedAt).AsQueryable();
     }
 }
