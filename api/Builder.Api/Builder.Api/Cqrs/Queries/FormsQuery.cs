@@ -5,7 +5,7 @@ using Microsoft.Extensions.Internal;
 
 namespace Builder.Api.Cqrs.Queries;
 
-public record FormsQuery;
+public record FormsQuery(int CategoryId);
 
 public interface IFormsQueryHandler : IQuery<FormsQuery, IQueryable<Form>>;
 
@@ -18,14 +18,11 @@ public class FormsQueryHandler(BuilderDataService dataService, ISystemClock cloc
 
         var now = clock.UtcNow.UtcDateTime;
 
-        var category = new FormCategory
-        {
-            Id = 1,
-            Name = "All Forms"
-        };
-
         var forms = MockData.GetForms(now);
-        
-        return forms.OrderByDescending(f => f.UpdatedAt).AsQueryable();
+
+        return forms
+            .Where(f => query.CategoryId == -1 || f.FormSettings.FormCategory.Id == query.CategoryId)
+            .OrderByDescending(f => f.UpdatedAt)
+            .AsQueryable();
     }
 }

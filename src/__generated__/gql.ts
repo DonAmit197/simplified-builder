@@ -18,7 +18,7 @@ const documents = {
     "\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n": types.CreateUserDocument,
     "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n": types.GetFormCategoriesDocument,
     "\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n": types.GetFormCategoryCountDocument,
-    "\n  \n  query GetForms {\n    forms {\n      ...Form_Summary_Fields\n    }\n  }\n": types.GetFormsDocument,
+    "\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n": types.GetFormsDocument,
 };
 
 /**
@@ -58,7 +58,7 @@ export function gql(source: "\n  query GetFormCategoryCount {\n    formCategoryC
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  \n  query GetForms {\n    forms {\n      ...Form_Summary_Fields\n    }\n  }\n"): (typeof documents)["\n  \n  query GetForms {\n    forms {\n      ...Form_Summary_Fields\n    }\n  }\n"];
+export function gql(source: "\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n"): (typeof documents)["\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

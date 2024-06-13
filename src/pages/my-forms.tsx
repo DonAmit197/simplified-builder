@@ -6,10 +6,12 @@ import {Box, Chip, IconButton, Stack, Typography, useTheme} from '@mui/material'
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import {MaterialReactTable, MRT_ColumnDef, useMaterialReactTable} from 'material-react-table';
 import {useEffect, useMemo, useState} from 'react';
 import {Form, FormCategoryCount} from 'src/__generated__/graphql.ts';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
 import {formatDate} from 'src/services/format.service.ts';
@@ -21,15 +23,26 @@ const MyFormsPage = () => {
 
   const [data, setData] = useState<Form[] | null>(null);
   const [categories, setCategories] = useState<FormCategoryCount[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const formService = new FormService();
 
   const isDark = useTheme().palette.mode === 'dark';
   const background = isDark ? grey[900] : cyan[50];
 
   useEffect(() => {
-    formService.getForms().then((result) => setData(result));
-    formService.getFormCategoryCounts().then((result) => setCategories(result));
+    formService.getFormCategoryCounts().then((result) => {
+      setCategories(result);
+      setSelectedCategory(-1);
+    });
   }, []);
+
+  useEffect(() => {
+    if (selectedCategory === 0) {
+      return;
+    }
+
+    formService.getForms(selectedCategory).then((result) => setData(result));
+  }, [selectedCategory]);
 
   const columns = useMemo<MRT_ColumnDef<Form>[]>(
     () => [
@@ -114,8 +127,16 @@ const MyFormsPage = () => {
         }}>
         <List>
           {categories.map((item) => (
-            <ListItem>
-              {item.formCategory.name} ({item.formCount})
+            <ListItem key={item.formCategory.id}>
+              <StyledListItemButton
+                selected={item.formCategory.id === selectedCategory}
+                onClick={() => setSelectedCategory(item.formCategory.id)}>
+                <ListItemText
+                  sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}
+                  primary={<Box sx={{marginRight: '50px'}}>{item.formCategory.name}</Box>}
+                  secondary={item.formCount}
+                />
+              </StyledListItemButton>
             </ListItem>
           ))}
         </List>
