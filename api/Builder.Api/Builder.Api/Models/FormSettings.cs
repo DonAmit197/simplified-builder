@@ -10,7 +10,7 @@ public class FormSettings
     
     public int FormCategoryId { get; set; }
 
-    [MaxLength(200)]
+    [MaxLength(75)]
     public string Title { get; set; }
 
     [MaxLength(1000)]

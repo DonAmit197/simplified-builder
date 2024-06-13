@@ -61,6 +61,17 @@ public class FormsQueryHandler(BuilderDataService dataService, ISystemClock cloc
             },
             new()
             {
+                Id = 4,
+                IsActive = false,
+                UpdatedAt = now.AddDays(-12),
+                FormSettings = new FormSettings
+                {
+                    Title = "Sponsorship for temporary entry",
+                    FormCategory = category
+                }
+            },
+            new()
+            {
                 Id = 5,
                 IsActive = true,
                 UpdatedAt = now.AddDays(-8),
@@ -69,20 +80,9 @@ public class FormsQueryHandler(BuilderDataService dataService, ISystemClock cloc
                     Title = "Transport operators",
                     FormCategory = category
                 }
-            },
-            new()
-            {
-                Id = 2,
-                IsActive = true,
-                UpdatedAt = now.AddDays(-20),
-                FormSettings = new FormSettings
-                {
-                    Title = "Deferred Payment Account",
-                    FormCategory = category
-                }
             }
         };
 
-        return forms.AsQueryable();
+        return forms.OrderByDescending(f => f.UpdatedAt).AsQueryable();
     }
 }
