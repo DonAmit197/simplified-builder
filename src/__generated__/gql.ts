@@ -17,6 +17,7 @@ const documents = {
     "\n  fragment Validation_Fields on ValidationResult {\n    success\n    errorMessage\n  }\n": types.Validation_FieldsFragmentDoc,
     "\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n": types.CreateUserDocument,
     "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n": types.GetFormCategoriesDocument,
+    "\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n": types.GetFormCategoryCountDocument,
     "\n  \n  query GetForms {\n    forms {\n      ...Form_Summary_Fields\n    }\n  }\n": types.GetFormsDocument,
 };
 
@@ -50,6 +51,10 @@ export function gql(source: "\n  \n  mutation CreateUser($input: UserCommandInpu
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n"): (typeof documents)["\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

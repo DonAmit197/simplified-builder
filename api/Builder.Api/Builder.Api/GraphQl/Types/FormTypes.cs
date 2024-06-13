@@ -25,3 +25,7 @@ public class UserType : ObjectType<User>
 public class FormCategoryType : ObjectType<FormCategory>
 {
 }
+
+public class FormCategoryCountType : ObjectType<FormCategoryCount>
+{
+}

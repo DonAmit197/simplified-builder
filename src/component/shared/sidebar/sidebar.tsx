@@ -43,8 +43,8 @@ const Sidebar = () => {
     setActiveRoute(currentRoute);
   };
 
-  if (pathname.endsWith(RoutesEnum.MyForms) || pathname.endsWith(RoutesEnum.Builder)) {
-    setActive(RoutesEnum.MyForms);
+  if (pathname.endsWith(RoutesEnum.Builder)) {
+    setActive(RoutesEnum.Home);
   } else if (pathname.endsWith(RoutesEnum.Analytics)) {
     setActive(RoutesEnum.Analytics);
   } else if (pathname.endsWith(RoutesEnum.Help)) {
@@ -56,7 +56,7 @@ const Sidebar = () => {
   }
 
   const data = [
-    {icon: <TableChartIcon />, route: RoutesEnum.MyForms, label: 'My Forms'},
+    {icon: <TableChartIcon />, route: RoutesEnum.Home, label: 'My Forms'},
     {icon: <AnalyticsIcon />, route: RoutesEnum.Analytics, label: 'Analytics'},
     {icon: <HelpCenterIcon />, route: RoutesEnum.Help, label: 'Help & Support'},
     {icon: <SettingsIcon />, route: RoutesEnum.Settings, label: 'Settings'},
@@ -96,13 +96,21 @@ const Sidebar = () => {
   const logo = isDark ? LogoInverse : Logo;
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, width: width}}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+        width: width,
+      }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: headerJustify,
-          marginY: '20px',
+          height: '80px',
+          flexGrow: 0,
+          flexShrink: 0,
         }}>
         <SvgIcon
           aria-label='FormBuilder logo'
@@ -126,7 +134,7 @@ const Sidebar = () => {
         </IconButton>
       </Box>
 
-      <Box sx={{flexGrow: 1, flexShrink: 0, borderRadius: '0 20px 20px 0', backgroundColor: background}}>
+      <Box sx={{flexGrow: 1, /*borderRadius: '0 20px 20px 0',*/ backgroundColor: background}}>
         <List>
           {links}
           <Divider

@@ -2,10 +2,13 @@ import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SecurityIcon from '@mui/icons-material/Security';
-import {Box, Chip, IconButton, Stack, Typography} from '@mui/material';
+import {Box, Chip, IconButton, Stack, Typography, useTheme} from '@mui/material';
+import {cyan, grey} from '@mui/material/colors';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import {MaterialReactTable, MRT_ColumnDef, useMaterialReactTable} from 'material-react-table';
 import {useEffect, useMemo, useState} from 'react';
-import {Form} from 'src/__generated__/graphql.ts';
+import {Form, FormCategoryCount} from 'src/__generated__/graphql.ts';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
@@ -13,14 +16,19 @@ import {formatDate} from 'src/services/format.service.ts';
 
 const MyFormsPage = () => {
   const nav = () => {
-    window.location.href = window.location.href.replace(RoutesEnum.MyForms, RoutesEnum.Builder);
+    window.location.href = window.location.href.replace(RoutesEnum.Home, RoutesEnum.Builder);
   };
 
   const [data, setData] = useState<Form[] | null>(null);
+  const [categories, setCategories] = useState<FormCategoryCount[]>([]);
   const formService = new FormService();
+
+  const isDark = useTheme().palette.mode === 'dark';
+  const background = isDark ? grey[900] : cyan[50];
 
   useEffect(() => {
     formService.getForms().then((result) => setData(result));
+    formService.getFormCategoryCounts().then((result) => setCategories(result));
   }, []);
 
   const columns = useMemo<MRT_ColumnDef<Form>[]>(
@@ -63,8 +71,8 @@ const MyFormsPage = () => {
     enableTopToolbar: false,
     displayColumnDefOptions: {
       'mrt-row-actions': {
-        header: 'Actions', //change header text
-        size: 10, //make actions column wider
+        header: 'Actions',
+        size: 10,
       },
     },
     muiTablePaperProps: {
@@ -88,17 +96,43 @@ const MyFormsPage = () => {
   });
 
   return (
-    <Box sx={{width: '100%'}}>
-      <Box className='headerWithItem'>
-        <Box className='mainHeader'>
-          <Typography variant='h1'>My Forms</Typography>
-        </Box>
-        <StyledButton startIcon={<AddIcon />} variant='contained' onClick={() => nav()}>
-          Create New Form
-        </StyledButton>
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        paddingRight: '30px',
+        display: 'flex',
+        flexGrow: 1,
+      }}>
+      <Box
+        sx={{
+          borderRadius: '0 20px 20px 0',
+          borderLeft: '1px solid',
+          borderColor: 'divider',
+          backgroundColor: background,
+          height: '100%',
+        }}>
+        <List>
+          {categories.map((item) => (
+            <ListItem>
+              {item.formCategory.name} ({item.formCount})
+            </ListItem>
+          ))}
+        </List>
       </Box>
 
-      <MaterialReactTable table={table} />
+      <Box sx={{flexDirection: 'column', flexGrow: 1}}>
+        <Box className='headerWithItem'>
+          <Box className='mainHeader'>
+            <Typography variant='h1'>My Forms</Typography>
+          </Box>
+          <StyledButton startIcon={<AddIcon />} variant='contained' onClick={() => nav()}>
+            Create New Form
+          </StyledButton>
+        </Box>
+
+        <MaterialReactTable table={table} />
+      </Box>
     </Box>
   );
 };

@@ -11,4 +11,10 @@ public class FormCategoryQueries
     {
         return queryHandler.Execute(default!);
     }
+    
+    [UseProjection]
+    public IQueryable<FormCategoryCount> GetFormCategoryCounts([Service] IFormCategoryCountsQueryHandler queryHandler)
+    {
+        return queryHandler.Execute(default!);
+    }
 }

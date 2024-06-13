@@ -5,7 +5,6 @@ import PublicLayout from './component/shared/layout/public-layout.tsx';
 import AnalyticsPage from './pages/analytics.tsx';
 import BuilderPage from './pages/builder.tsx';
 import HelpPage from './pages/help.tsx';
-import HomePage from './pages/home.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
 import SettingsPage from './pages/settings.tsx';
@@ -17,7 +16,6 @@ export enum RoutesEnum {
   Analytics = 'analytics',
   Help = 'help',
   Settings = 'settings',
-  MyForms = 'my-forms',
   Builder = 'form-builder',
 }
 
@@ -32,7 +30,7 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Home,
             index: true,
-            element: <HomePage />,
+            element: <MyFormsPage />,
           },
           {
             path: RoutesEnum.Analytics,
@@ -45,10 +43,6 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Settings,
             element: <SettingsPage />,
-          },
-          {
-            path: RoutesEnum.MyForms,
-            element: <MyFormsPage />,
           },
           {
             path: RoutesEnum.Builder,
