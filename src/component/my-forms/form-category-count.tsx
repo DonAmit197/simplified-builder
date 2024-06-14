@@ -1,6 +1,7 @@
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CircleIcon from '@mui/icons-material/Circle';
 import PentagonIcon from '@mui/icons-material/Pentagon';
-import {Box, Divider, useTheme} from '@mui/material';
+import {Box, Divider, IconButton, InputAdornment, TextField, useTheme} from '@mui/material';
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -19,11 +20,29 @@ export interface IFormCategoryCountProps {
 
 const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFormCategoryCountProps) => {
   const [categories, setCategories] = useState<FormCategoryCount[]>([]);
-  // const [selectedCategory, setSelectedCategory] = useState<number>(0);
+  const [newCategory, setNewCategory] = useState<string>('');
   const formService = new FormService();
 
   const isDark = useTheme().palette.mode === 'dark';
   const background = isDark ? grey[900] : cyan[50];
+
+  const addNewCategory = () => {
+    if (newCategory === '') {
+      return;
+    }
+
+    const maxId = categories.length + 1;
+    categories.push({
+      formCategory: {
+        id: maxId,
+        name: newCategory,
+      },
+      formCount: 0,
+    });
+
+    setCategories(categories);
+    setNewCategory('');
+  };
 
   useEffect(() => {
     formService.getFormCategoryCounts().then((result) => {
@@ -56,6 +75,24 @@ const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFo
             </StyledListItemButton>
           </ListItem>
         ))}
+        <TextField
+          sx={{margin: '20px 25px'}}
+          size='small'
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          label='Add new category'
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton
+                  onClick={() => addNewCategory()}
+                  sx={{visibility: newCategory === '' ? 'hidden' : 'visible'}}>
+                  <AddCircleIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
         <Divider
           sx={{
             borderBottomWidth: '2px',
