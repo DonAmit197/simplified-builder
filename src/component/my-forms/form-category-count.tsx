@@ -1,7 +1,10 @@
-import {Box, useTheme} from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
+import PentagonIcon from '@mui/icons-material/Pentagon';
+import {Box, Divider, useTheme} from '@mui/material';
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useEffect, useState} from 'react';
 import {FormCategoryCount} from 'src/__generated__/graphql.ts';
@@ -44,6 +47,7 @@ const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFo
             <StyledListItemButton
               selected={item.formCategory.id === selectedCategory}
               onClick={() => setSelectedCategory(item.formCategory.id)}>
+              <ListItemIcon>{item.formCategory.id === -1 ? <PentagonIcon /> : <CircleIcon />}</ListItemIcon>
               <ListItemText
                 sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}
                 primary={<Box sx={{marginRight: '50px'}}>{item.formCategory.name}</Box>}
@@ -52,6 +56,13 @@ const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFo
             </StyledListItemButton>
           </ListItem>
         ))}
+        <Divider
+          sx={{
+            borderBottomWidth: '2px',
+            opacity: '1',
+            marginX: '30px',
+          }}
+        />
       </List>
     </Box>
   );

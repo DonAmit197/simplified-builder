@@ -94,6 +94,7 @@ const Sidebar = () => {
   const headerJustify = collapsed ? 'center' : 'space-between';
   const buttonMargin = collapsed ? '20px' : '5px';
   const logo = isDark ? LogoInverse : Logo;
+  const borderRadius = activeRoute === RoutesEnum.Home ? '0' : '0 20px 20px 0';
 
   return (
     <Box
@@ -134,7 +135,7 @@ const Sidebar = () => {
         </IconButton>
       </Box>
 
-      <Box sx={{flexGrow: 1, /*borderRadius: '0 20px 20px 0',*/ backgroundColor: background}}>
+      <Box sx={{flexGrow: 1, borderRadius: borderRadius, backgroundColor: background}}>
         <List>
           {links}
           <Divider

@@ -23,7 +23,7 @@ const MyFormsPage = () => {
       sx={{
         width: '100%',
         height: '100%',
-        paddingRight: '30px',
+        marginLeft: '-30px',
         display: 'flex',
         flexGrow: 1,
       }}>

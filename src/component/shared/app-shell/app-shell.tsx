@@ -46,6 +46,7 @@ const AppShell = (props: AppShellProps) => {
             flexDirection: 'column',
             alignItems: 'start',
             flexGrow: 1,
+            paddingX: '30px',
           }}>
           {props.main}
         </Box>
