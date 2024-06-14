@@ -5,7 +5,7 @@ using Microsoft.Extensions.Internal;
 
 namespace Builder.Api.Cqrs.Queries;
 
-public record FormsQuery(int CategoryId);
+public record FormsQuery(int CategoryId, string SearchText);
 
 public interface IFormsQueryHandler : IQuery<FormsQuery, IQueryable<Form>>;
 
@@ -22,6 +22,7 @@ public class FormsQueryHandler(BuilderDataService dataService, ISystemClock cloc
 
         return forms
             .Where(f => query.CategoryId == -1 || f.FormSettings.FormCategory.Id == query.CategoryId)
+            .Where(f => string.IsNullOrEmpty(query.SearchText) || f.FormSettings.Title.Contains(query.SearchText, StringComparison.CurrentCultureIgnoreCase))
             .OrderByDescending(f => f.UpdatedAt)
             .AsQueryable();
     }

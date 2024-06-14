@@ -57,6 +57,7 @@ export type FormSettings = {
 
 export type FormsQueryInput = {
   categoryId: Scalars['Int']['input'];
+  searchText: Scalars['String']['input'];
 };
 
 export type Mutation = {

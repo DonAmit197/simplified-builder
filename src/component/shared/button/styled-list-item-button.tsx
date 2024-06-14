@@ -1,9 +1,9 @@
-import Button, {ButtonProps} from '@mui/material/Button';
+import ListItemButton, {ListItemButtonProps} from '@mui/material/ListItemButton';
 import {styled} from '@mui/material/styles';
 
-const StyledButton = styled(Button)<ButtonProps>(() => ({
+const StyledListItemButton = styled(ListItemButton)<ListItemButtonProps>(() => ({
   borderRadius: '20px',
   textTransform: 'none',
 }));
 
-export default StyledButton;
+export default StyledListItemButton;

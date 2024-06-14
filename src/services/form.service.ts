@@ -11,11 +11,11 @@ export class FormService {
     this.client = useApolloClient();
   }
 
-  async getForms(categoryId: number): Promise<Form[]> {
+  async getForms(categoryId: number, searchText: string): Promise<Form[]> {
     if (this.client) {
       const result = await this.client.query({
         query: GET_FORMS,
-        variables: {query: {categoryId}},
+        variables: {query: {categoryId, searchText}},
         fetchPolicy: 'no-cache',
       });
       return result.data.forms ?? [];

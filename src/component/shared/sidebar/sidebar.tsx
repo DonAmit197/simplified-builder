@@ -9,13 +9,13 @@ import Box from '@mui/material/Box';
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
+import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
 interface NavbarLinkProps {
@@ -65,14 +65,14 @@ const Sidebar = () => {
   const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
     return (
       <ListItem key={label}>
-        <ListItemButton
+        <StyledListItemButton
           onClick={onClick}
           selected={route === activeRoute}
           aria-label={label}
           sx={{borderRadius: '20px'}}>
           <ListItemIcon>{icon}</ListItemIcon>
           {collapsed ? <></> : <ListItemText primary={label} />}
-        </ListItemButton>
+        </StyledListItemButton>
       </ListItem>
     );
   };
