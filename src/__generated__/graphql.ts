@@ -14,6 +14,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
+  DateTime: { input: any; output: any; }
 };
 
 export type Form = {
@@ -23,18 +25,39 @@ export type Form = {
   id: Scalars['Int']['output'];
   isActive: Scalars['Boolean']['output'];
   isDeleted: Scalars['Boolean']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedLocal: Scalars['DateTime']['output'];
   url: Scalars['String']['output'];
   user: User;
   userId: Scalars['Int']['output'];
+};
+
+export type FormCategory = {
+  __typename?: 'FormCategory';
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type FormCategoryCount = {
+  __typename?: 'FormCategoryCount';
+  formCategory: FormCategory;
+  formCount: Scalars['Int']['output'];
 };
 
 export type FormSettings = {
   __typename?: 'FormSettings';
   dataEmailAddresses: Scalars['String']['output'];
   form: Form;
+  formCategory: FormCategory;
+  formCategoryId: Scalars['Int']['output'];
   formId: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   title: Scalars['String']['output'];
+};
+
+export type FormsQueryInput = {
+  categoryId: Scalars['Int']['input'];
+  searchText: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -49,17 +72,30 @@ export type MutationCreateUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  formCategories: Array<FormCategory>;
+  formCategoryCounts: Array<FormCategoryCount>;
   forms: Array<Form>;
+};
+
+
+export type QueryFormsArgs = {
+  query: FormsQueryInput;
 };
 
 export type User = {
   __typename?: 'User';
+  createdAt: Scalars['DateTime']['output'];
+  createdLocal: Scalars['DateTime']['output'];
   emailAddress: Scalars['String']['output'];
   id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  updatedLocal: Scalars['DateTime']['output'];
 };
 
 export type UserCommandInput = {
   email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
@@ -69,7 +105,7 @@ export type ValidationResult = {
   success: Scalars['Boolean']['output'];
 };
 
-export type Form_FieldsFragment = { __typename?: 'Form', id: number, userId: number, content: string, isDeleted: boolean, isActive: boolean, url: string, formSettings: { __typename?: 'FormSettings', id: number, title: string, dataEmailAddresses: string }, user: { __typename?: 'User', emailAddress: string } } & { ' $fragmentName'?: 'Form_FieldsFragment' };
+export type Form_Summary_FieldsFragment = { __typename?: 'Form', id: number, isActive: boolean, updatedAt: any, updatedLocal: any, userId: number, formSettings: { __typename?: 'FormSettings', title: string, formCategory: { __typename?: 'FormCategory', name: string } } } & { ' $fragmentName'?: 'Form_Summary_FieldsFragment' };
 
 export type Validation_FieldsFragment = { __typename?: 'ValidationResult', success: boolean, errorMessage?: string | null } & { ' $fragmentName'?: 'Validation_FieldsFragment' };
 
@@ -83,15 +119,29 @@ export type CreateUserMutation = { __typename?: 'Mutation', createUser: (
     & { ' $fragmentRefs'?: { 'Validation_FieldsFragment': Validation_FieldsFragment } }
   ) };
 
-export type GetFormsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetFormCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFormCategoriesQuery = { __typename?: 'Query', formCategories: Array<{ __typename?: 'FormCategory', id: number, name: string }> };
+
+export type GetFormCategoryCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFormCategoryCountQuery = { __typename?: 'Query', formCategoryCounts: Array<{ __typename?: 'FormCategoryCount', formCount: number, formCategory: { __typename?: 'FormCategory', id: number, name: string } }> };
+
+export type GetFormsQueryVariables = Exact<{
+  query: FormsQueryInput;
+}>;
 
 
 export type GetFormsQuery = { __typename?: 'Query', forms: Array<(
     { __typename?: 'Form' }
-    & { ' $fragmentRefs'?: { 'Form_FieldsFragment': Form_FieldsFragment } }
+    & { ' $fragmentRefs'?: { 'Form_Summary_FieldsFragment': Form_Summary_FieldsFragment } }
   )> };
 
-export const Form_FieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Form_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Form"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"formSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"dataEmailAddresses"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emailAddress"}}]}}]}}]} as unknown as DocumentNode<Form_FieldsFragment, unknown>;
+export const Form_Summary_FieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Form_Summary_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Form"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedLocal"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"formSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"formCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<Form_Summary_FieldsFragment, unknown>;
 export const Validation_FieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Validation_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ValidationResult"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}},{"kind":"Field","name":{"kind":"Name","value":"errorMessage"}}]}}]} as unknown as DocumentNode<Validation_FieldsFragment, unknown>;
 export const CreateUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserCommandInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Validation_Fields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Validation_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ValidationResult"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"success"}},{"kind":"Field","name":{"kind":"Name","value":"errorMessage"}}]}}]} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
-export const GetFormsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetForms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"forms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Form_Fields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Form_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Form"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"isDeleted"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"formSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"dataEmailAddresses"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"emailAddress"}}]}}]}}]} as unknown as DocumentNode<GetFormsQuery, GetFormsQueryVariables>;
+export const GetFormCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetFormCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formCategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]} as unknown as DocumentNode<GetFormCategoriesQuery, GetFormCategoriesQueryVariables>;
+export const GetFormCategoryCountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetFormCategoryCount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formCategoryCounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"formCount"}}]}}]}}]} as unknown as DocumentNode<GetFormCategoryCountQuery, GetFormCategoryCountQueryVariables>;
+export const GetFormsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetForms"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"query"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FormsQueryInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"forms"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"query"},"value":{"kind":"Variable","name":{"kind":"Name","value":"query"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Form_Summary_Fields"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Form_Summary_Fields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Form"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedLocal"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"formSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"formCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<GetFormsQuery, GetFormsQueryVariables>;

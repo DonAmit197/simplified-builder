@@ -32,8 +32,10 @@ const AppShell = (props: AppShellProps) => {
             sx={{
               display: 'flex',
               flexDirection: 'row-reverse',
-              height: '60px',
+              height: '80px',
               paddingX: '30px',
+              flexGrow: 0,
+              flexShrink: 0,
             }}>
             {props.header}
           </Box>
@@ -43,7 +45,8 @@ const AppShell = (props: AppShellProps) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'start',
-            padding: '30px',
+            flexGrow: 1,
+            paddingX: '30px',
           }}>
           {props.main}
         </Box>

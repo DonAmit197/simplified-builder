@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 using System.Reflection;
 using Builder.Api.GraphQl.Infrastructure;
+using Microsoft.Extensions.Internal;
 
 var executingAssembly = Assembly.GetExecutingAssembly();
 
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddDbContext<BuilderContext>(options => { options.UseSqlServer("name=BuilderDb"); })
+    .AddSingleton<ISystemClock, SystemClock>()
     .AddCommandsQueries(executingAssembly)
     .AddGraphQl()
     .AddScoped<BuilderDataService>()
