@@ -3,6 +3,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SearchIcon from '@mui/icons-material/Search';
 import {Box, IconButton, InputAdornment, TextField, Typography} from '@mui/material';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import FormCategoryCountComponent from 'src/component/my-forms/form-category-count.tsx';
 import FormGrid from 'src/component/my-forms/form-grid.tsx';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
@@ -10,9 +11,7 @@ import {RoutesEnum} from 'src/routes.tsx';
 import {useDebounce} from 'use-debounce';
 
 const MyFormsPage = () => {
-  const nav = () => {
-    window.location.href += RoutesEnum.Builder;
-  };
+  const navigate = useNavigate();
 
   const [selectedCategory, setSelectedCategory] = useState<number>(0);
   const [searchText, setSearchText] = useState('');
@@ -59,7 +58,7 @@ const MyFormsPage = () => {
                 ),
               }}
             />
-            <StyledButton startIcon={<AddIcon />} variant='contained' onClick={() => nav()}>
+            <StyledButton startIcon={<AddIcon />} variant='contained' onClick={() => navigate(RoutesEnum.FormSetup)}>
               Create New Form
             </StyledButton>
           </Box>
