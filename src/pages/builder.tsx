@@ -12,7 +12,7 @@ const BuilderPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const {formName} = location.state.data;
+  const formName = location.state?.data?.formName ?? 'Unnamed form';
 
   const [copiedComponents, setCopiedComponents] = useState(staticComponents);
   const handleCopy = (data: any) => {
