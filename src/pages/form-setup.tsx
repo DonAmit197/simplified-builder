@@ -12,11 +12,14 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import {useEffect, useMemo, useState} from 'react';
-import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 import {FormCategory} from 'src/__generated__/graphql.ts';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
+import {useAppDispatch} from 'src/store/hooks';
+import {forceReload} from 'src/store/reload-slice';
 
 interface ISetupFormInput {
   formName: string;
@@ -32,10 +35,6 @@ interface IDataType {
 }
 
 const FormSetupPage = () => {
-  const nav = () => {
-    window.location.href = window.location.href.replace(RoutesEnum.FormSetup, RoutesEnum.Builder);
-  };
-
   const [categories, setCategories] = useState<FormCategory[]>([]);
   const dataTypes = useMemo<IDataType[]>(
     () => [
@@ -58,6 +57,8 @@ const FormSetupPage = () => {
     []
   );
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const formService = new FormService();
 
   const {
@@ -77,8 +78,10 @@ const FormSetupPage = () => {
     formService.getFormCategories().then((result) => setCategories(result));
   });
 
-  const onSubmit: SubmitHandler<ISetupFormInput> = (data) => {
+  const onSubmit = (data: ISetupFormInput) => {
     console.log(data);
+    dispatch(forceReload());
+    navigate(`/${RoutesEnum.Builder}`);
   };
 
   return (
