@@ -1,14 +1,15 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import {createTheme, CssBaseline, IconButton, ThemeProvider} from '@mui/material';
-import {useState} from 'react';
 import {Outlet} from 'react-router-dom';
 import AppShell from 'src/component/shared/app-shell/app-shell.tsx';
 import Sidebar from 'src/component/shared/sidebar/sidebar.tsx';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 const PrivateLayout = () => {
   // TODO: Check if the user is actually logged in before showing the app in all its glory
-  const [useDarkMode, setUseDarkMode] = useState(false);
+
+  const {useDarkMode, setDarkMode, setLightMode} = useThemeStore();
 
   const theme = createTheme({
     palette: {
@@ -29,7 +30,16 @@ const PrivateLayout = () => {
       <CssBaseline />
       <AppShell
         header={
-          <IconButton aria-label={ariaLabel} sx={{alignSelf: 'center'}} onClick={() => setUseDarkMode(!useDarkMode)}>
+          <IconButton
+            aria-label={ariaLabel}
+            sx={{alignSelf: 'center'}}
+            onClick={() => {
+              if (useDarkMode) {
+                setLightMode();
+              } else {
+                setDarkMode();
+              }
+            }}>
             {icon}
           </IconButton>
         }
