@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
 import staticComponents from 'src/component/builder/staticComponents';
 import {useAppDispatch, useAppSelector} from 'src/store/hooks';
@@ -10,6 +10,9 @@ const BuilderPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  console.log(location.state.data);
 
   const [copiedComponents, setCopiedComponents] = useState(staticComponents);
   const handleCopy = (data: any) => {
