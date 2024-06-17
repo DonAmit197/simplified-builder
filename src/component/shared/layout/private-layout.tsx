@@ -4,18 +4,16 @@ import {createTheme, CssBaseline, IconButton, ThemeProvider} from '@mui/material
 import {Outlet} from 'react-router-dom';
 import AppShell from 'src/component/shared/app-shell/app-shell.tsx';
 import Sidebar from 'src/component/shared/sidebar/sidebar.tsx';
-import {useAppDispatch, useAppSelector} from 'src/store/hooks.ts';
-import {setDarkMode, setLightMode} from 'src/store/theme-slice.ts';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 const PrivateLayout = () => {
-  const dispatch = useAppDispatch();
-
   // TODO: Check if the user is actually logged in before showing the app in all its glory
-  const darkMode = useAppSelector((state) => state.theme.darkMode);
+
+  const {useDarkMode, setDarkMode, setLightMode} = useThemeStore();
 
   const theme = createTheme({
     palette: {
-      mode: darkMode ? 'dark' : 'light',
+      mode: useDarkMode ? 'dark' : 'light',
     },
     typography: {
       h1: {
@@ -24,8 +22,8 @@ const PrivateLayout = () => {
     },
   });
 
-  const ariaLabel = `Switch to ${darkMode ? 'light' : 'dark'} mode`;
-  const icon = darkMode ? <DarkModeIcon fontSize='inherit' /> : <LightModeIcon fontSize='inherit' />;
+  const ariaLabel = `Switch to ${useDarkMode ? 'light' : 'dark'} mode`;
+  const icon = useDarkMode ? <DarkModeIcon fontSize='inherit' /> : <LightModeIcon fontSize='inherit' />;
 
   return (
     <ThemeProvider theme={theme}>
@@ -36,10 +34,10 @@ const PrivateLayout = () => {
             aria-label={ariaLabel}
             sx={{alignSelf: 'center'}}
             onClick={() => {
-              if (darkMode) {
-                dispatch(setLightMode());
+              if (useDarkMode) {
+                setLightMode();
               } else {
-                dispatch(setDarkMode());
+                setDarkMode();
               }
             }}>
             {icon}

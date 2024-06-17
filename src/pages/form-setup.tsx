@@ -18,8 +18,7 @@ import {FormCategory} from 'src/__generated__/graphql.ts';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
-import {useAppDispatch} from 'src/store/hooks';
-import {forceReload} from 'src/store/reload-slice';
+import {useReloadStore} from 'src/store/reload-store.ts';
 
 interface ISetupFormInput {
   formName: string;
@@ -35,6 +34,8 @@ interface IDataType {
 }
 
 const FormSetupPage = () => {
+  const forceReload = useReloadStore((state) => state.forceReload);
+
   const [categories, setCategories] = useState<FormCategory[]>([]);
   const dataTypes = useMemo<IDataType[]>(
     () => [
@@ -57,7 +58,6 @@ const FormSetupPage = () => {
     []
   );
 
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const formService = new FormService();
 
@@ -80,7 +80,7 @@ const FormSetupPage = () => {
 
   const onSubmit = (data: ISetupFormInput) => {
     console.log(data);
-    dispatch(forceReload());
+    forceReload();
     navigate(`/${RoutesEnum.Builder}`, {
       state: {
         data,

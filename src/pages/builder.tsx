@@ -2,14 +2,12 @@ import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
 import staticComponents from 'src/component/builder/staticComponents';
-import {useAppDispatch, useAppSelector} from 'src/store/hooks';
-import {stopReload} from 'src/store/reload-slice';
+import {useReloadStore} from 'src/store/reload-store';
 
 const BuilderPage = () => {
-  const reload = useAppSelector((state) => state.reload.reloadPage);
+  const {reloadPage, stopReload} = useReloadStore();
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const location = useLocation();
 
   console.log(location.state.data);
@@ -26,11 +24,11 @@ const BuilderPage = () => {
   };
 
   useEffect(() => {
-    if (reload) {
-      dispatch(stopReload());
+    if (reloadPage) {
+      stopReload();
       navigate(0);
     }
-  }, [reload]);
+  }, [reloadPage]);
 
   return <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />;
 };
