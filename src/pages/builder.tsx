@@ -1,3 +1,5 @@
+import {Typography} from '@mui/material';
+import Box from '@mui/material/Box';
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
@@ -10,7 +12,7 @@ const BuilderPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.state.data);
+  const {formName} = location.state.data;
 
   const [copiedComponents, setCopiedComponents] = useState(staticComponents);
   const handleCopy = (data: any) => {
@@ -30,7 +32,17 @@ const BuilderPage = () => {
     }
   }, [reloadPage]);
 
-  return <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />;
+  return (
+    <Box sx={{width: '100%'}}>
+      <Box className='mainHeader' sx={{marginBottom: '20px'}}>
+        <Typography variant='h1'>{formName}</Typography>
+      </Box>
+
+      <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />
+    </Box>
+  );
+
+  //return <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />;
 };
 
 export default BuilderPage;
