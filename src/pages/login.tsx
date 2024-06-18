@@ -1,8 +1,13 @@
 import {SvgIcon, Typography} from '@mui/material';
 import Box from '@mui/material/Box';
+import {useState} from 'react';
 import Logo from 'src/assets/logo-inverse.svg?react';
+import Login from 'src/component/login/login.tsx';
+import StyledButton from 'src/component/shared/button/styled-button.tsx';
 
 const LoginPage = () => {
+  const [showLogin, setShowLogin] = useState(true);
+
   return (
     <Box
       sx={{
@@ -48,10 +53,25 @@ const LoginPage = () => {
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
               maxWidth: '390px',
               margin: '0 auto',
             }}>
-            <Typography>Welcome to Builder!</Typography>
+            {showLogin ? (
+              <>
+                <Login />
+                <StyledButton variant='text' sx={{marginTop: '25px'}} onClick={() => setShowLogin(false)}>
+                  Don't have an account? Sign up
+                </StyledButton>
+              </>
+            ) : (
+              <>
+                <div>Sign up</div>
+                <StyledButton variant='text' sx={{marginTop: '25px'}} onClick={() => setShowLogin(true)}>
+                  Already have an account? Sign in
+                </StyledButton>
+              </>
+            )}
           </Box>
         </Box>
       </Box>
