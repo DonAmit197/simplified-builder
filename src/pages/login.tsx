@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import {useState} from 'react';
 import Logo from 'src/assets/logo-inverse.svg?react';
 import Login from 'src/component/login/login.tsx';
+import SignUp from 'src/component/login/sign-up.tsx';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 
 const LoginPage = () => {
@@ -66,7 +67,7 @@ const LoginPage = () => {
               </>
             ) : (
               <>
-                <div>Sign up</div>
+                <SignUp />
                 <StyledButton variant='text' sx={{marginTop: '25px'}} onClick={() => setShowLogin(true)}>
                   Already have an account? Sign in
                 </StyledButton>
