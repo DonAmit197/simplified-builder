@@ -2,6 +2,7 @@ import {Stack, TextField} from '@mui/material';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import {RoutesEnum} from 'src/routes.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
 
 export const Login = () => {
@@ -13,7 +14,7 @@ export const Login = () => {
 
   const authenticate = () => {
     login(userName, userName, false);
-    navigate('/');
+    navigate(RoutesEnum.Root);
   };
 
   return (
