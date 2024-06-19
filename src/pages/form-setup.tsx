@@ -124,8 +124,8 @@ const FormSetupPage = () => {
             control={control}
             render={({field}) => (
               <FormControl>
-                <InputLabel id='demo-simple-select-label'>Form category</InputLabel>
-                <Select {...field} labelId='demo-simple-select-label' label='Form category' sx={{width: '400px'}}>
+                <InputLabel id='form-category-label'>Form category</InputLabel>
+                <Select {...field} labelId='form-category-label' label='Form category' sx={{width: '400px'}}>
                   {categories?.map((c) => (
                     <MenuItem key={c.id} value={c.id} aria-label={c.name}>
                       {c.name}
