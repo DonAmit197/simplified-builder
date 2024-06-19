@@ -1,4 +1,4 @@
-import {Stack, TextField} from '@mui/material';
+import {Stack, TextField, Typography} from '@mui/material';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
@@ -19,6 +19,9 @@ export const Login = () => {
 
   return (
     <Stack gap={3} sx={{alignItems: 'start'}}>
+      <Typography variant='h1' fontSize='4em' marginBottom='30px' color='primary.dark'>
+        Login
+      </Typography>
       <TextField
         sx={{width: '300px'}}
         label='User name'

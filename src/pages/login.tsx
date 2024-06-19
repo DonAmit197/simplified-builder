@@ -11,6 +11,7 @@ const LoginPage = () => {
 
   return (
     <Box
+      role='main'
       sx={{
         display: 'flex',
         flexDirection: 'row',

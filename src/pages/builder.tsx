@@ -41,8 +41,6 @@ const BuilderPage = () => {
       <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />
     </Box>
   );
-
-  //return <Builder defaultComponents={copiedComponents} onCopy={handleCopy} />;
 };
 
 export default BuilderPage;

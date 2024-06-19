@@ -44,6 +44,10 @@ const SignUp = () => {
           alignItems: 'stretch',
           width: '500px',
         }}>
+        <Typography variant='h1' fontSize='4em' marginBottom='30px' color='primary.dark'>
+          Sign Up
+        </Typography>
+
         <StyledAccordion expanded={currentPanel === 'full'} onChange={(_, expanded) => handleChange('full', expanded)}>
           <AccordionSummary expandIcon={<KeyboardArrowDownIcon />}>
             <Typography variant='h5'>Create account - full access</Typography>
