@@ -41,6 +41,7 @@ const AppShell = (props: AppShellProps) => {
           </Box>
         ) : null}
         <Box
+          role='main'
           sx={{
             display: 'flex',
             flexDirection: 'column',

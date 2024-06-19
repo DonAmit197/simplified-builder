@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 const BulletedList = ({listItems}: {listItems: string[]}) => {
   return (
     <Box>
-      {listItems.map((l) => (
-        <Typography>&emsp;&bull;&emsp;{l}</Typography>
+      {listItems.map((l: string, index: number) => (
+        <Typography key={index}>&emsp;&bull;&emsp;{l}</Typography>
       ))}
     </Box>
   );

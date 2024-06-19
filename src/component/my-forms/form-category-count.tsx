@@ -75,32 +75,30 @@ const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFo
             </StyledListItemButton>
           </ListItem>
         ))}
-        <TextField
-          sx={{margin: '20px 25px'}}
-          size='small'
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-          label='Add new category'
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton
-                  onClick={() => addNewCategory()}
-                  sx={{visibility: newCategory === '' ? 'hidden' : 'visible'}}>
-                  <AddCircleIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <Divider
-          sx={{
-            borderBottomWidth: '2px',
-            opacity: '1',
-            marginX: '30px',
-          }}
-        />
       </List>
+      <TextField
+        sx={{margin: '20px 25px'}}
+        size='small'
+        value={newCategory}
+        onChange={(e) => setNewCategory(e.target.value)}
+        label='Add new category'
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton onClick={() => addNewCategory()} sx={{visibility: newCategory === '' ? 'hidden' : 'visible'}}>
+                <AddCircleIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Divider
+        sx={{
+          borderBottomWidth: '2px',
+          opacity: '1',
+          marginX: '20px',
+        }}
+      />
     </Box>
   );
 };

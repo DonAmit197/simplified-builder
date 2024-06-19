@@ -136,17 +136,15 @@ const Sidebar = () => {
       </Box>
 
       <Box sx={{flexGrow: 1, borderRadius: borderRadius, backgroundColor: background}}>
-        <List>
-          {links}
-          <Divider
-            sx={{
-              borderBottomWidth: '2px',
-              opacity: '1',
-              marginX: '30px',
-              visibility: collapsed ? 'hidden' : 'visible',
-            }}
-          />
-        </List>
+        <List>{links}</List>
+        <Divider
+          sx={{
+            borderBottomWidth: '2px',
+            opacity: '1',
+            marginX: '30px',
+            visibility: collapsed ? 'hidden' : 'visible',
+          }}
+        />
       </Box>
     </Box>
   );

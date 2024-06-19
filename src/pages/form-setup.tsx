@@ -2,6 +2,7 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  InputLabel,
   MenuItem,
   Radio,
   RadioGroup,
@@ -36,7 +37,13 @@ interface IDataType {
 const FormSetupPage = () => {
   const forceReload = useReloadStore((state) => state.forceReload);
 
-  const [categories, setCategories] = useState<FormCategory[]>([]);
+  const [categories, setCategories] = useState<FormCategory[]>([
+    {
+      id: -1,
+      name: 'All Forms',
+    },
+  ]);
+
   const dataTypes = useMemo<IDataType[]>(
     () => [
       {
@@ -79,7 +86,6 @@ const FormSetupPage = () => {
   });
 
   const onSubmit = (data: ISetupFormInput) => {
-    console.log(data);
     forceReload();
     navigate(`/${RoutesEnum.Builder}`, {
       state: {
@@ -105,6 +111,7 @@ const FormSetupPage = () => {
             rules={{required: true}}
             render={({field}) => (
               <TextField
+                aria-label='Form name'
                 label={errors.formName ? 'Form name required' : 'Form name'}
                 error={errors.formName !== undefined}
                 {...field}
@@ -117,10 +124,10 @@ const FormSetupPage = () => {
             control={control}
             render={({field}) => (
               <FormControl>
-                <FormLabel id='form-category-label'>Form category</FormLabel>
-                <Select {...field} aria-labelledby='form-category-label' sx={{width: '400px'}}>
+                <InputLabel id='form-category-label'>Form category</InputLabel>
+                <Select {...field} labelId='form-category-label' label='Form category' sx={{width: '400px'}}>
                   {categories?.map((c) => (
-                    <MenuItem key={c.id} value={c.id}>
+                    <MenuItem key={c.id} value={c.id} aria-label={c.name}>
                       {c.name}
                     </MenuItem>
                   ))}
@@ -134,7 +141,11 @@ const FormSetupPage = () => {
             render={({field}) => (
               <FormControl>
                 <FormLabel id='data-radio-buttons-group-label'>How to receive your data?</FormLabel>
-                <RadioGroup {...field} aria-labelledby='data-radio-buttons-group-label' sx={{width: '400px'}}>
+                <RadioGroup
+                  {...field}
+                  aria-labelledby='data-radio-buttons-group-label'
+                  aria-label='Data type'
+                  sx={{width: '400px'}}>
                   {dataTypes.map((d) => (
                     <FormControlLabel
                       control={<Radio />}
@@ -142,8 +153,8 @@ const FormSetupPage = () => {
                       label={d.name}
                       value={d.value}
                       disabled={d.disabled}
+                      aria-label={d.name}
                       sx={{
-                        // marginTop: '5px',
                         paddingY: '10px',
                         '&:not(:last-child)': {
                           borderBottom: '1px solid',
@@ -162,6 +173,7 @@ const FormSetupPage = () => {
             render={({field}) => (
               <TextField
                 label='Email where data will be sent'
+                aria-label='Email addresses where data will be sent to'
                 helperText='Up to 3 emails'
                 {...field}
                 sx={{width: '400px'}}
