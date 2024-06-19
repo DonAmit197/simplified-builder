@@ -8,10 +8,10 @@ const StyledAccordion = styled((props: AccordionProps) => (
   '&:not(:last-child)': {
     borderBottom: 0,
   },
-  '&:first-child': {
+  '&:first-of-type': {
     borderRadius: '5px 5px 0 0',
   },
-  '&:last-child': {
+  '&:last-of-type': {
     borderRadius: '0 0 5px 5px',
   },
   '&::before': {

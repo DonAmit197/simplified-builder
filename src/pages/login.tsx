@@ -61,7 +61,6 @@ const LoginPage = () => {
             {showLogin ? (
               <>
                 <Login />
-                {/*<OTP value={otp} onChange={setOtp} length={6} />*/}
                 <StyledButton variant='text' sx={{marginTop: '25px'}} onClick={() => setShowLogin(false)}>
                   Don't have an account? Sign up
                 </StyledButton>
@@ -69,7 +68,7 @@ const LoginPage = () => {
             ) : (
               <>
                 <SignUp />
-                <StyledButton variant='text' sx={{marginTop: '25px'}} onClick={() => setShowLogin(true)}>
+                <StyledButton variant='text' sx={{marginTop: '' + '25px'}} onClick={() => setShowLogin(true)}>
                   Already have an account? Sign in
                 </StyledButton>
               </>

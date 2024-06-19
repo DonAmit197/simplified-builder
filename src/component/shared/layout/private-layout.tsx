@@ -44,7 +44,7 @@ const PrivateLayout = () => {
       <AppShell
         header={
           <Box sx={{flexDirection: 'row'}}>
-            <StyledButton variant='contained' onClick={() => logout()}>
+            <StyledButton variant='contained' onClick={() => logout()} sx={{visibility: 'hidden'}}>
               Logout
             </StyledButton>
             <IconButton
