@@ -13,10 +13,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  fragment Form_Fields on Form {\n    id\n    userId\n    content\n    isDeleted\n    isActive\n    url\n    formSettings {\n      id\n      title\n      dataEmailAddresses\n    }\n    user {\n      emailAddress\n    }\n  }\n": types.Form_FieldsFragmentDoc,
+    "\n  fragment Form_Summary_Fields on Form {\n    id\n    isActive\n    updatedAt\n    updatedLocal\n    userId\n    formSettings {\n      title\n      formCategory {\n        name\n      }\n    }\n  }\n": types.Form_Summary_FieldsFragmentDoc,
     "\n  fragment Validation_Fields on ValidationResult {\n    success\n    errorMessage\n  }\n": types.Validation_FieldsFragmentDoc,
     "\n  \n  mutation CreateUser($input: UserCommandInput!) {\n    createUser(input: $input) {\n      ...Validation_Fields\n    }\n  }\n": types.CreateUserDocument,
-    "\n  \n  query GetForms {\n    forms {\n      ...Form_Fields\n    }\n  }\n": types.GetFormsDocument,
+    "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n": types.GetFormCategoriesDocument,
+    "\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n": types.GetFormCategoryCountDocument,
+    "\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n": types.GetFormsDocument,
 };
 
 /**
@@ -36,7 +38,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  fragment Form_Fields on Form {\n    id\n    userId\n    content\n    isDeleted\n    isActive\n    url\n    formSettings {\n      id\n      title\n      dataEmailAddresses\n    }\n    user {\n      emailAddress\n    }\n  }\n"): (typeof documents)["\n  fragment Form_Fields on Form {\n    id\n    userId\n    content\n    isDeleted\n    isActive\n    url\n    formSettings {\n      id\n      title\n      dataEmailAddresses\n    }\n    user {\n      emailAddress\n    }\n  }\n"];
+export function gql(source: "\n  fragment Form_Summary_Fields on Form {\n    id\n    isActive\n    updatedAt\n    updatedLocal\n    userId\n    formSettings {\n      title\n      formCategory {\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment Form_Summary_Fields on Form {\n    id\n    isActive\n    updatedAt\n    updatedLocal\n    userId\n    formSettings {\n      title\n      formCategory {\n        name\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -48,7 +50,15 @@ export function gql(source: "\n  \n  mutation CreateUser($input: UserCommandInpu
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  \n  query GetForms {\n    forms {\n      ...Form_Fields\n    }\n  }\n"): (typeof documents)["\n  \n  query GetForms {\n    forms {\n      ...Form_Fields\n    }\n  }\n"];
+export function gql(source: "\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"): (typeof documents)["\n  query GetFormCategories {\n    formCategories {\n      id\n      name\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n"): (typeof documents)["\n  query GetFormCategoryCount {\n    formCategoryCounts {\n      formCategory {\n        id\n        name\n      }\n      formCount\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n"): (typeof documents)["\n  \n  query GetForms($query: FormsQueryInput!) {\n    forms(query: $query) {\n      ...Form_Summary_Fields\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

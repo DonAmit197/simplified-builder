@@ -1,20 +1,17 @@
 import {gql} from '@apollo/client';
 
-export const FORM_FIELDS = gql`
-  fragment Form_Fields on Form {
+export const FORM_SUMMARY_FIELDS = gql`
+  fragment Form_Summary_Fields on Form {
     id
-    userId
-    content
-    isDeleted
     isActive
-    url
+    updatedAt
+    updatedLocal
+    userId
     formSettings {
-      id
       title
-      dataEmailAddresses
-    }
-    user {
-      emailAddress
+      formCategory {
+        name
+      }
     }
   }
 `;

@@ -1,11 +1,12 @@
 import {createBrowserRouter} from 'react-router-dom';
+import FormSetupPage from 'src/pages/form-setup.tsx';
+import UserPage from 'src/pages/user.tsx';
 import App from './App.tsx';
 import PrivateLayout from './component/shared/layout/private-layout.tsx';
 import PublicLayout from './component/shared/layout/public-layout.tsx';
 import AnalyticsPage from './pages/analytics.tsx';
 import BuilderPage from './pages/builder.tsx';
 import HelpPage from './pages/help.tsx';
-import HomePage from './pages/home.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
 import SettingsPage from './pages/settings.tsx';
@@ -17,7 +18,8 @@ export enum RoutesEnum {
   Analytics = 'analytics',
   Help = 'help',
   Settings = 'settings',
-  MyForms = 'my-forms',
+  User = 'user',
+  FormSetup = 'form-setup',
   Builder = 'form-builder',
 }
 
@@ -32,7 +34,7 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Home,
             index: true,
-            element: <HomePage />,
+            element: <MyFormsPage />,
           },
           {
             path: RoutesEnum.Analytics,
@@ -47,8 +49,12 @@ export const router = createBrowserRouter([
             element: <SettingsPage />,
           },
           {
-            path: RoutesEnum.MyForms,
-            element: <MyFormsPage />,
+            path: RoutesEnum.User,
+            element: <UserPage />,
+          },
+          {
+            path: RoutesEnum.FormSetup,
+            element: <FormSetupPage />,
           },
           {
             path: RoutesEnum.Builder,

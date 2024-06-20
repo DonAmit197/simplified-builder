@@ -9,17 +9,17 @@ import Box from '@mui/material/Box';
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
+import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
-interface NavbarLinkProps {
-  icon: JSX.Element;
+interface INavbarLinkProps {
+  icon: ReactNode;
   label: string;
   route: RoutesEnum;
 
@@ -43,8 +43,8 @@ const Sidebar = () => {
     setActiveRoute(currentRoute);
   };
 
-  if (pathname.endsWith(RoutesEnum.MyForms) || pathname.endsWith(RoutesEnum.Builder)) {
-    setActive(RoutesEnum.MyForms);
+  if (pathname.endsWith(RoutesEnum.Builder)) {
+    setActive(RoutesEnum.Home);
   } else if (pathname.endsWith(RoutesEnum.Analytics)) {
     setActive(RoutesEnum.Analytics);
   } else if (pathname.endsWith(RoutesEnum.Help)) {
@@ -56,23 +56,23 @@ const Sidebar = () => {
   }
 
   const data = [
-    {icon: <TableChartIcon />, route: RoutesEnum.MyForms, label: 'My Forms'},
+    {icon: <TableChartIcon />, route: RoutesEnum.Home, label: 'My Forms'},
     {icon: <AnalyticsIcon />, route: RoutesEnum.Analytics, label: 'Analytics'},
     {icon: <HelpCenterIcon />, route: RoutesEnum.Help, label: 'Help & Support'},
     {icon: <SettingsIcon />, route: RoutesEnum.Settings, label: 'Settings'},
   ];
 
-  const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
+  const NavbarLink = ({route, icon, label, onClick}: INavbarLinkProps) => {
     return (
       <ListItem key={label}>
-        <ListItemButton
+        <StyledListItemButton
           onClick={onClick}
           selected={route === activeRoute}
           aria-label={label}
           sx={{borderRadius: '20px'}}>
           <ListItemIcon>{icon}</ListItemIcon>
           {collapsed ? <></> : <ListItemText primary={label} />}
-        </ListItemButton>
+        </StyledListItemButton>
       </ListItem>
     );
   };
@@ -94,15 +94,24 @@ const Sidebar = () => {
   const headerJustify = collapsed ? 'center' : 'space-between';
   const buttonMargin = collapsed ? '20px' : '5px';
   const logo = isDark ? LogoInverse : Logo;
+  const borderRadius = activeRoute === RoutesEnum.Home ? '0' : '0 20px 20px 0';
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, width: width}}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexGrow: 1,
+        width: width,
+      }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: headerJustify,
-          marginY: '20px',
+          height: '80px',
+          flexGrow: 0,
+          flexShrink: 0,
         }}>
         <SvgIcon
           aria-label='FormBuilder logo'
@@ -126,18 +135,16 @@ const Sidebar = () => {
         </IconButton>
       </Box>
 
-      <Box sx={{flexGrow: 1, flexShrink: 0, borderRadius: '0 20px 20px 0', backgroundColor: background}}>
-        <List>
-          {links}
-          <Divider
-            sx={{
-              borderBottomWidth: '2px',
-              opacity: '1',
-              marginX: '30px',
-              visibility: collapsed ? 'hidden' : 'visible',
-            }}
-          />
-        </List>
+      <Box sx={{flexGrow: 1, borderRadius: borderRadius, backgroundColor: background}}>
+        <List>{links}</List>
+        <Divider
+          sx={{
+            borderBottomWidth: '2px',
+            opacity: '1',
+            marginX: '30px',
+            visibility: collapsed ? 'hidden' : 'visible',
+          }}
+        />
       </Box>
     </Box>
   );

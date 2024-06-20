@@ -1,14 +1,9 @@
 import Box from '@mui/material/Box';
 import {ReactNode} from 'react';
+import AppShellMain from 'src/component/shared/app-shell/app-shell-main.tsx';
+import AppShellNavigation from 'src/component/shared/app-shell/app-shell-navigation.tsx';
 
-interface AppShellProps {
-  header?: ReactNode;
-  footer?: ReactNode;
-  sidebar?: ReactNode;
-  main: ReactNode;
-}
-
-const AppShell = (props: AppShellProps) => {
+const AppShell = ({children}: {children?: ReactNode}) => {
   return (
     <Box
       sx={{
@@ -17,48 +12,12 @@ const AppShell = (props: AppShellProps) => {
         height: '100vh',
         width: '100vw',
       }}>
-      <Box role='navigation' sx={{display: 'flex'}}>
-        {props.sidebar ?? <></>}
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: 1,
-        }}>
-        {props.header ? (
-          <Box
-            role='banner'
-            sx={{
-              display: 'flex',
-              flexDirection: 'row-reverse',
-              height: '60px',
-              paddingX: '30px',
-            }}>
-            {props.header}
-          </Box>
-        ) : null}
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            padding: '30px',
-          }}>
-          {props.main}
-        </Box>
-        {props.footer ? (
-          <Box
-            role='footer'
-            sx={{
-              display: 'flex',
-            }}>
-            {props.footer}
-          </Box>
-        ) : null}
-      </Box>
+      {children}
     </Box>
   );
 };
+
+AppShell.Navigation = AppShellNavigation;
+AppShell.Main = AppShellMain;
 
 export default AppShell;

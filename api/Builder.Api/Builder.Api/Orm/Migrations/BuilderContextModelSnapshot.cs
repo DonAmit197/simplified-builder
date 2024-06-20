@@ -50,6 +50,9 @@ namespace Builder.Api.Orm.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PeriodStart");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Url")
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
@@ -75,6 +78,24 @@ namespace Builder.Api.Orm.Migrations
                             }));
                 });
 
+            modelBuilder.Entity("Builder.Api.Models.FormCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FormCategory");
+                });
+
             modelBuilder.Entity("Builder.Api.Models.FormSettings", b =>
                 {
                     b.Property<int>("Id")
@@ -87,6 +108,9 @@ namespace Builder.Api.Orm.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int>("FormCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FormId")
                         .HasColumnType("int");
 
@@ -96,6 +120,8 @@ namespace Builder.Api.Orm.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FormCategoryId");
 
                     b.HasIndex("FormId")
                         .IsUnique();
@@ -111,7 +137,15 @@ namespace Builder.Api.Orm.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("nvarchar(320)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(320)
                         .HasColumnType("nvarchar(320)");
@@ -120,6 +154,9 @@ namespace Builder.Api.Orm.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -139,6 +176,12 @@ namespace Builder.Api.Orm.Migrations
 
             modelBuilder.Entity("Builder.Api.Models.FormSettings", b =>
                 {
+                    b.HasOne("Builder.Api.Models.FormCategory", "FormCategory")
+                        .WithMany()
+                        .HasForeignKey("FormCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Builder.Api.Models.Form", "Form")
                         .WithOne("FormSettings")
                         .HasForeignKey("Builder.Api.Models.FormSettings", "FormId")
@@ -146,6 +189,8 @@ namespace Builder.Api.Orm.Migrations
                         .IsRequired();
 
                     b.Navigation("Form");
+
+                    b.Navigation("FormCategory");
                 });
 
             modelBuilder.Entity("Builder.Api.Models.Form", b =>

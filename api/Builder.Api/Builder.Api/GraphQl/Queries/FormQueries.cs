@@ -7,8 +7,8 @@ namespace Builder.Api.GraphQl.Queries;
 public class FormQueries
 {
     [UseProjection]
-    public IQueryable<Form> GetForms([Service] IFormsQueryHandler queryHandler)
+    public IQueryable<Form> GetForms(FormsQuery query, [Service] IFormsQueryHandler queryHandler)
     {
-        return queryHandler.Execute(default!);
+        return queryHandler.Execute(query);
     }
 }
