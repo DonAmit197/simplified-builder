@@ -1,89 +1,46 @@
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 import CloseIcon from '@mui/icons-material/Close';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import MenuIcon from '@mui/icons-material/Menu';
-import SettingsIcon from '@mui/icons-material/Settings';
-import TableChartIcon from '@mui/icons-material/TableChart';
 import {Divider, IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
 import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import {ReactNode, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
-import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
+import NavbarLink from 'src/component/shared/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
-interface INavbarLinkProps {
+export interface INavigationItem {
   icon: ReactNode;
-  label: string;
   route: RoutesEnum;
-
-  onClick?(): void;
+  navigateRoute?: string;
+  label: string;
 }
 
-const Sidebar = () => {
+const Sidebar = ({
+  isMainMenu,
+  navItems,
+  activeRoute,
+}: {
+  isMainMenu: boolean;
+  navItems: INavigationItem[];
+  activeRoute: RoutesEnum;
+}) => {
   const navigate = useNavigate();
-  const [activeRoute, setActiveRoute] = useState<RoutesEnum>(RoutesEnum.Home);
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
-  const {pathname} = location;
   const isDark = useTheme().palette.mode === 'dark';
   const background = isDark ? grey[900] : cyan[50];
 
-  const setActive = (currentRoute: RoutesEnum) => {
-    if (activeRoute === currentRoute) {
-      return;
-    }
-
-    setActiveRoute(currentRoute);
-  };
-
-  if (pathname.endsWith(RoutesEnum.Builder)) {
-    setActive(RoutesEnum.Home);
-  } else if (pathname.endsWith(RoutesEnum.Analytics)) {
-    setActive(RoutesEnum.Analytics);
-  } else if (pathname.endsWith(RoutesEnum.Help)) {
-    setActive(RoutesEnum.Help);
-  } else if (pathname.endsWith(RoutesEnum.Settings)) {
-    setActive(RoutesEnum.Settings);
-  } else {
-    setActive(RoutesEnum.Home);
-  }
-
-  const data = [
-    {icon: <TableChartIcon />, route: RoutesEnum.Home, label: 'My Forms'},
-    {icon: <AnalyticsIcon />, route: RoutesEnum.Analytics, label: 'Analytics'},
-    {icon: <HelpCenterIcon />, route: RoutesEnum.Help, label: 'Help & Support'},
-    {icon: <SettingsIcon />, route: RoutesEnum.Settings, label: 'Settings'},
-  ];
-
-  const NavbarLink = ({route, icon, label, onClick}: INavbarLinkProps) => {
-    return (
-      <ListItem key={label}>
-        <StyledListItemButton
-          onClick={onClick}
-          selected={route === activeRoute}
-          aria-label={label}
-          sx={{borderRadius: '20px'}}>
-          <ListItemIcon>{icon}</ListItemIcon>
-          {collapsed ? <></> : <ListItemText primary={label} />}
-        </StyledListItemButton>
-      </ListItem>
-    );
-  };
-
-  const links = data.map((link) => (
+  const links = navItems.map((link) => (
     <NavbarLink
       key={link.route}
       icon={link.icon}
       label={link.label}
       route={link.route}
-      onClick={() => navigate(link.route)}
+      activeRoute={activeRoute}
+      collapsed={collapsed}
+      onClick={() => navigate(link.navigateRoute ?? link.route)}
     />
   ));
 
@@ -104,38 +61,46 @@ const Sidebar = () => {
         flexGrow: 1,
         width: width,
       }}>
+      {isMainMenu ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: headerJustify,
+            height: '80px',
+            flexGrow: 0,
+            flexShrink: 0,
+          }}>
+          <SvgIcon
+            aria-label='FormBuilder logo'
+            component={logo}
+            inheritViewBox
+            onClick={() => navigate(RoutesEnum.Home)}
+            sx={{
+              width: collapsed ? '0' : '196px',
+              height: '26px',
+              marginLeft: '20px',
+              alignSelf: 'center',
+              fill: 'white',
+              cursor: 'pointer',
+            }}
+          />
+          <IconButton
+            aria-label={ariaLabel}
+            sx={{marginRight: buttonMargin, alignSelf: 'center'}}
+            onClick={() => setCollapsed(!collapsed)}>
+            {icon}
+          </IconButton>
+        </Box>
+      ) : null}
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: headerJustify,
-          height: '80px',
-          flexGrow: 0,
-          flexShrink: 0,
+          flexGrow: 1,
+          borderRadius: borderRadius,
+          backgroundColor: background,
+          borderLeft: isMainMenu ? '' : '1px solid',
+          borderColor: 'divider',
         }}>
-        <SvgIcon
-          aria-label='FormBuilder logo'
-          component={logo}
-          inheritViewBox
-          onClick={() => navigate(RoutesEnum.Home)}
-          sx={{
-            width: collapsed ? '0' : '196px',
-            height: '26px',
-            marginLeft: '20px',
-            alignSelf: 'center',
-            fill: 'white',
-            cursor: 'pointer',
-          }}
-        />
-        <IconButton
-          aria-label={ariaLabel}
-          sx={{marginRight: buttonMargin, alignSelf: 'center'}}
-          onClick={() => setCollapsed(!collapsed)}>
-          {icon}
-        </IconButton>
-      </Box>
-
-      <Box sx={{flexGrow: 1, borderRadius: borderRadius, backgroundColor: background}}>
         <List>{links}</List>
         <Divider
           sx={{
