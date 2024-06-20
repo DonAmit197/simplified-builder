@@ -1,12 +1,13 @@
-import {Typography} from '@mui/material';
-import Box from '@mui/material/Box';
+import {useEffect} from 'react';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 const HelpPage = () => {
-  return (
-    <Box className='mainHeader'>
-      <Typography variant='h1'>Help & Support</Typography>
-    </Box>
-  );
+  const setTitle = useThemeStore((state) => state.setTitle);
+  useEffect(() => {
+    setTitle('Help');
+  }, []);
+
+  return <div></div>;
 };
 
 export default HelpPage;

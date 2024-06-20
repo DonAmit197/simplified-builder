@@ -1,4 +1,4 @@
-import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
+import {createTheme, CssBaseline, ThemeProvider, Typography} from '@mui/material';
 import {useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 import AppShell from 'src/component/shared/app-shell/app-shell.tsx';
@@ -12,7 +12,7 @@ import {useThemeStore} from 'src/store/theme-store.ts';
 const PrivateLayout = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const {useDarkMode} = useThemeStore();
+  const {useDarkMode, title} = useThemeStore();
 
   const theme = createTheme({
     palette: {
@@ -42,6 +42,12 @@ const PrivateLayout = () => {
         <AppShell.Main>
           <AppShell.Main.Header>
             <Header>
+              <Header.Title>
+                <Typography variant='h1' fontSize='xx-large'>
+                  {title}
+                </Typography>
+              </Header.Title>
+
               <Header.Section>
                 <UserProfile />
               </Header.Section>

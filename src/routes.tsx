@@ -1,4 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
+import FormSettingsPage from 'src/pages/form-settings.tsx';
 import FormSetupPage from 'src/pages/form-setup.tsx';
 import UserPage from 'src/pages/user.tsx';
 import App from './App.tsx';
@@ -23,6 +24,7 @@ export enum RoutesEnum {
   FormSetup = 'form-setup',
   Builder = 'form-builder/:id',
   FormRenderer = 'form-renderer',
+  FormSettings = 'form-builder/:id/settings',
 }
 
 export const router = createBrowserRouter([
@@ -61,6 +63,10 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Builder,
             element: <BuilderPage />,
+          },
+          {
+            path: RoutesEnum.FormSettings,
+            element: <FormSettingsPage />,
           },
         ],
       },
