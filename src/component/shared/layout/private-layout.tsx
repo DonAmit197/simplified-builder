@@ -2,6 +2,7 @@ import {createTheme, CssBaseline, ThemeProvider} from '@mui/material';
 import {useEffect} from 'react';
 import {Outlet, useNavigate} from 'react-router-dom';
 import AppShell from 'src/component/shared/app-shell/app-shell.tsx';
+import Header from 'src/component/shared/header/header.tsx';
 import Sidebar from 'src/component/shared/sidebar/sidebar.tsx';
 import UserProfile from 'src/component/shared/user-profile/user-profile.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
@@ -33,7 +34,25 @@ const PrivateLayout = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppShell header={<UserProfile />} main={<Outlet />} sidebar={<Sidebar />} />
+      <AppShell>
+        <AppShell.Navigation>
+          <Sidebar />
+        </AppShell.Navigation>
+
+        <AppShell.Main>
+          <AppShell.Main.Header>
+            <Header>
+              <Header.Section>
+                <UserProfile />
+              </Header.Section>
+            </Header>
+          </AppShell.Main.Header>
+
+          <AppShell.Main.Content>
+            <Outlet />
+          </AppShell.Main.Content>
+        </AppShell.Main>
+      </AppShell>
     </ThemeProvider>
   );
 };
