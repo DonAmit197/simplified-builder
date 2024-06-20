@@ -1,5 +1,6 @@
 import {createBrowserRouter} from 'react-router-dom';
 import FormSetupPage from 'src/pages/form-setup.tsx';
+import UserPage from 'src/pages/user.tsx';
 import App from './App.tsx';
 import PrivateLayout from './component/shared/layout/private-layout.tsx';
 import PublicLayout from './component/shared/layout/public-layout.tsx';
@@ -17,6 +18,7 @@ export enum RoutesEnum {
   Analytics = 'analytics',
   Help = 'help',
   Settings = 'settings',
+  User = 'user',
   FormSetup = 'form-setup',
   Builder = 'form-builder',
 }
@@ -45,6 +47,10 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Settings,
             element: <SettingsPage />,
+          },
+          {
+            path: RoutesEnum.User,
+            element: <UserPage />,
           },
           {
             path: RoutesEnum.FormSetup,

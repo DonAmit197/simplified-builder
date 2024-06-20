@@ -11,15 +11,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
 import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
-interface NavbarLinkProps {
-  icon: JSX.Element;
+interface INavbarLinkProps {
+  icon: ReactNode;
   label: string;
   route: RoutesEnum;
 
@@ -62,7 +62,7 @@ const Sidebar = () => {
     {icon: <SettingsIcon />, route: RoutesEnum.Settings, label: 'Settings'},
   ];
 
-  const NavbarLink = ({route, icon, label, onClick}: NavbarLinkProps) => {
+  const NavbarLink = ({route, icon, label, onClick}: INavbarLinkProps) => {
     return (
       <ListItem key={label}>
         <StyledListItemButton
