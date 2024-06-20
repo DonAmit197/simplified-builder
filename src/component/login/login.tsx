@@ -13,7 +13,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const authenticate = () => {
-    login(userName, userName, false);
+    login(userName, 'user@email.com', false);
     navigate(RoutesEnum.Root);
   };
 

@@ -4,7 +4,7 @@ import {useState} from 'react';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import OTP from 'src/component/shared/otp/otp.tsx';
 
-export interface OptDialogProps {
+export interface IOptDialogProps {
   length: number;
   open: boolean;
   email: string;
@@ -12,7 +12,7 @@ export interface OptDialogProps {
   onClose: (otp: string) => void;
 }
 
-const OtpDialog = (props: OptDialogProps) => {
+const OtpDialog = (props: IOptDialogProps) => {
   const {length, open, email, onClose} = props;
   const [otp, setOtp] = useState('');
 

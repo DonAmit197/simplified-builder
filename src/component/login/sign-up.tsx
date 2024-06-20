@@ -27,7 +27,7 @@ const SignUp = () => {
 
   const signUp = (trial: boolean) => {
     if (trial) {
-      login(email, email, true);
+      login('User name', email, true);
     } else {
       login(userName, email, false);
     }

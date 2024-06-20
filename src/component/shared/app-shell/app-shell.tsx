@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import {ReactNode} from 'react';
 
-interface AppShellProps {
+interface IAppShellProps {
   header?: ReactNode;
   footer?: ReactNode;
   sidebar?: ReactNode;
   main: ReactNode;
 }
 
-const AppShell = (props: AppShellProps) => {
+const AppShell = (props: IAppShellProps) => {
   return (
     <Box
       sx={{
