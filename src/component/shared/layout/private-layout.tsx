@@ -54,7 +54,7 @@ const PrivateLayout = () => {
     setActive(RoutesEnum.Analytics);
   } else if (pathname.endsWith(RoutesEnum.Help)) {
     setActive(RoutesEnum.Help);
-  } else if (pathname.endsWith(RoutesEnum.Settings)) {
+  } else if (pathname.endsWith(`/${RoutesEnum.Settings}`)) {
     setActive(RoutesEnum.Settings);
   } else {
     setActive(RoutesEnum.Home);

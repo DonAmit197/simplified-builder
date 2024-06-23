@@ -10,6 +10,7 @@ import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
 import NavbarLink from 'src/component/shared/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 export interface INavigationItem {
   icon: ReactNode;
@@ -28,6 +29,8 @@ const Sidebar = ({
   activeRoute: RoutesEnum;
 }) => {
   const navigate = useNavigate();
+  const hasSubMenu = useThemeStore((state) => state.hasSubMenu);
+
   const [collapsed, setCollapsed] = useState(false);
   const isDark = useTheme().palette.mode === 'dark';
   const background = isDark ? grey[900] : cyan[50];
@@ -51,7 +54,7 @@ const Sidebar = ({
   const headerJustify = collapsed ? 'center' : 'space-between';
   const buttonMargin = collapsed ? '20px' : '5px';
   const logo = isDark ? LogoInverse : Logo;
-  const borderRadius = activeRoute === RoutesEnum.Home ? '0' : '0 20px 20px 0';
+  const borderRadius = isMainMenu && hasSubMenu ? '0' : '0 20px 20px 0';
 
   return (
     <Box

@@ -17,9 +17,11 @@ const UserPage = () => {
   const {userName, email, isOnTrial, login} = useAuthStore();
   const [showNotification, setShowNotification] = useState(false);
 
-  const setTitle = useThemeStore((state) => state.setTitle);
+  const {setTitle, setHasSubMenu} = useThemeStore();
+
   useEffect(() => {
     setTitle('User Settings');
+    setHasSubMenu(false);
   }, []);
 
   const {

@@ -69,9 +69,11 @@ const FormSetupPage = () => {
 
   const navigate = useNavigate();
   const formService = new FormService();
-  const setTitle = useThemeStore((state) => state.setTitle);
+  const {setTitle, setHasSubMenu} = useThemeStore();
+
   useEffect(() => {
     setTitle('Set Up Your Form');
+    setHasSubMenu(false);
   }, []);
 
   const {

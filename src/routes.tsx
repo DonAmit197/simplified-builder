@@ -26,7 +26,7 @@ export enum RoutesEnum {
   FormSetup = 'form-setup',
   Builder = 'form-builder/:id',
   FormRenderer = 'form-renderer',
-  FormSettings = 'form-builder/:id/settings',
+  FormSettings = 'form-builder/:id/form-settings',
   FormShare = 'share',
 }
 
