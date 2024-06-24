@@ -100,11 +100,13 @@ const builderSettings: BuilderSettingsFn = (
           jsonElement.innerHTML = '';
           formElement.innerHTML = '';
           jsonElement.appendChild(document.createTextNode(JSON.stringify(instance.form, null, 4)));
+
           _formiojs.createForm(formElement, instance.form).then(onForm);
         };
 
         const onReady = () => {
           _formiojs.createForm(formElement, instance.schema);
+
           instance.on('change', onBuild);
         };
 

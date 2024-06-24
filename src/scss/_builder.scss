@@ -1,3 +1,5 @@
+/** @format */
+
 #group-container-basic,
 #group-container-advanced,
 #group-container-layout,
@@ -10,14 +12,12 @@
 .builder-group-button {
   width: 100%;
 }
-
 .builder-component {
   text-align: left;
 }
 
 [ref='sidebar-container'] > .btn {
   width: 100%;
-
   &:focus-visible,
   &:focus {
     outline: none;
@@ -27,12 +27,10 @@
     box-shadow: 0 0 0 0.25rem rgba(215, 221, 0, 0.25);
   }
 }
-
 .builder-component.essential-item {
   border: 2px dashed #dadada;
   padding: 32px;
 }
-
 .builder-component.essential-item:before {
   content: 'Essential';
   display: block;
@@ -48,7 +46,6 @@
   border: 2px solid #ffffff;
   color: #5d5d5d;
 }
-
 .widget-action-btn {
   display: none;
   background-color: $light-gray;
@@ -61,11 +58,9 @@
     color: $base-color;
     display: inline-block;
     vertical-align: middle;
-
     & > .icon {
       margin-right: $grid-4;
     }
-
     &:focus-visible,
     &:focus {
       outline: none;
@@ -74,37 +69,77 @@
       box-shadow: 0 0 0 0.25rem rgba(215, 221, 0, 0.25);
     }
   }
-
   & .remove-component {
     color: $white;
     background-color: $error-color;
-
     &:focus-visible,
     &:focus {
       color: $error-color;
     }
   }
 }
-
 .btn-move {
   padding: 4px 12px;
 }
-
 .ag-component-selected {
   border: 3px solid #aa2525;
 }
-
 .card {
   padding: 0;
 }
-
 .builder-component {
   & [ref='editJson'],
   & [ref='copyComponent'] {
     display: none;
   }
 }
-
 .builder-component.builder-component-selected {
   padding: $grid-12;
+}
+.form-wrapper {
+  margin-top: 80px;
+}
+.sticky-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /*max-width: 340px;*/
+  width: 100%;
+  background-color: #d6d6ea;
+  padding: 8px;
+  z-index: 30;
+  display: block;
+  & .sticky-button_inner {
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    & button {
+      margin-left: auto;
+    }
+  }
+
+  & button:focus,
+  & button:focus-visible,
+  & button:active {
+    background: $focus !important;
+    color: #000 !important;
+  }
+  &.form-view-btn {
+    top: 0;
+    right: 0;
+    left: unset;
+  }
+  & .sticky-button_header {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+  &.form-builder-header {
+    display: flex !important;
+    max-width: 640px;
+    background: transparent;
+    justify-content: flex-end;
+  }
 }
