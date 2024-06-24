@@ -56,7 +56,7 @@ const FormSettingsPage = () => {
         width: '100%',
         marginX: '-30px',
       }}>
-      <Box role='navigation' sx={{display: 'flex'}}>
+      <Box sx={{display: 'flex'}}>
         <Sidebar navItems={navItems} activeRoute={activeRoute} isMainMenu={false} />
       </Box>
 

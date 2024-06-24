@@ -18,11 +18,22 @@ const Publish = () => {
 
   return (
     <Stack gap={3}>
-      <Box>
-        <Typography>
-          This form is <strong>Active</strong>.
-        </Typography>
-        <Typography>The following URL is to the form.</Typography>
+      <Box sx={{display: 'flex'}}>
+        <Box>
+          <Typography>
+            This form is <strong>Active</strong>.
+          </Typography>
+          <Typography>The following URL is to the form.</Typography>
+        </Box>
+        <Box sx={{flex: '1 1 auto'}} />
+        <TextField
+          value='Active'
+          size='small'
+          sx={{width: '75px'}}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
       </Box>
 
       <FormControl>
@@ -43,7 +54,7 @@ const Publish = () => {
 
       <TextField
         value='Your form is now live! All submission data will be sent through email.'
-        sx={{borderWidth: '2px', bgcolor: background}}
+        sx={{bgcolor: background}}
         InputProps={{
           readOnly: true,
         }}
