@@ -1,18 +1,16 @@
 import {Box, Step, StepLabel, Stepper} from '@mui/material';
 import {ReactNode, useState} from 'react';
 import Hosting from 'src/component/form-publish/hosting.tsx';
+import Publish from 'src/component/form-publish/publish.tsx';
+import Settings from 'src/component/form-publish/settings.tsx';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 
 const FormPublishPage = () => {
-  const steps = ['Hosting', 'Further settings', 'Summary'];
+  const steps = ['Hosting', 'Data', 'Publish'];
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   let content: ReactNode;
@@ -26,7 +24,7 @@ const FormPublishPage = () => {
       break;
     case 2:
     default:
-      content = <div>Summary!</div>;
+      content = <Publish />;
       break;
   }
 
@@ -46,13 +44,12 @@ const FormPublishPage = () => {
       <Box sx={{padding: '30px 10px'}}>
         {content}
         <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
-          <StyledButton variant='outlined' disabled={activeStep === 0} onClick={handleBack} sx={{mr: 1}}>
-            Back
-          </StyledButton>
           <Box sx={{flex: '1 1 auto'}} />
-          <StyledButton variant='contained' onClick={handleNext}>
-            {activeStep === steps.length - 1 ? 'Publish' : 'Next'}
-          </StyledButton>
+          {activeStep < steps.length - 1 ? (
+            <StyledButton variant='contained' onClick={handleNext}>
+              Next
+            </StyledButton>
+          ) : null}
         </Box>
       </Box>
     </Box>
