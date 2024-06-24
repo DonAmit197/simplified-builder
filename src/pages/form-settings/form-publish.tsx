@@ -1,9 +1,10 @@
-import {Box, Step, StepLabel, Stepper, Typography} from '@mui/material';
-import Button from '@mui/material/Button';
-import {Fragment, useState} from 'react';
+import {Box, Step, StepLabel, Stepper} from '@mui/material';
+import {ReactNode, useState} from 'react';
+import Hosting from 'src/component/form-publish/hosting.tsx';
+import StyledButton from 'src/component/shared/button/styled-button.tsx';
 
 const FormPublishPage = () => {
-  const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+  const steps = ['Hosting', 'Further settings', 'Summary'];
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -14,8 +15,23 @@ const FormPublishPage = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  let content: ReactNode;
+
+  switch (activeStep) {
+    case 0:
+      content = <Hosting />;
+      break;
+    case 1:
+      content = <Settings />;
+      break;
+    case 2:
+    default:
+      content = <div>Summary!</div>;
+      break;
+  }
+
   return (
-    <Box sx={{width: '100%'}}>
+    <Box>
       <Stepper activeStep={activeStep}>
         {steps.map((label) => {
           const stepProps: {completed?: boolean} = {};
@@ -27,26 +43,18 @@ const FormPublishPage = () => {
           );
         })}
       </Stepper>
-      {activeStep === steps.length ? (
-        <Fragment>
-          <Typography sx={{mt: 2, mb: 1}}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
-            <Box sx={{flex: '1 1 auto'}} />
-          </Box>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <Typography sx={{mt: 2, mb: 1}}>Step {activeStep + 1}</Typography>
-          <Typography>Hello!</Typography>
-          <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
-            <Button color='inherit' disabled={activeStep === 0} onClick={handleBack} sx={{mr: 1}}>
-              Back
-            </Button>
-            <Box sx={{flex: '1 1 auto'}} />
-            <Button onClick={handleNext}>{activeStep === steps.length - 1 ? 'Finish' : 'Next'}</Button>
-          </Box>
-        </Fragment>
-      )}
+      <Box sx={{padding: '30px 10px'}}>
+        {content}
+        <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+          <StyledButton variant='outlined' disabled={activeStep === 0} onClick={handleBack} sx={{mr: 1}}>
+            Back
+          </StyledButton>
+          <Box sx={{flex: '1 1 auto'}} />
+          <StyledButton variant='contained' onClick={handleNext}>
+            {activeStep === steps.length - 1 ? 'Publish' : 'Next'}
+          </StyledButton>
+        </Box>
+      </Box>
     </Box>
   );
 };
