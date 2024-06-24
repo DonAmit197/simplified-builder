@@ -1,0 +1,92 @@
+/**
+ * for GDS *
+ *
+ * @format
+ */
+
+html {
+  font-size: 100%;
+}
+body {
+  font-size: 1rem;
+}
+.form-wrapper h1,
+.form-wrapper h2,
+.form-wrapper h3,
+.form-wrapper h4,
+.form-wrapper h5 {
+  font-weight: 600 !important;
+  color: #414042 !important;
+}
+.form-wrapper a,
+.form-wrapper a:link,
+.form-wrapper a:visited,
+.form-wrapper div,
+.form-wrapper p {
+  font-size: 19px;
+  line-height: 1.6;
+}
+p {
+  margin-bottom: 10px !important;
+}
+
+.card {
+  border-radius: unset !important;
+  border: none !important;
+}
+.govuk-radios__item,
+.govuk-checkboxes__item {
+  padding-left: 0;
+}
+@media screen and (min-width: 1024px) {
+  .govuk-form-group.expressform-section {
+    margin-bottom: 40px;
+  }
+  .govuk-form-group.expressform-section > .card.card-body {
+    border-bottom: 1px solid #c6c8c6;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 40px;
+  }
+}
+.govuk-radios__input,
+govuk-checkboxes__input {
+  width: 44px !important;
+  height: 44px !important;
+  /*transform: translateX(44px);*/
+}
+.govuk-radios__label,
+.govuk-checkboxes__label {
+  padding: 8px 50px 4px;
+}
+
+.govuk-select {
+  font-weight: 400 !important;
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+  box-sizing: border-box !important;
+  min-width: 11.5em !important;
+  max-width: 100% !important;
+  height: 40px !important;
+
+  padding: 5px !important;
+  border: 2px solid #0b0c0c !important;
+  color: #0b0c0c !important;
+  background-color: #fff !important;
+  border-radius: unset !important;
+}
+ul.footer_links {
+  padding: 0;
+  list-style: none;
+}
+
+ul.footer_links > li {
+  display: inline-block;
+  padding: 6px;
+  padding-left: 0 !important;
+  margin-right: 8px;
+}
+.card.bg-light.mb-3 {
+  margin-bottom: unset !important;
+}

@@ -10,6 +10,7 @@ import HelpPage from './pages/help.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
 import SettingsPage from './pages/settings.tsx';
+import FormRendererPage from './pages/form-render.tsx';
 
 export enum RoutesEnum {
   Root = '/',
@@ -21,6 +22,7 @@ export enum RoutesEnum {
   User = 'user',
   FormSetup = 'form-setup',
   Builder = 'form-builder',
+  FormRenderer = 'form-renderer',
 }
 
 export const router = createBrowserRouter([
@@ -59,6 +61,10 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Builder,
             element: <BuilderPage />,
+          },
+          {
+            path: RoutesEnum.FormRenderer,
+            element: <FormRendererPage />,
           },
         ],
       },

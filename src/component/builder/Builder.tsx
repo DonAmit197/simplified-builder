@@ -2,29 +2,29 @@ import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-//import Card from 'react-bootstrap/Card';
 import builderSettings from './builderSettings';
 import formioWebFormBuilder from './formioWebformBuilder';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-//import {JsonView, allExpanded, defaultStyles} from 'react-json-view-lite';
+import {useSchemaStore} from 'src/store/schema-store';
+import secureLocalStorage from 'react-secure-storage';
+import Button from '@mui/material/Button';
 import CopyJSONButton from './_components/CopyJSONButton';
 import ClipboardJS from 'clipboard';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Toastify from 'toastify-js';
+
 import 'toastify-js/src/toastify.css';
 
 import 'react-json-view-lite/dist/index.css';
-
-interface Component {
-  label: string;
-  tableView: boolean;
-  key: string;
-  input: boolean;
-  showSidebar: boolean;
-  html?: string;
-}
+import BasicModal from './_components/BasicModal';
+// interface Component {
+//   label: string;
+//   tableView: boolean;
+//   key: string;
+//   input: boolean;
+//   showSidebar: boolean;
+//   html?: string;
+// }
 interface BuilderProps {
   defaultComponents: any;
   onCopy: (data: string) => void;
@@ -33,9 +33,8 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
   formioWebFormBuilder();
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
-  const [schema, setSchema] = useState<Component[]>(defaultComp);
+  const {schema, setSchema} = useSchemaStore();
   const [copiedJSON, setCopiedJSON] = useState<string>('');
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSchemaChange = () => {
     setSchema(defaultComponents.components);
@@ -116,18 +115,59 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       console.error(error);
     }
   };
+  const navigateToFormRenderer = (e: any) => {
+    secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
+    if (typeof window !== 'undefined') {
+      window.open('/form-renderer', '_blank');
+    }
+
+    e.target.style.display = 'none';
+    e.target.nextElementSibling.style.display = 'block';
+  };
+  const updateSchemaForFormRenderer = () => {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
+        localStorage.setItem('updatedSchema', 'true');
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    }).then(() => {
+      console.log('resolved');
+      try {
+        Toastify({
+          text: 'Form view is updated. Please view the Form Preview.',
+          position: 'right',
+          ariaLive: 'assertive',
+          duration: 5000,
+        }).showToast();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
   return (
     <>
+      <div style={{marginBottom: '16px'}}>
+        <Button variant='contained' onClick={navigateToFormRenderer}>
+          Preview
+        </Button>
+        <Button variant='contained' style={{display: 'none'}} onClick={updateSchemaForFormRenderer}>
+          Update
+        </Button>
+      </div>
+
       <Tabs defaultActiveKey='edit' id='builderTabs' className='mb-3'>
         <Tab eventKey='edit' title='Edit' className='builder-tab'>
           <div id='builder'></div>
           <div id='subjson' className='hidden'></div>
         </Tab>
         <Tab eventKey='view' title='View' className='builder-tab'>
+          <BasicModal />
           <div id='formio'></div>
         </Tab>
         <Tab eventKey='json' title='Export/Import JSON' className='builder-tab'>
-          {/* <JsonView data={schema} shouldExpandNode={allExpanded} style={defaultStyles} /> */}
           <Tabs defaultActiveKey='jsonData' id='formContent' className='mb-3'>
             <Tab eventKey='jsonData' title='Copy Json'>
               <CopyJSONButton targetId='#json' onClick={() => {}}>

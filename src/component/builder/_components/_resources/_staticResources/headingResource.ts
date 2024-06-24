@@ -1,0 +1,30 @@
+export default {
+  showSidebar: false,
+  label: 'intro and logo',
+  customClass: 'expressform-section',
+  key: 'introAndLogo',
+  type: 'well',
+  input: false,
+  tableView: false,
+  components: [
+    {
+      html: '<h2>Heading here</h2>',
+      label: 'Content',
+      customClass: 'expressform-page_header',
+      refreshOnChange: false,
+      key: 'content',
+      type: 'content',
+      input: false,
+      tableView: false,
+    },
+    {
+      html: '<p>Description content about the service and what you would like the customers to know....&nbsp;</p>',
+      label: 'Content',
+      refreshOnChange: false,
+      key: 'content2',
+      type: 'content',
+      input: false,
+      tableView: false,
+    },
+  ],
+};
