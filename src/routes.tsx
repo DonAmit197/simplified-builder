@@ -21,7 +21,7 @@ export enum RoutesEnum {
   Settings = 'settings',
   User = 'user',
   FormSetup = 'form-setup',
-  Builder = 'form-builder',
+  Builder = 'form-builder/:id',
   FormRenderer = 'form-renderer',
 }
 
