@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
 import staticComponents from 'src/component/builder/staticComponents';
+import {RoutesEnum} from 'src/routes.tsx';
 import {useReloadStore} from 'src/store/reload-store';
 
 const BuilderPage = () => {
@@ -26,7 +27,7 @@ const BuilderPage = () => {
   };
 
   useEffect(() => {
-    if (reloadPage) {
+    if (reloadPage && reloadPage === RoutesEnum.Builder) {
       stopReload();
       navigate(0);
     }

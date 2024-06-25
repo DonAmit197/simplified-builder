@@ -7,26 +7,16 @@ import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import secureLocalStorage from 'react-secure-storage';
+import Notification from 'src/component/shared/notification/notification.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
-import {useReloadStore} from 'src/store/reload-store.ts';
 import {useSchemaStore} from 'src/store/schema-store';
-import Toastify from 'toastify-js';
-
-import 'toastify-js/src/toastify.css';
 
 import 'react-json-view-lite/dist/index.css';
 import BasicModal from './_components/BasicModal';
 import CopyJSONButton from './_components/CopyJSONButton';
 import builderSettings from './builderSettings';
 import formioWebFormBuilder from './formioWebformBuilder';
-// interface Component {
-//   label: string;
-//   tableView: boolean;
-//   key: string;
-//   input: boolean;
-//   showSidebar: boolean;
-//   html?: string;
-// }
+
 interface BuilderProps {
   defaultComponents: any;
   onCopy: (data: string) => void;
@@ -37,7 +27,10 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
   const {schema, setSchema} = useSchemaStore();
-  const {forceReload} = useReloadStore();
+
+  const [showCopied, setShowCopied] = useState(false);
+  const [showPasted, setShowPasted] = useState(false);
+  const [showRefresh, setShowRefresh] = useState(false);
 
   const [copiedJSON, setCopiedJSON] = useState<string>('');
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,17 +75,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
     const clipboard = new ClipboardJS('#copyJSON');
 
     clipboard.on('success', function () {
-      //console.info('Action:', e.action);
-      //console.info('Text:', e.text);
-      //console.info('Trigger:', e.trigger);
-      try {
-        Toastify({
-          text: 'Copied JSON',
-          position: 'right',
-        }).showToast();
-      } catch (error) {
-        console.error(error);
-      }
+      setShowCopied(true);
     });
     clipboard.on('error', function (e) {
       console.info('Action:', e.action);
@@ -111,18 +94,10 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
 
   const handlePasteBtnClick = () => {
     onCopy(copiedJSON);
-    try {
-      Toastify({
-        text: 'Pasted JSON',
-        position: 'right',
-      }).showToast();
-    } catch (error) {
-      console.error(error);
-    }
+    setShowPasted(true);
   };
 
   const navigateToFormRenderer = (e: any) => {
-    forceReload();
     secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
     if (typeof window !== 'undefined') {
       window.open(`/${RoutesEnum.FormRenderer}`, '_blank');
@@ -143,16 +118,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       }
     }).then(() => {
       console.log('resolved');
-      try {
-        Toastify({
-          text: 'Form view is updated. Please view the Form Preview.',
-          position: 'right',
-          ariaLive: 'assertive',
-          duration: 5000,
-        }).showToast();
-      } catch (error) {
-        console.error(error);
-      }
+      setShowRefresh(true);
     });
   };
 
@@ -217,6 +183,14 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
           </Tabs>
         </Tab>
       </Tabs>
+
+      <Notification message='JSON copied' open={showCopied} onClose={() => setShowCopied(false)} />
+      <Notification message='Pasted JSON' open={showPasted} onClose={() => setShowPasted(false)} />
+      <Notification
+        message='Form view is updated. Please view the Form Preview.'
+        open={showRefresh}
+        onClose={() => setShowRefresh(false)}
+      />
     </>
   );
 }
