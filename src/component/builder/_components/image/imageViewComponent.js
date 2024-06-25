@@ -4,7 +4,7 @@ import Component from 'bcformiojs/components/_classes/component/Component'
 
 const imageViewComponent = (_module) => {
     const Formio = _module;
-    console.log(Formio);
+
     const ContentComponent = Formio.Components.components.content;
 
     class ImageComponent extends Component {
