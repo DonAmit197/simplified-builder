@@ -8,7 +8,7 @@ const FormRendererPage = () => {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        console.log('Tab is active');
+        //console.log('Tab is active');
         const checkUpdateStorage = localStorage.getItem('updatedSchema');
         if (checkUpdateStorage === 'true') {
           console.log('Page needs to be refreshed');

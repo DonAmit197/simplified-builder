@@ -3,6 +3,7 @@ import {useEffect} from 'react';
 import gds from '@ukhomeoffice/formio-gds-template';
 import {Formio} from 'formiojs';
 import Button from '@mui/material/Button';
+import afterFormRender from './afterFormRender/afterFormRender';
 import FormRendererFooter from './FormRendererFooter';
 import './form-renderer.css';
 import './form-gds.css';
@@ -10,7 +11,7 @@ import './form-gds.css';
 const FormRenderer = () => {
   const {schema} = useSchemaStore();
 
-  console.log('Schema', schema);
+  //console.log('Schema', schema);
 
   useEffect(() => {
     const formioElem = document.getElementById('formio2') as HTMLElement;
@@ -21,7 +22,9 @@ const FormRenderer = () => {
           const globalFormio = (Formio as any).GlobalFormio;
           Formio.use(gds);
 
-          globalFormio.createForm(formioElem, schema);
+          globalFormio.createForm(formioElem, schema).then((form: any) => {
+            afterFormRender.hideReCapthaComponentfromUI(form);
+          });
         }
       } catch (error) {
         console.error(error);

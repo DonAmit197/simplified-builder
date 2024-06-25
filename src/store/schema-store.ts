@@ -21,7 +21,7 @@ export const useSchemaStore = create<SchemaState>((set) => ({
   schema: getInitialSchema(),
   setSchema: (newSchema) => {
     secureLocalStorage.setItem('formSchema', JSON.stringify(newSchema));
-    localStorage.setItem('pageReload', 'true');
+    //localStorage.setItem('pageReload', 'true');
     set({schema: newSchema});
   },
 }));
