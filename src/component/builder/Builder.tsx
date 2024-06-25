@@ -147,6 +147,23 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       }
     });
   };
+
+  useEffect(() => {
+    const builderTab = document.querySelector('#builderTabs') as HTMLElement;
+    const listElements = builderTab.querySelectorAll('li');
+    Array.from(listElements).map((elem, index) => {
+      if (index === 1) {
+        elem.style.display = 'none';
+      }
+    });
+
+    return () => {
+      Array.from(listElements).map((elem) => {
+        elem.style.display = 'block';
+      });
+    };
+  }, []);
+
   return (
     <>
       <div style={{marginBottom: '16px'}}>
