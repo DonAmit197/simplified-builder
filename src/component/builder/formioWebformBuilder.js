@@ -19,7 +19,7 @@ function formioWebFormBuilder() {
        * Open the Keyboard Buttons on CTRL key press
        */
       //console.log([element])
-      element.focus();
+      //element.focus();
       element.addEventListener('keydown', (e) => {
 
 
@@ -114,7 +114,7 @@ function formioWebFormBuilder() {
           this.updateComponentPlacement(false);
           this.emit('change', this.form);
 
-          //grandParent.formioComponent.rebuild();
+
         }
       });
       /**
@@ -183,6 +183,16 @@ function formioWebFormBuilder() {
         component.refs.moveComponent = '';
 
         //console.log('Element get', [element]);
+        // Removing the remove button from the childnodes
+        // of essential-items
+        const allChildNodes = element.querySelectorAll('*');
+        //console.log([...allChildNodes])
+        allChildNodes.forEach(node => {
+          if (node.classList.contains('component-settings-button-remove')) {
+            node.style.display = 'none'
+          }
+        })
+
 
         const componentHoverElem = element.querySelector(
           '[data-noattach="true"]'

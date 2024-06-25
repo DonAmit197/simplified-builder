@@ -3,7 +3,7 @@ import HeaderComponentEditDisplay from './editForm/HeaderComponent.edit.display'
 //import _ from 'lodash'
 
 const pageHeader = (_module) => {
-    console.log(_module)
+    //console.log(_module)
     const Formio = _module;
 
     const HTMLComponent = Formio.Components.components.htmlelement;
