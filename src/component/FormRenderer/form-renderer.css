@@ -22117,14 +22117,6 @@ span[role='link'] {
   background-color: none;
   border: none;
 }
-body {
-  color: #414042 !important;
-  font-family: EncodeSansRegular, sans-serif !important;
-  font-size: 1.1875rem;
-}
-BODY {
-  font-size: 1.1875rem;
-}
 .form-wrapper a,
 .form-wrapper a:link,
 .form-wrapper a:visited,
@@ -22349,12 +22341,6 @@ div.form-wrapper[data-form='Review'] {
   margin-bottom: 15px;
 }
 div[ref='html'] > h3,
-h3 {
-  font-weight: 600;
-}
-LI {
-  margin-bottom: 8px;
-}
 .govuk-accordion__section-heading,
 .govuk-accordion__section-heading > .govuk-accordion__section-button {
   font-size: 2.25rem;

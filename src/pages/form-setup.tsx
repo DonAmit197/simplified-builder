@@ -86,7 +86,7 @@ const FormSetupPage = () => {
   });
 
   const onSubmit = (data: ISetupFormInput) => {
-    forceReload();
+    forceReload(RoutesEnum.Builder);
     navigate(`/${RoutesEnum.Builder}`, {
       state: {
         data,

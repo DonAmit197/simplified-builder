@@ -1,13 +1,14 @@
+import {RoutesEnum} from 'src/routes.tsx';
 import {create} from 'zustand';
 
 type ReloadState = {
-  reloadPage: boolean;
-  forceReload: () => void;
+  reloadPage?: RoutesEnum;
+  forceReload: (page: RoutesEnum) => void;
   stopReload: () => void;
 };
 
 export const useReloadStore = create<ReloadState>((set) => ({
-  reloadPage: false,
-  forceReload: () => set({reloadPage: true}),
-  stopReload: () => set({reloadPage: false}),
+  reloadPage: undefined,
+  forceReload: (page: RoutesEnum) => set({reloadPage: page}),
+  stopReload: () => set({reloadPage: undefined}),
 }));
