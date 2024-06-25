@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import secureLocalStorage from 'react-secure-storage';
-import Notification from 'src/component/shared/notification/notification.tsx';
+import Notification from 'src/component/shared/message/notification.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useSchemaStore} from 'src/store/schema-store';
 

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
 import staticComponents from 'src/component/builder/staticComponents';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
 import {useReloadStore} from 'src/store/reload-store';

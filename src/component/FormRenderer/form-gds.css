@@ -26,9 +26,6 @@ body {
   font-size: 19px;
   line-height: 1.6;
 }
-p {
-  margin-bottom: 10px !important;
-}
 
 .card {
   border-radius: unset !important;

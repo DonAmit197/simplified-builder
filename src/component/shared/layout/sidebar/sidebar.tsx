@@ -8,7 +8,7 @@ import {ReactNode, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
-import NavbarLink from 'src/component/shared/sidebar/nav-bar-link.tsx';
+import NavbarLink from 'src/component/shared/layout/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useThemeStore} from 'src/store/theme-store.ts';
 

@@ -2,8 +2,8 @@ import {Stack, TextField} from '@mui/material';
 import Box from '@mui/material/Box';
 import {useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
-import Notification from 'src/component/shared/notification/notification.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
+import Notification from 'src/component/shared/message/notification.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
 import {useThemeStore} from 'src/store/theme-store.ts';
 

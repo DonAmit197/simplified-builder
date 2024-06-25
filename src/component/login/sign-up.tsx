@@ -3,9 +3,9 @@ import {AccordionDetails, AccordionSummary, Box, Divider, Stack, TextField, Typo
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import OtpDialog from 'src/component/login/otp-dialog.tsx';
-import StyledAccordion from 'src/component/shared/accordion/styled-accordion.tsx';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
-import BulletedList from 'src/component/shared/list/bulleted-list.tsx';
+import StyledAccordion from 'src/component/shared/basic-controls/accordion/styled-accordion.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
+import BulletedList from 'src/component/shared/basic-controls/list/bulleted-list.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
 

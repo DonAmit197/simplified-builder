@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import {ReactNode} from 'react';
-import AppShellMain from 'src/component/shared/app-shell/app-shell-main.tsx';
-import AppShellNavigation from 'src/component/shared/app-shell/app-shell-navigation.tsx';
+import AppShellMain from 'src/component/shared/layout/app-shell/app-shell-main.tsx';
+import AppShellNavigation from 'src/component/shared/layout/app-shell/app-shell-navigation.tsx';
 
 const AppShell = ({children}: {children?: ReactNode}) => {
   return (

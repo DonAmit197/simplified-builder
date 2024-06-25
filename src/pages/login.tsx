@@ -4,7 +4,7 @@ import {useState} from 'react';
 import Logo from 'src/assets/logo-inverse.svg?react';
 import Login from 'src/component/login/login.tsx';
 import SignUp from 'src/component/login/sign-up.tsx';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 
 const LoginPage = () => {
   const [showLogin, setShowLogin] = useState(true);

@@ -1,7 +1,7 @@
 import {Stack, TextField, Typography} from '@mui/material';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
 

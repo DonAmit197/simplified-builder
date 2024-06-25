@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {useEffect, useState} from 'react';
 import {FormCategoryCount} from 'src/__generated__/graphql.ts';
-import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
+import StyledListItemButton from 'src/component/shared/basic-controls/button/styled-list-item-button.tsx';
 import {FormService} from 'src/services/form.service.ts';
 
 export interface IFormCategoryCountProps {
