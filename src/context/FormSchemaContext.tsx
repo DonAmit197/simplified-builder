@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import React, {createContext, ReactNode, useContext, useState} from 'react';
 
 interface Component {
   label: string;
@@ -19,27 +19,18 @@ interface FormSchemaContextType {
   setSchema: React.Dispatch<React.SetStateAction<Component[]>>;
 }
 
-const FormSchemaContext = createContext<FormSchemaContextType | undefined>(
-  undefined
-);
+const FormSchemaContext = createContext<FormSchemaContextType | undefined>(undefined);
 
 interface FormSchemaProviderProps {
   children: ReactNode;
   initialSchema: Component[];
 }
 
-export const FormSchemaProvider: React.FC<FormSchemaProviderProps> = ({
-  children,
-  initialSchema,
-}) => {
+export const FormSchemaProvider: React.FC<FormSchemaProviderProps> = ({children, initialSchema}) => {
   //console.log(initialSchema);
   const [schema, setSchema] = useState<Component[]>(initialSchema);
 
-  return (
-    <FormSchemaContext.Provider value={{ schema, setSchema }}>
-      {children}
-    </FormSchemaContext.Provider>
-  );
+  return <FormSchemaContext.Provider value={{schema, setSchema}}>{children}</FormSchemaContext.Provider>;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

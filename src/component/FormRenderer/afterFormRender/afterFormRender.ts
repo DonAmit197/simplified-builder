@@ -2,10 +2,12 @@ interface FormComponent {
   id: string;
   element: HTMLElement;
 }
+
 interface FnDefinitions {
   components: FormComponent[];
   getComponent?: (component_key: string) => FormComponent | undefined;
 }
+
 const afterFormRender = {
   hideReCapthaComponentfromUI: (form: FnDefinitions) => {
     const reCapthaComponent = form.getComponent ? form.getComponent('reCaptha_Token') : null;

@@ -9,7 +9,6 @@ import {
   Select,
   Stack,
   TextField,
-  Typography,
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import {useEffect, useMemo, useState} from 'react';
@@ -19,7 +18,9 @@ import {FormCategory} from 'src/__generated__/graphql.ts';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
+import {useFormStore} from 'src/store/form-store.ts';
 import {useReloadStore} from 'src/store/reload-store.ts';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 interface ISetupFormInput {
   formName: string;
@@ -36,6 +37,7 @@ interface IDataType {
 
 const FormSetupPage = () => {
   const forceReload = useReloadStore((state) => state.forceReload);
+  const {setName} = useFormStore();
 
   const [categories, setCategories] = useState<FormCategory[]>([
     {
@@ -67,6 +69,12 @@ const FormSetupPage = () => {
 
   const navigate = useNavigate();
   const formService = new FormService();
+  const {setTitle, setHasSubMenu} = useThemeStore();
+
+  useEffect(() => {
+    setTitle('Set Up Your Form');
+    setHasSubMenu(false);
+  }, []);
 
   const {
     control,
@@ -87,17 +95,12 @@ const FormSetupPage = () => {
 
   const onSubmit = (data: ISetupFormInput) => {
     forceReload(RoutesEnum.Builder);
-    navigate(`/${RoutesEnum.Builder}`, {
-      state: {
-        data,
-      },
-    });
+    setName(data.formName);
+    navigate(`/${RoutesEnum.Builder}`.replace(':id', '1'));
   };
 
   return (
     <Box className='mainHeader' sx={{width: '100%'}}>
-      <Typography variant='h1'>Set Up Your Form</Typography>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           gap={3}

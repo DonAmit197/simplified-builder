@@ -1,4 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
+import FormPublishPage from 'src/pages/form-settings/form-publish.tsx';
+import FormSettingsPage from 'src/pages/form-settings/form-settings.tsx';
+import FormSharePage from 'src/pages/form-settings/form-share.tsx';
 import FormSetupPage from 'src/pages/form-setup.tsx';
 import UserPage from 'src/pages/user.tsx';
 import App from './App.tsx';
@@ -21,8 +24,10 @@ export enum RoutesEnum {
   Settings = 'settings',
   User = 'user',
   FormSetup = 'form-setup',
-  Builder = 'form-builder',
+  Builder = 'form-builder/:id',
   FormRenderer = 'form-renderer',
+  FormSettings = 'form-builder/:id/form-settings',
+  FormShare = 'share',
 }
 
 export const router = createBrowserRouter([
@@ -61,6 +66,20 @@ export const router = createBrowserRouter([
           {
             path: RoutesEnum.Builder,
             element: <BuilderPage />,
+          },
+          {
+            path: RoutesEnum.FormSettings,
+            element: <FormSettingsPage />,
+            children: [
+              {
+                index: true,
+                element: <FormPublishPage />,
+              },
+              {
+                path: RoutesEnum.FormShare,
+                element: <FormSharePage />,
+              },
+            ],
           },
         ],
       },

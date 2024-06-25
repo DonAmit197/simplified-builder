@@ -1,10 +1,11 @@
-import {create} from 'zustand';
 import secureLocalStorage from 'react-secure-storage';
+import {create} from 'zustand';
 
 interface SchemaState {
   schema: any;
   setSchema: (newSchema: any) => void;
 }
+
 const getInitialSchema = () => {
   const savedSchema = secureLocalStorage.getItem('formSchema');
   //console.log(savedSchema);

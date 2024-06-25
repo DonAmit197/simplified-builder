@@ -1,10 +1,11 @@
-import {Stack, TextField, Typography} from '@mui/material';
+import {Stack, TextField} from '@mui/material';
 import Box from '@mui/material/Box';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import StyledButton from 'src/component/shared/button/styled-button.tsx';
 import Notification from 'src/component/shared/notification/notification.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
+import {useThemeStore} from 'src/store/theme-store.ts';
 
 interface IUserSettings {
   userName: string;
@@ -15,6 +16,13 @@ interface IUserSettings {
 const UserPage = () => {
   const {userName, email, isOnTrial, login} = useAuthStore();
   const [showNotification, setShowNotification] = useState(false);
+
+  const {setTitle, setHasSubMenu} = useThemeStore();
+
+  useEffect(() => {
+    setTitle('User Settings');
+    setHasSubMenu(false);
+  }, []);
 
   const {
     control,
@@ -37,8 +45,6 @@ const UserPage = () => {
 
   return (
     <Box className='mainHeader'>
-      <Typography variant='h1'>User Settings</Typography>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           gap={3}
