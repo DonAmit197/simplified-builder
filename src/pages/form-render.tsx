@@ -1,10 +1,7 @@
 import {useEffect} from 'react';
 import FormRenderer from 'src/component/FormRenderer/FormRenderer';
 
-import {useReloadStore} from 'src/store/reload-store';
-
 const FormRendererPage = () => {
-  const {reloadPage, stopReload} = useReloadStore();
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
@@ -25,16 +22,7 @@ const FormRendererPage = () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
-  useEffect(() => {
-    if (reloadPage) {
-      stopReload();
-    }
-  }, [reloadPage]);
 
-  return (
-    <>
-      <FormRenderer />
-    </>
-  );
+  return <FormRenderer />;
 };
 export default FormRendererPage;

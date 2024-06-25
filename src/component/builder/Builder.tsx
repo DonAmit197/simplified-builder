@@ -1,22 +1,24 @@
-import {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import builderSettings from './builderSettings';
-import formioWebFormBuilder from './formioWebformBuilder';
-import {useSchemaStore} from 'src/store/schema-store';
-import secureLocalStorage from 'react-secure-storage';
 import Button from '@mui/material/Button';
-import CopyJSONButton from './_components/CopyJSONButton';
 import ClipboardJS from 'clipboard';
+import PropTypes from 'prop-types';
+import {useEffect, useState} from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import secureLocalStorage from 'react-secure-storage';
+import {RoutesEnum} from 'src/routes.tsx';
+import {useReloadStore} from 'src/store/reload-store.ts';
+import {useSchemaStore} from 'src/store/schema-store';
 import Toastify from 'toastify-js';
 
 import 'toastify-js/src/toastify.css';
 
 import 'react-json-view-lite/dist/index.css';
 import BasicModal from './_components/BasicModal';
+import CopyJSONButton from './_components/CopyJSONButton';
+import builderSettings from './builderSettings';
+import formioWebFormBuilder from './formioWebformBuilder';
 // interface Component {
 //   label: string;
 //   tableView: boolean;
@@ -29,11 +31,14 @@ interface BuilderProps {
   defaultComponents: any;
   onCopy: (data: string) => void;
 }
+
 function Builder({defaultComponents, onCopy}: BuilderProps) {
   formioWebFormBuilder();
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
   const {schema, setSchema} = useSchemaStore();
+  const {forceReload} = useReloadStore();
+
   const [copiedJSON, setCopiedJSON] = useState<string>('');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSchemaChange = () => {
@@ -115,15 +120,18 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       console.error(error);
     }
   };
+
   const navigateToFormRenderer = (e: any) => {
+    forceReload();
     secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
     if (typeof window !== 'undefined') {
-      window.open('/form-renderer', '_blank');
+      window.open(`/${RoutesEnum.FormRenderer}`, '_blank');
     }
 
     e.target.style.display = 'none';
     e.target.nextElementSibling.style.display = 'block';
   };
+
   const updateSchemaForFormRenderer = () => {
     return new Promise<void>((resolve, reject) => {
       try {
@@ -212,6 +220,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
     </>
   );
 }
+
 Builder.propTypes = {
   defaultComponents: PropTypes.object.isRequired,
 };

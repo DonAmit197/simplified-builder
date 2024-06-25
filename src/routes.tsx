@@ -6,11 +6,11 @@ import PrivateLayout from './component/shared/layout/private-layout.tsx';
 import PublicLayout from './component/shared/layout/public-layout.tsx';
 import AnalyticsPage from './pages/analytics.tsx';
 import BuilderPage from './pages/builder.tsx';
+import FormRendererPage from './pages/form-render.tsx';
 import HelpPage from './pages/help.tsx';
 import LoginPage from './pages/login.tsx';
 import MyFormsPage from './pages/my-forms.tsx';
 import SettingsPage from './pages/settings.tsx';
-import FormRendererPage from './pages/form-render.tsx';
 
 export enum RoutesEnum {
   Root = '/',
@@ -62,19 +62,19 @@ export const router = createBrowserRouter([
             path: RoutesEnum.Builder,
             element: <BuilderPage />,
           },
-          {
-            path: RoutesEnum.FormRenderer,
-            element: <FormRendererPage />,
-          },
         ],
       },
       {
-        path: RoutesEnum.Login,
         element: <PublicLayout />,
         children: [
           {
             index: true,
+            path: RoutesEnum.Login,
             element: <LoginPage />,
+          },
+          {
+            path: RoutesEnum.FormRenderer,
+            element: <FormRendererPage />,
           },
         ],
       },
