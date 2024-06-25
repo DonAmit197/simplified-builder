@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </LocalizationProvider>
     </ApolloProvider>
   </React.StrictMode>

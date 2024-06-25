@@ -2,6 +2,7 @@
 import {useEffect} from 'react';
 import externalLogo from '../../assets/externalformfb_logo.svg';
 import externalLogoLeft from '../../assets/externalformfooterlogoleft.svg';
+
 const FormRendererFooter = () => {
   useEffect(() => {
     const _footer = document.querySelector('#sample-footer') as HTMLElement | null;

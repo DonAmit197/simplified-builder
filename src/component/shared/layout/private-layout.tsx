@@ -16,7 +16,7 @@ import {useThemeStore} from 'src/store/theme-store.ts';
 const PrivateLayout = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const {useDarkMode, title} = useThemeStore();
+  const {setBackUrl, useDarkMode, title} = useThemeStore();
   const location = useLocation();
   const {pathname} = location;
 
@@ -61,6 +61,10 @@ const PrivateLayout = () => {
   }
 
   useEffect(() => {
+    setBackUrl('');
+  }, []);
+
+  useEffect(() => {
     if (!isAuthenticated) {
       navigate(`/${RoutesEnum.Login}`);
     }
@@ -77,6 +81,7 @@ const PrivateLayout = () => {
         <AppShell.Main>
           <AppShell.Main.Header>
             <Header>
+              <Header.BackButton />
               <Header.Title>
                 <Typography variant='h1' fontSize='xx-large'>
                   {title}
