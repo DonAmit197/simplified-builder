@@ -20,7 +20,7 @@ const TextFieldWithCopyButton = ({text, label, notification}: {text: string; lab
           readOnly: true,
           endAdornment: (
             <InputAdornment position='end'>
-              <IconButton onClick={copy}>
+              <IconButton onClick={copy} aria-label='Copy text'>
                 <ContentCopyIcon />
               </IconButton>
             </InputAdornment>

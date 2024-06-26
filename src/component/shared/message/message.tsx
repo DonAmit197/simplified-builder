@@ -1,11 +1,11 @@
 import {Typography, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
-import {grey} from '@mui/material/colors';
+import {getMessageBackgroundColor, getMessageBorderColor} from 'src/services/color.service.ts';
 
 const Message = ({message}: {message: string}) => {
   const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[800] : grey[100];
-  const borderColor = isDark ? grey[600] : grey[400];
+  const background = getMessageBackgroundColor(isDark);
+  const borderColor = getMessageBorderColor(isDark);
 
   return (
     <Box

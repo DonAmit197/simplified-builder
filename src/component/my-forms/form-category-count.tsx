@@ -2,7 +2,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CircleIcon from '@mui/icons-material/Circle';
 import PentagonIcon from '@mui/icons-material/Pentagon';
 import {Box, Divider, IconButton, InputAdornment, TextField, useTheme} from '@mui/material';
-import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import {useEffect, useState} from 'react';
 import {FormCategoryCount} from 'src/__generated__/graphql.ts';
 import StyledListItemButton from 'src/component/shared/basic-controls/button/styled-list-item-button.tsx';
+import {getBackgroundColor} from 'src/services/color.service.ts';
 import {FormService} from 'src/services/form.service.ts';
 
 export interface IFormCategoryCountProps {
@@ -24,7 +24,7 @@ const FormCategoryCountComponent = ({selectedCategory, setSelectedCategory}: IFo
   const formService = new FormService();
 
   const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[900] : cyan[50];
+  const background = getBackgroundColor(isDark);
 
   const addNewCategory = () => {
     if (newCategory === '') {

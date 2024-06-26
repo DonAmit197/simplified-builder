@@ -27,7 +27,7 @@ export enum RoutesEnum {
   Builder = 'form-builder/:id',
   FormRenderer = 'form-renderer',
   FormSettings = 'form-builder/:id/form-settings',
-  FormShare = 'share',
+  FormPublish = 'publish',
 }
 
 export const router = createBrowserRouter([
@@ -73,11 +73,11 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <FormPublishPage />,
+                element: <FormSharePage />,
               },
               {
-                path: RoutesEnum.FormShare,
-                element: <FormSharePage />,
+                path: RoutesEnum.FormPublish,
+                element: <FormPublishPage />,
               },
             ],
           },

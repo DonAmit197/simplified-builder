@@ -2,7 +2,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Divider, IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
-import {cyan, grey} from '@mui/material/colors';
 import List from '@mui/material/List';
 import {ReactNode, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -10,6 +9,7 @@ import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
 import NavbarLink from 'src/component/shared/layout/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
+import {getBackgroundColor} from 'src/services/color.service.ts';
 import {useThemeStore} from 'src/store/theme-store.ts';
 
 export interface INavigationItem {
@@ -33,7 +33,7 @@ const Sidebar = ({
 
   const [collapsed, setCollapsed] = useState(false);
   const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[900] : cyan[50];
+  const background = getBackgroundColor(isDark);
 
   const links = navItems.map((link) => (
     <NavbarLink
