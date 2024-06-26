@@ -11,11 +11,12 @@ import {
   TextField,
 } from '@mui/material';
 import Box from '@mui/material/Box';
+import dayjs from 'dayjs';
 import {useEffect, useMemo, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import {FormCategory} from 'src/__generated__/graphql.ts';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
 import {useFormStore} from 'src/store/form-store.ts';
@@ -37,7 +38,7 @@ interface IDataType {
 
 const FormSetupPage = () => {
   const forceReload = useReloadStore((state) => state.forceReload);
-  const {setName} = useFormStore();
+  const {setName, setUrl} = useFormStore();
 
   const [categories, setCategories] = useState<FormCategory[]>([
     {
@@ -94,8 +95,13 @@ const FormSetupPage = () => {
   });
 
   const onSubmit = (data: ISetupFormInput) => {
+    const date = dayjs();
+
     forceReload(RoutesEnum.Builder);
+
     setName(data.formName);
+    setUrl(`prod.formbuilder.govt.nz/${data.formName}${date.format('DDMMYYYY')}`);
+
     navigate(`/${RoutesEnum.Builder}`.replace(':id', '1'));
   };
 

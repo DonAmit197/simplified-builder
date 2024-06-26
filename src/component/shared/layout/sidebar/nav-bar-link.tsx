@@ -2,7 +2,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {ReactNode} from 'react';
-import StyledListItemButton from 'src/component/shared/button/styled-list-item-button.tsx';
+import StyledListItemButton from 'src/component/shared/basic-controls/button/styled-list-item-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 
 export interface INavbarLinkProps {

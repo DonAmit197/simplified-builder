@@ -3,7 +3,7 @@ import {ReactNode, useState} from 'react';
 import Hosting from 'src/component/form-publish/hosting.tsx';
 import Publish from 'src/component/form-publish/publish.tsx';
 import Settings from 'src/component/form-publish/settings.tsx';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 
 const FormPublishPage = () => {
   const steps = ['Hosting', 'Data', 'Publish'];

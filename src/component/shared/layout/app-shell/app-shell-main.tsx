@@ -1,7 +1,7 @@
 import {Box} from '@mui/material';
 import {ReactNode} from 'react';
-import AppShellContent from 'src/component/shared/app-shell/app-shell-content.tsx';
-import AppShellHeader from 'src/component/shared/app-shell/app-shell-header.tsx';
+import AppShellContent from 'src/component/shared/layout/app-shell/app-shell-content.tsx';
+import AppShellHeader from 'src/component/shared/layout/app-shell/app-shell-header.tsx';
 
 const AppShellMain = ({children}: {children?: ReactNode}) => {
   return (

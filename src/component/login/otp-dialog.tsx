@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close';
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Stack, Typography} from '@mui/material';
 import {useState} from 'react';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import OTP from 'src/component/shared/otp/otp.tsx';
 
 export interface IOptDialogProps {

@@ -1,20 +1,10 @@
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import {Box, FormControl, IconButton, InputAdornment, Stack, TextField, Typography, useTheme} from '@mui/material';
-import {grey} from '@mui/material/colors';
-import dayjs from 'dayjs';
-import {useEffect, useState} from 'react';
+import {Box, Stack, TextField, Typography} from '@mui/material';
+import TextFieldWithCopyButton from 'src/component/shared/basic-controls/text-field/text-field-with-copy-button.tsx';
+import Message from 'src/component/shared/message/message.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
 
 const Publish = () => {
-  const {name} = useFormStore();
-  const [url, setUrl] = useState('');
-  const isDark = useTheme().palette.mode === 'dark';
-  const background = isDark ? grey[800] : grey[100];
-
-  useEffect(() => {
-    const date = dayjs();
-    setUrl(`prod.formbuilder.govt.nz/${name}${date.format('DDMMYYYY')}`);
-  }, [name]);
+  const {url} = useFormStore();
 
   return (
     <Stack gap={3}>
@@ -36,29 +26,13 @@ const Publish = () => {
         />
       </Box>
 
-      <FormControl>
-        <TextField
-          value={url}
-          InputProps={{
-            readOnly: true,
-            endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton onClick={() => navigator.clipboard.writeText(url)}>
-                  <ContentCopyIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </FormControl>
-
-      <TextField
-        value='Your form is now live! All submission data will be sent through email.'
-        sx={{bgcolor: background}}
-        InputProps={{
-          readOnly: true,
-        }}
+      <TextFieldWithCopyButton
+        text={url}
+        label='Shareable form URL'
+        notification='Shareable form URL copied to clipboard'
       />
+
+      <Message message='Your form is now live! All submission data will be sent through email.' />
     </Stack>
   );
 };

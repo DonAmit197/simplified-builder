@@ -5,7 +5,7 @@ import {Box, Chip, IconButton, Stack, Typography} from '@mui/material';
 import {MaterialReactTable, MRT_ColumnDef, useMaterialReactTable} from 'material-react-table';
 import {useEffect, useMemo, useState} from 'react';
 import {Form} from 'src/__generated__/graphql.ts';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {FormService} from 'src/services/form.service.ts';
 import {formatDate} from 'src/services/format.service.ts';
 

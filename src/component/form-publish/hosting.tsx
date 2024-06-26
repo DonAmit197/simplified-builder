@@ -1,6 +1,6 @@
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, Typography} from '@mui/material';
 import {useState} from 'react';
-import BulletedList from 'src/component/shared/list/bulleted-list.tsx';
+import BulletedList from 'src/component/shared/basic-controls/list/bulleted-list.tsx';
 
 interface IDataType {
   name: string;

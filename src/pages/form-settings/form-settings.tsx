@@ -3,7 +3,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import Box from '@mui/material/Box';
 import {useEffect, useState} from 'react';
 import {Outlet, useLocation} from 'react-router-dom';
-import Sidebar, {INavigationItem} from 'src/component/shared/sidebar/sidebar.tsx';
+import Sidebar, {INavigationItem} from 'src/component/shared/layout/sidebar/sidebar.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
 import {useThemeStore} from 'src/store/theme-store.ts';
@@ -26,20 +26,24 @@ const FormSettingsPage = () => {
     setActiveRoute(currentRoute);
   };
 
-  if (pathname.endsWith(RoutesEnum.FormShare)) {
-    setActive(RoutesEnum.FormShare);
+  if (pathname.endsWith(RoutesEnum.FormPublish)) {
+    setActive(RoutesEnum.FormPublish);
   } else {
     setActive(RoutesEnum.FormSettings);
   }
 
   const navItems: INavigationItem[] = [
     {
-      icon: <PublishIcon />,
-      route: RoutesEnum.FormSettings,
+      icon: <ShareIcon />,
       navigateRoute: `/${RoutesEnum.FormSettings}`.replace(':id', '1'),
+      route: RoutesEnum.FormSettings,
+      label: 'Share',
+    },
+    {
+      icon: <PublishIcon />,
+      route: RoutesEnum.FormPublish,
       label: 'Publish',
     },
-    {icon: <ShareIcon />, route: RoutesEnum.FormShare, label: 'Share'},
   ];
 
   useEffect(() => {

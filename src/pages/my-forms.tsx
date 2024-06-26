@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import FormCategoryCountComponent from 'src/component/my-forms/form-category-count.tsx';
 import FormGrid from 'src/component/my-forms/form-grid.tsx';
-import StyledButton from 'src/component/shared/button/styled-button.tsx';
+import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useThemeStore} from 'src/store/theme-store.ts';
 import {useDebounce} from 'use-debounce';
