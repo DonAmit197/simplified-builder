@@ -1,7 +1,13 @@
+import Webform from 'bcformiojs/Webform';
+import Components from 'bcformiojs/components/Components';
+import { fastCloneDeep } from 'bcformiojs/utils/utils';
+import BuilderUtils from 'bcformiojs/utils/builder';
+import _ from 'lodash';
+
 function formioWebFormBuilder() {
   import('bcformiojs/WebformBuilder').then((module) => {
     const WebformBuilder = module;
-
+    console.log(WebformBuilder)
     WebformBuilder.default.prototype.attachComponent = function (
       element,
       component
@@ -302,6 +308,257 @@ function formioWebFormBuilder() {
 
       return element;
     };
+
+    WebformBuilder.default.prototype.editComponent = function (component, parent, isNew, isJsonEdit, original, flags = {}) {
+      console.log([component], [parent], original, flags);
+      if (!component.key) {
+        return;
+      }
+      console.log(this)
+      this.saved = false;
+      const componentCopy = fastCloneDeep(component);
+      let ComponentClass = Components.components[componentCopy.type];
+      const isCustom = ComponentClass === undefined;
+      isJsonEdit = isJsonEdit || isCustom;
+      ComponentClass = isCustom ? Components.components.unknown : ComponentClass;
+      // Make sure we only have one dialog open at a time.
+      if (this.dialog) {
+        this.dialog.close();
+        this.highlightInvalidComponents();
+      }
+
+      // This is the render step.
+      const editFormOptions = _.clone(_.get(this, 'options.editForm', {}));
+      if (this.editForm) {
+        this.editForm.destroy();
+      }
+
+      // Allow editForm overrides per component.
+      const overrides = _.get(this.options, `editForm.${componentCopy.type}`, {});
+
+      // Pass along the form being edited.
+      editFormOptions.editForm = this.form;
+      editFormOptions.editComponent = component;
+      editFormOptions.flags = flags;
+
+      this.hook('editComponentParentInstance', editFormOptions, parent);
+
+      this.editForm = new Webform({
+        ..._.omit(this.options, [
+          'hooks',
+          'builder',
+          'events',
+          'attachMode',
+          'skipInit',
+        ]),
+        language: this.options.language,
+        ...editFormOptions,
+      });
+
+      this.hook('editFormProperties', parent);
+
+      this.editForm.form =
+        isJsonEdit && !isCustom
+          ? {
+            components: [
+              {
+                type: 'textarea',
+                as: 'json',
+                editor: 'ace',
+                weight: 10,
+                input: true,
+                key: 'componentJson',
+                label: 'Component JSON',
+                tooltip: 'Edit the JSON for this component.',
+              },
+              {
+                type: 'checkbox',
+                key: 'showFullSchema',
+                label: 'Full Schema',
+              },
+            ],
+          }
+          : ComponentClass.editForm(_.cloneDeep(overrides));
+      const instanceOptions = {
+        inFormBuilder: true,
+      };
+
+      this.hook('instanceOptionsPreview', instanceOptions);
+
+      const instance = new ComponentClass(componentCopy, instanceOptions);
+      const schema = this.hook('builderComponentSchema', component, instance);
+
+      this.editForm.submission = isJsonEdit
+        ? {
+          data: {
+            componentJson: schema,
+            showFullSchema: this.options.showFullJsonSchema,
+          },
+        }
+        : {
+          data: instance.component,
+        };
+
+      if (this.preview) {
+        this.preview.destroy();
+      }
+      if (
+        // eslint-disable-next-line no-prototype-builtins
+        !ComponentClass.builderInfo.hasOwnProperty('preview') ||
+        ComponentClass.builderInfo.preview
+      ) {
+        this.preview = new Webform(
+          _.omit({ ...this.options, preview: true }, [
+            'hooks',
+            'builder',
+            'events',
+            'attachMode',
+            'calculateValue',
+          ])
+        );
+
+        this.hook('previewFormSettitngs', schema, isJsonEdit);
+      }
+
+      this.showPreview = ComponentClass.builderInfo.showPreview ?? true;
+
+      this.componentEdit = this.ce('div', { class: 'component-edit-container' });
+      this.setContent(
+        this.componentEdit,
+        this.renderTemplate('builderEditForm', {
+          componentInfo: ComponentClass.builderInfo,
+          editForm: this.editForm.render(),
+          preview: this.preview ? this.preview.render() : false,
+          showPreview: this.showPreview,
+          helplinks: this.helplinks,
+        })
+      );
+      console.log(this.componentEdit);
+      if (parent.formioComponent) {
+
+        const formioComponentOfParent = parent.formioComponent;
+        console.log('original', original)
+        if (formioComponentOfParent.element.classList.contains('essential-item') || original?.showSidebar == false) {
+          console.log(parent.formioComponent);
+
+          console.log(this.componentEdit);
+          const dialogEdit = this.componentEdit;
+          const removeBtn = dialogEdit.querySelector('[ref="removeButton"]');
+          removeBtn.style.display = 'none';
+        }
+      }
+
+      this.dialog = this.createModal(
+        this.componentEdit,
+        _.get(this.options, 'dialogAttr', {})
+      );
+
+      // This is the attach step.
+      this.editForm.attach(this.componentEdit.querySelector('[ref="editForm"]'));
+
+      this.hook('editFormWrapper');
+
+      this.updateComponent(componentCopy);
+
+      this.editForm.on('change', (event) => {
+        if (event.changed) {
+          if (
+            event.changed.component &&
+            event.changed.component.key === 'showFullSchema'
+          ) {
+            const { value } = event.changed;
+            this.editForm.submission = {
+              data: {
+                componentJson: value ? instance.component : component,
+                showFullSchema: value,
+              },
+            };
+            return;
+          }
+          // See if this is a manually modified key. Treat custom component keys as manually modified
+          if (
+            (event.changed.component && event.changed.component.key === 'key') ||
+            isJsonEdit
+          ) {
+            componentCopy.keyModified = true;
+          }
+
+          let isComponentLabelChanged = false;
+          if (event.changed.instance) {
+            isComponentLabelChanged = ['label', 'title'].includes(
+              event.changed.instance.path
+            );
+          } else if (event.changed.component) {
+            isComponentLabelChanged = ['label', 'title'].includes(
+              event.changed.component.key
+            );
+          }
+
+          if (isComponentLabelChanged) {
+            // Ensure this component has a key.
+            if (isNew) {
+              if (!event.data.keyModified) {
+                this.editForm.everyComponent((component) => {
+                  if (
+                    component.key === 'key' &&
+                    component.parent.component.key === 'tabs'
+                  ) {
+                    component.setValue(this.updateComponentKey(event.data));
+                    return false;
+                  }
+                });
+              }
+
+              if (this.form) {
+                let formComponents = this.findNamespaceRoot(
+                  parent.formioComponent
+                );
+                // excluding component which key uniqueness is to be checked to prevent the comparing of the same keys
+                formComponents = formComponents.filter(
+                  (comp) => editFormOptions.editComponent.id !== comp.id
+                );
+
+                // Set a unique key for this component.
+                BuilderUtils.uniquify(formComponents, event.data);
+              }
+            }
+          }
+
+          // Update the component.
+          this.updateComponent(
+            event.data.componentJson || event.data,
+            event.changed
+          );
+        }
+      });
+
+      this.attachEditComponentControls(
+        component,
+        parent,
+        isNew,
+        original,
+        ComponentClass
+      );
+
+      const dialogClose = () => {
+        this.editForm.destroy(true);
+        if (this.preview) {
+          this.preview.destroy(true);
+          this.preview = null;
+        }
+        if (isNew && !this.saved) {
+          this.removeComponent(component, parent, original);
+          this.highlightInvalidComponents();
+        }
+        // Clean up.
+        this.removeEventListener(this.dialog, 'close', dialogClose);
+        this.dialog = null;
+      };
+      this.addEventListener(this.dialog, 'close', dialogClose);
+
+      // Called when we edit a component.
+      this.emit('editComponent', component);
+    }
   });
 }
 
