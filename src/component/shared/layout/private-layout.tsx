@@ -16,7 +16,7 @@ import {useThemeStore} from 'src/store/theme-store.ts';
 const PrivateLayout = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const {setBackUrl, setHasSubMenu, useDarkMode, title} = useThemeStore();
+  const {useDarkMode, title} = useThemeStore();
   const location = useLocation();
   const {pathname} = location;
 
@@ -59,11 +59,6 @@ const PrivateLayout = () => {
   } else {
     setActive(RoutesEnum.Home);
   }
-
-  useEffect(() => {
-    setBackUrl('');
-    setHasSubMenu(false);
-  }, []);
 
   useEffect(() => {
     if (!isAuthenticated) {

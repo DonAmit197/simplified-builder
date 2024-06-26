@@ -17,11 +17,12 @@ const UserPage = () => {
   const {userName, email, isOnTrial, login} = useAuthStore();
   const [showNotification, setShowNotification] = useState(false);
 
-  const {setTitle, setHasSubMenu} = useThemeStore();
+  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
 
   useEffect(() => {
     setTitle('User Settings');
     setHasSubMenu(false);
+    setBackUrl('');
   }, []);
 
   const {
@@ -44,13 +45,19 @@ const UserPage = () => {
   };
 
   return (
-    <Box className='mainHeader'>
+    <Box
+      className='mainHeader'
+      sx={{
+        width: '30%',
+        minWidth: '200px',
+      }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           gap={3}
           sx={{
-            marginTop: '30px',
-            alignItems: 'start',
+            mt: 3,
+            alignItems: 'stretch',
+            width: '100%',
           }}>
           <Controller
             disabled={isOnTrial}
@@ -63,7 +70,6 @@ const UserPage = () => {
                 label={errors.userName ? 'User name required' : 'User name'}
                 error={errors.userName !== undefined}
                 {...field}
-                sx={{width: '400px'}}
               />
             )}
           />
@@ -78,7 +84,6 @@ const UserPage = () => {
                 label={errors.emailAddress ? 'Email address required' : 'Email address'}
                 error={errors.emailAddress !== undefined}
                 {...field}
-                sx={{width: '400px'}}
               />
             )}
           />
@@ -94,11 +99,10 @@ const UserPage = () => {
                 label={errors.password ? 'Password required' : 'Password'}
                 error={errors.password !== undefined}
                 {...field}
-                sx={{width: '400px'}}
               />
             )}
           />
-          <StyledButton type='submit' variant='contained' disabled={isOnTrial}>
+          <StyledButton type='submit' variant='contained' disabled={isOnTrial} sx={{alignSelf: 'start'}}>
             Save changes
           </StyledButton>
         </Stack>

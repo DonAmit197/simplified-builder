@@ -70,11 +70,12 @@ const FormSetupPage = () => {
 
   const navigate = useNavigate();
   const formService = new FormService();
-  const {setTitle, setHasSubMenu} = useThemeStore();
+  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
 
   useEffect(() => {
     setTitle('Set Up Your Form');
     setHasSubMenu(false);
+    setBackUrl('');
   }, []);
 
   const {
@@ -100,7 +101,8 @@ const FormSetupPage = () => {
     forceReload(RoutesEnum.Builder);
 
     setName(data.formName);
-    setUrl(`prod.formbuilder.govt.nz/${data.formName}${date.format('DDMMYYYY')}`);
+    const strippedName = data.formName.replace(/[^a-zA-Z0-9]/g, '');
+    setUrl(`prod.formbuilder.govt.nz/${strippedName}${date.format('DDMMYYYY')}`);
 
     navigate(`/${RoutesEnum.Builder}`.replace(':id', '1'));
   };
