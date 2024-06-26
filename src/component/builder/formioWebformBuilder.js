@@ -7,7 +7,7 @@ import _ from 'lodash';
 function formioWebFormBuilder() {
   import('bcformiojs/WebformBuilder').then((module) => {
     const WebformBuilder = module;
-    console.log(WebformBuilder)
+    //console.log(WebformBuilder)
     WebformBuilder.default.prototype.attachComponent = function (
       element,
       component
@@ -310,11 +310,11 @@ function formioWebFormBuilder() {
     };
 
     WebformBuilder.default.prototype.editComponent = function (component, parent, isNew, isJsonEdit, original, flags = {}) {
-      console.log([component], [parent], original, flags);
+      //console.log([component], [parent], original, flags);
       if (!component.key) {
         return;
       }
-      console.log(this)
+      //console.log(this)
       this.saved = false;
       const componentCopy = fastCloneDeep(component);
       let ComponentClass = Components.components[componentCopy.type];
@@ -433,15 +433,15 @@ function formioWebFormBuilder() {
           helplinks: this.helplinks,
         })
       );
-      console.log(this.componentEdit);
+      //console.log(this.componentEdit);
       if (parent.formioComponent) {
 
         const formioComponentOfParent = parent.formioComponent;
-        console.log('original', original)
+        //console.log('original', original)
         if (formioComponentOfParent.element.classList.contains('essential-item') || original?.showSidebar == false) {
-          console.log(parent.formioComponent);
+          //console.log(parent.formioComponent);
 
-          console.log(this.componentEdit);
+          //console.log(this.componentEdit);
           const dialogEdit = this.componentEdit;
           const removeBtn = dialogEdit.querySelector('[ref="removeButton"]');
           removeBtn.style.display = 'none';
