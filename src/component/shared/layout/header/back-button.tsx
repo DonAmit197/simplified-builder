@@ -12,7 +12,7 @@ export const BackButton = () => {
   }
 
   return (
-    <IconButton onClick={() => navigate(backUrl)} sx={{alignSelf: 'center'}}>
+    <IconButton onClick={() => navigate(backUrl)} sx={{alignSelf: 'center', mr: 1}}>
       <ArrowBackIcon />
     </IconButton>
   );

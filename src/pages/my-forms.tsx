@@ -18,11 +18,12 @@ const MyFormsPage = () => {
   const [searchText, setSearchText] = useState('');
   const [debouncedSearchText] = useDebounce(searchText, 500);
 
-  const {setTitle, setHasSubMenu} = useThemeStore();
+  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
 
   useEffect(() => {
     setTitle('My Forms');
     setHasSubMenu(true);
+    setBackUrl('');
   }, []);
 
   return (

@@ -8,10 +8,11 @@ import UserCountGraph from 'src/component/analytics/user-count-graph.tsx';
 import {useThemeStore} from 'src/store/theme-store.ts';
 
 const AnalyticsPage = () => {
-  const {setTitle} = useThemeStore();
+  const {setTitle, setBackUrl} = useThemeStore();
 
   useEffect(() => {
     setTitle('Analytics');
+    setBackUrl('');
   }, []);
 
   return (
