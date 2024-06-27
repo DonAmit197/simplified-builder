@@ -10,7 +10,7 @@ import Logo from 'src/assets/logo.svg?react';
 import NavbarLink from 'src/component/shared/layout/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {getBackgroundColor} from 'src/services/color.service.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 export interface INavigationItem {
   icon: ReactNode;
@@ -29,7 +29,7 @@ const Sidebar = ({
   activeRoute: RoutesEnum;
 }) => {
   const navigate = useNavigate();
-  const {hasSubMenu, collapsedMenu, setCollapsedMenu} = useThemeStore();
+  const {hasSubMenu, collapsedMenu, setCollapsedMenu} = useLayoutStore();
   const isDark = useTheme().palette.mode === 'dark';
   const background = getBackgroundColor(isDark);
 

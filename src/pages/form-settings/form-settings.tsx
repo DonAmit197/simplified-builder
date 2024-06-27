@@ -6,10 +6,10 @@ import {Outlet, useLocation} from 'react-router-dom';
 import Sidebar, {INavigationItem} from 'src/component/shared/layout/sidebar/sidebar.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const FormSettingsPage = () => {
-  const {setInitialState} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   const {name} = useFormStore();
 

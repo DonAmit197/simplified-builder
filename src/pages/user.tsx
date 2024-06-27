@@ -5,7 +5,7 @@ import {Controller, useForm} from 'react-hook-form';
 import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import Notification from 'src/component/shared/message/notification.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 interface IUserSettings {
   userName: string;
@@ -17,7 +17,7 @@ const UserPage = () => {
   const {userName, email, isOnTrial, login} = useAuthStore();
   const [showNotification, setShowNotification] = useState(false);
 
-  const {setInitialState} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   useEffect(() => {
     setInitialState('User settings');

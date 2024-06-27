@@ -8,7 +8,7 @@ import FormCategoryCountComponent from 'src/component/my-forms/form-category-cou
 import FormGrid from 'src/component/my-forms/form-grid.tsx';
 import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 import {useDebounce} from 'use-debounce';
 
 const MyFormsPage = () => {
@@ -18,7 +18,7 @@ const MyFormsPage = () => {
   const [searchText, setSearchText] = useState('');
   const [debouncedSearchText] = useDebounce(searchText, 500);
 
-  const {setInitialState, setCollapsedMenu} = useThemeStore();
+  const {setInitialState, setCollapsedMenu} = useLayoutStore();
 
   useEffect(() => {
     setInitialState('My forms', true);

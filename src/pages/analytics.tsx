@@ -7,10 +7,10 @@ import FormCompletionTimeGraph from 'src/component/analytics/form-completion-tim
 import FormCountGraph from 'src/component/analytics/form-count-graph.tsx';
 import UserCountGraph from 'src/component/analytics/user-count-graph.tsx';
 import {FormService} from 'src/services/form.service.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const AnalyticsPage = () => {
-  const {setInitialState} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
   const [forms, setForms] = useState<Form[]>([]);
   const [formTypes, setFormTypes] = useState<string[]>([]);
   const [selectedType, setSelectedType] = useState('All Forms');

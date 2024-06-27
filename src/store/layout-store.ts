@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {devtools, persist} from 'zustand/middleware';
 
-type ThemeState = {
+type LayoutState = {
   useDarkMode: boolean;
   hasSubMenu: boolean;
   collapsedMenu: boolean;
@@ -12,7 +12,7 @@ type ThemeState = {
   setInitialState: (title: string, hasSubMenu?: boolean, backUrl?: string) => void;
 };
 
-export const useThemeStore = create<ThemeState>()(
+export const useLayoutStore = create<LayoutState>()(
   devtools(
     persist(
       (set) => ({
@@ -31,7 +31,7 @@ export const useThemeStore = create<ThemeState>()(
           }),
       }),
       {
-        name: 'builder-theme-storage',
+        name: 'builder-layout-storage',
       }
     )
   )

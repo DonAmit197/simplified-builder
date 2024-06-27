@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const SettingsPage = () => {
-  const {setInitialState} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   useEffect(() => {
     setInitialState('Settings');

@@ -7,11 +7,11 @@ import StyledButton from 'src/component/shared/basic-controls/button/styled-butt
 import {RoutesEnum} from 'src/routes.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
 import {useReloadStore} from 'src/store/reload-store';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const BuilderPage = () => {
   const {reloadPage, stopReload} = useReloadStore();
-  const {setInitialState} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
   const {name} = useFormStore();
 
   const navigate = useNavigate();
