@@ -37,6 +37,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
   const onSchemaChange = () => {
     setSchema(defaultComponents.components);
   };
+
   useEffect(() => {
     const handleLoad = () => {
       import('bcformiojs').then((module) => {
