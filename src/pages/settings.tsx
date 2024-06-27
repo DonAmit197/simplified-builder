@@ -1,13 +1,11 @@
 import {useEffect} from 'react';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const SettingsPage = () => {
-  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   useEffect(() => {
-    setTitle('Settings');
-    setHasSubMenu(false);
-    setBackUrl('');
+    setInitialState('Settings');
   }, []);
 
   return <div></div>;

@@ -11,12 +11,12 @@ import Sidebar from 'src/component/shared/layout/sidebar/sidebar.tsx';
 import UserProfile from 'src/component/shared/user-profile/user-profile.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const PrivateLayout = () => {
   const navigate = useNavigate();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const {useDarkMode, title} = useThemeStore();
+  const {useDarkMode, title} = useLayoutStore();
   const location = useLocation();
   const {pathname} = location;
 

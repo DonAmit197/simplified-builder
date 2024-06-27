@@ -8,11 +8,11 @@ import {SetStateAction, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useAuthStore} from 'src/store/auth-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const UserProfile = () => {
   const {userName, email, isOnTrial, logout} = useAuthStore();
-  const {useDarkMode, setDarkMode, setLightMode} = useThemeStore();
+  const {useDarkMode, setMode} = useLayoutStore();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -59,7 +59,7 @@ const UserProfile = () => {
           <ListItemIcon>{<LogoutIcon />}</ListItemIcon>
           <ListItemText>Logout</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => (useDarkMode ? setLightMode() : setDarkMode())}>
+        <MenuItem onClick={() => setMode(!useDarkMode)}>
           <ListItemIcon>{useDarkMode ? <LightModeIcon /> : <DarkModeIcon />}</ListItemIcon>
           <ListItemText>{`Switch to ${useDarkMode ? 'light' : 'dark'} mode`}</ListItemText>
         </MenuItem>

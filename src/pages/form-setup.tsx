@@ -21,7 +21,7 @@ import {RoutesEnum} from 'src/routes.tsx';
 import {FormService} from 'src/services/form.service.ts';
 import {useFormStore} from 'src/store/form-store.ts';
 import {useReloadStore} from 'src/store/reload-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 interface ISetupFormInput {
   formName: string;
@@ -70,12 +70,10 @@ const FormSetupPage = () => {
 
   const navigate = useNavigate();
   const formService = new FormService();
-  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   useEffect(() => {
-    setTitle('Set Up Your Form');
-    setHasSubMenu(false);
-    setBackUrl('');
+    setInitialState('Set up your form');
   }, []);
 
   const {

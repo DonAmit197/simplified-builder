@@ -6,10 +6,10 @@ import {Outlet, useLocation} from 'react-router-dom';
 import Sidebar, {INavigationItem} from 'src/component/shared/layout/sidebar/sidebar.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {useFormStore} from 'src/store/form-store.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 const FormSettingsPage = () => {
-  const {setBackUrl, setTitle, setHasSubMenu} = useThemeStore();
+  const {setInitialState} = useLayoutStore();
 
   const {name} = useFormStore();
 
@@ -47,9 +47,7 @@ const FormSettingsPage = () => {
   ];
 
   useEffect(() => {
-    setTitle(`${name}: Settings`);
-    setHasSubMenu(true);
-    setBackUrl(`/${RoutesEnum.Builder}`.replace(':id', '1'));
+    setInitialState(`${name}: Settings`, true, `/${RoutesEnum.Builder}`.replace(':id', '1'));
   }, [name]);
 
   return (

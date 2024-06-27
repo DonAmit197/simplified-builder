@@ -3,14 +3,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {Divider, IconButton, SvgIcon, useTheme} from '@mui/material';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import {ReactNode, useState} from 'react';
+import {ReactNode} from 'react';
 import {useNavigate} from 'react-router-dom';
 import LogoInverse from 'src/assets/logo-inverse.svg?react';
 import Logo from 'src/assets/logo.svg?react';
 import NavbarLink from 'src/component/shared/layout/sidebar/nav-bar-link.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
 import {getBackgroundColor} from 'src/services/color.service.ts';
-import {useThemeStore} from 'src/store/theme-store.ts';
+import {useLayoutStore} from 'src/store/layout-store.ts';
 
 export interface INavigationItem {
   icon: ReactNode;
@@ -29,11 +29,11 @@ const Sidebar = ({
   activeRoute: RoutesEnum;
 }) => {
   const navigate = useNavigate();
-  const hasSubMenu = useThemeStore((state) => state.hasSubMenu);
-
-  const [collapsed, setCollapsed] = useState(false);
+  const {hasSubMenu, collapsedMenu, setCollapsedMenu} = useLayoutStore();
   const isDark = useTheme().palette.mode === 'dark';
   const background = getBackgroundColor(isDark);
+
+  const collapsed = collapsedMenu && isMainMenu;
 
   const links = navItems.map((link) => (
     <NavbarLink
@@ -91,7 +91,7 @@ const Sidebar = ({
           <IconButton
             aria-label={ariaLabel}
             sx={{marginRight: buttonMargin, alignSelf: 'center'}}
-            onClick={() => setCollapsed(!collapsed)}>
+            onClick={() => setCollapsedMenu(!collapsed)}>
             {icon}
           </IconButton>
         </Box>
