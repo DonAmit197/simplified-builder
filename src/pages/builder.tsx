@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Builder from 'src/component/builder/Builder.tsx';
-import {demoJson} from 'src/component/builder/demo-json.ts';
 import staticComponents from 'src/component/builder/staticComponents';
 import StyledButton from 'src/component/shared/basic-controls/button/styled-button.tsx';
 import {RoutesEnum} from 'src/routes.tsx';
@@ -14,8 +13,6 @@ const BuilderPage = () => {
   const {reloadPage, stopReload} = useReloadStore();
   const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
   const {name} = useFormStore();
-
-  const [forceDemo, setForceDemo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,10 +31,6 @@ const BuilderPage = () => {
     setTitle(name ?? 'Unnamed form');
     setHasSubMenu(false);
     setBackUrl('');
-
-    if (name === 'Prototype demo form') {
-      setForceDemo(true);
-    }
   }, [name]);
 
   useEffect(() => {
@@ -46,13 +39,6 @@ const BuilderPage = () => {
       navigate(0);
     }
   }, [reloadPage]);
-
-  useEffect(() => {
-    if (forceDemo) {
-      handleCopy(demoJson);
-      setForceDemo(false);
-    }
-  }, [forceDemo]);
 
   return (
     <Box sx={{width: '100%'}}>
