@@ -18,12 +18,11 @@ const MyFormsPage = () => {
   const [searchText, setSearchText] = useState('');
   const [debouncedSearchText] = useDebounce(searchText, 500);
 
-  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
+  const {setInitialState, setCollapsedMenu} = useThemeStore();
 
   useEffect(() => {
-    setTitle('My Forms');
-    setHasSubMenu(true);
-    setBackUrl('');
+    setInitialState('My forms', true);
+    setCollapsedMenu(true);
   }, []);
 
   return (

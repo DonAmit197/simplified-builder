@@ -9,7 +9,7 @@ import {useFormStore} from 'src/store/form-store.ts';
 import {useThemeStore} from 'src/store/theme-store.ts';
 
 const FormSettingsPage = () => {
-  const {setBackUrl, setTitle, setHasSubMenu} = useThemeStore();
+  const {setInitialState} = useThemeStore();
 
   const {name} = useFormStore();
 
@@ -47,9 +47,7 @@ const FormSettingsPage = () => {
   ];
 
   useEffect(() => {
-    setTitle(`${name}: Settings`);
-    setHasSubMenu(true);
-    setBackUrl(`/${RoutesEnum.Builder}`.replace(':id', '1'));
+    setInitialState(`${name}: Settings`, true, `/${RoutesEnum.Builder}`.replace(':id', '1'));
   }, [name]);
 
   return (

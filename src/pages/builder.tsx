@@ -11,7 +11,7 @@ import {useThemeStore} from 'src/store/theme-store.ts';
 
 const BuilderPage = () => {
   const {reloadPage, stopReload} = useReloadStore();
-  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
+  const {setInitialState} = useThemeStore();
   const {name} = useFormStore();
 
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ const BuilderPage = () => {
   };
 
   useEffect(() => {
-    setTitle(name ?? 'Unnamed form');
-    setHasSubMenu(false);
-    setBackUrl('');
+    setInitialState(name ?? 'Unnamed form');
   }, [name]);
 
   useEffect(() => {

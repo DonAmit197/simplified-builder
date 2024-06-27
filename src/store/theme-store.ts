@@ -4,13 +4,12 @@ import {devtools, persist} from 'zustand/middleware';
 type ThemeState = {
   useDarkMode: boolean;
   hasSubMenu: boolean;
+  collapsedMenu: boolean;
   title: string;
-  backUrl: string;
-  setLightMode: () => void;
-  setDarkMode: () => void;
-  setHasSubMenu: (hasSubMenu: boolean) => void;
-  setTitle: (title: string) => void;
-  setBackUrl: (url: string) => void;
+  backUrl?: string;
+  setMode: (useDarkMode: boolean) => void;
+  setCollapsedMenu: (collapsedMenu: boolean) => void;
+  setInitialState: (title: string, hasSubMenu?: boolean, backUrl?: string) => void;
 };
 
 export const useThemeStore = create<ThemeState>()(
@@ -18,14 +17,18 @@ export const useThemeStore = create<ThemeState>()(
     persist(
       (set) => ({
         title: '',
-        backUrl: '',
+        backUrl: undefined,
         useDarkMode: false,
         hasSubMenu: false,
-        setDarkMode: () => set({useDarkMode: true}),
-        setLightMode: () => set({useDarkMode: false}),
-        setHasSubMenu: (hasSubMenu: boolean) => set({hasSubMenu: hasSubMenu}),
-        setTitle: (title: string) => set({title: title}),
-        setBackUrl: (backUrl: string) => set({backUrl: backUrl}),
+        collapsedMenu: false,
+        setMode: (useDarkMode: boolean) => set({useDarkMode: useDarkMode}),
+        setCollapsedMenu: (collapsedMenu: boolean) => set({collapsedMenu: collapsedMenu}),
+        setInitialState: (title: string, hasSubMenu?: boolean, backUrl?: string) =>
+          set({
+            title: title,
+            hasSubMenu: hasSubMenu ?? false,
+            backUrl: backUrl,
+          }),
       }),
       {
         name: 'builder-theme-storage',

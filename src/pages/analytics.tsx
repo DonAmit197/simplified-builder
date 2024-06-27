@@ -10,7 +10,7 @@ import {FormService} from 'src/services/form.service.ts';
 import {useThemeStore} from 'src/store/theme-store.ts';
 
 const AnalyticsPage = () => {
-  const {setTitle, setBackUrl} = useThemeStore();
+  const {setInitialState} = useThemeStore();
   const [forms, setForms] = useState<Form[]>([]);
   const [formTypes, setFormTypes] = useState<string[]>([]);
   const [selectedType, setSelectedType] = useState('All Forms');
@@ -18,8 +18,7 @@ const AnalyticsPage = () => {
   const formService = new FormService();
 
   useEffect(() => {
-    setTitle('Analytics');
-    setBackUrl('');
+    setInitialState('Analytics');
 
     formService.getForms(-1, '').then((result) => setForms(result));
   }, []);

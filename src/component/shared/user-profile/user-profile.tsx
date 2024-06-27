@@ -12,7 +12,7 @@ import {useThemeStore} from 'src/store/theme-store.ts';
 
 const UserProfile = () => {
   const {userName, email, isOnTrial, logout} = useAuthStore();
-  const {useDarkMode, setDarkMode, setLightMode} = useThemeStore();
+  const {useDarkMode, setMode} = useThemeStore();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -59,7 +59,7 @@ const UserProfile = () => {
           <ListItemIcon>{<LogoutIcon />}</ListItemIcon>
           <ListItemText>Logout</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => (useDarkMode ? setLightMode() : setDarkMode())}>
+        <MenuItem onClick={() => setMode(!useDarkMode)}>
           <ListItemIcon>{useDarkMode ? <LightModeIcon /> : <DarkModeIcon />}</ListItemIcon>
           <ListItemText>{`Switch to ${useDarkMode ? 'light' : 'dark'} mode`}</ListItemText>
         </MenuItem>

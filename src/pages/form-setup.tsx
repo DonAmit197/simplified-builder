@@ -70,12 +70,10 @@ const FormSetupPage = () => {
 
   const navigate = useNavigate();
   const formService = new FormService();
-  const {setTitle, setHasSubMenu, setBackUrl} = useThemeStore();
+  const {setInitialState} = useThemeStore();
 
   useEffect(() => {
-    setTitle('Set Up Your Form');
-    setHasSubMenu(false);
-    setBackUrl('');
+    setInitialState('Set up your form');
   }, []);
 
   const {

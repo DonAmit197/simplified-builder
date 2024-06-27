@@ -7,7 +7,7 @@ export const BackButton = () => {
   const navigate = useNavigate();
   const {backUrl} = useThemeStore();
 
-  if (backUrl === '') {
+  if (!backUrl) {
     return <></>;
   }
 
