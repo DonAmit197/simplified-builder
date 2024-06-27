@@ -57,13 +57,13 @@ const AnalyticsPage = () => {
       </FormControl>
 
       <Stack gap={3} direction='row'>
-        <Box sx={{minWidth: '300px', minHeight: '250px', width: '35vw', height: '40vh'}}>
+        <Box sx={{minWidth: '300px', minHeight: '250px', width: '35vw', height: '35vh'}}>
           <ChartWrapper title='Form count over the past 12 months'>
             <FormCountGraph />
           </ChartWrapper>
         </Box>
 
-        <Box sx={{minWidth: '300px', minHeight: '250px', width: '35vw', height: '40vh'}}>
+        <Box sx={{minWidth: '300px', minHeight: '250px', width: '35vw', height: '35vh'}}>
           <ChartWrapper title='User count over the past 12 hours'>
             <UserCountGraph />
           </ChartWrapper>
