@@ -18,7 +18,7 @@ public class FormCategoryCountsQueryHandler(BuilderDataService dataService) : IF
         var counts = categories.Select(c => new FormCategoryCount
         {
             FormCategory = c,
-            FormCount = c.Id == -1 ? 5 : c.Id == 2 ? 2 : 3
+            FormCount = c.Id == -1 ? 6 : c.Id == 1 ? 3 : c.Id == 2 ? 2 : 1
         }).ToList();
 
         return counts.AsQueryable();

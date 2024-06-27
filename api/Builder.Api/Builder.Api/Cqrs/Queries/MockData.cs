@@ -22,6 +22,11 @@ public static class MockData
             {
                 Id = 2,
                 Name = "NZTE"
+            },
+            new FormCategory
+            {
+                Id = 3,
+                Name = "Business Connect"
             }
         ];
     }
@@ -68,7 +73,7 @@ public static class MockData
             new()
             {
                 Id = 4,
-                IsActive = true,
+                IsActive = false,
                 UpdatedAt = now.AddDays(-12),
                 FormSettings = new FormSettings
                 {
@@ -85,6 +90,17 @@ public static class MockData
                 {
                     Title = "Transport operators",
                     FormCategory = categories[2]
+                }
+            },
+            new()
+            {
+                Id = 6,
+                IsActive = true,
+                UpdatedAt = now.AddDays(-1),
+                FormSettings = new FormSettings
+                {
+                    Title = "Prototype demo form",
+                    FormCategory = categories[3]
                 }
             }
         };
