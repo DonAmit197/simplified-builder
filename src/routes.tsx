@@ -28,6 +28,7 @@ export enum RoutesEnum {
   FormRenderer = 'form-renderer',
   FormSettings = 'form-builder/:id/form-settings',
   FormPublish = 'publish',
+  Standalone = 'standalone',
 }
 
 export const router = createBrowserRouter([
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
             index: true,
             path: RoutesEnum.Login,
             element: <LoginPage />,
+          },
+          {
+            path: RoutesEnum.Standalone,
+            element: <BuilderPage />,
           },
           {
             path: RoutesEnum.FormRenderer,

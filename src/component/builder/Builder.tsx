@@ -118,7 +118,6 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
         reject(error);
       }
     }).then(() => {
-      console.log('resolved');
       setShowRefresh(true);
     });
   };

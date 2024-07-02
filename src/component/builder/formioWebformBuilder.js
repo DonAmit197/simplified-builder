@@ -1,6 +1,6 @@
 import Webform from 'bcformiojs/Webform';
 import Components from 'bcformiojs/components/Components';
-import { fastCloneDeep } from 'bcformiojs/utils/utils';
+import {fastCloneDeep} from 'bcformiojs/utils/utils';
 import BuilderUtils from 'bcformiojs/utils/builder';
 import _ from 'lodash';
 
@@ -8,10 +8,7 @@ function formioWebFormBuilder() {
   import('bcformiojs/WebformBuilder').then((module) => {
     const WebformBuilder = module;
     //console.log(WebformBuilder)
-    WebformBuilder.default.prototype.attachComponent = function (
-      element,
-      component
-    ) {
+    WebformBuilder.default.prototype.attachComponent = function (element, component) {
       /**
        * Set tabIndex to the element to add keyboard event Tab
        */
@@ -27,21 +24,14 @@ function formioWebFormBuilder() {
       //console.log([element])
       //element.focus();
       element.addEventListener('keydown', (e) => {
-
-
         // When the Key = CRTL key
         if (e.keyCode === 17) {
-
           const keyBoardWidget = element.querySelector('.widget-action-btn');
           if (keyBoardWidget) {
             keyBoardWidget.style.display = 'block';
-            var moveDwnBtnElem = keyBoardWidget.querySelector(
-              '.btn-move:first-child'
-            );
+            var moveDwnBtnElem = keyBoardWidget.querySelector('.btn-move:first-child');
             moveDwnBtnElem.focus();
-
           }
-
         }
       });
 
@@ -119,8 +109,6 @@ function formioWebFormBuilder() {
           //console.log('Grand Parent', [grandParent]);
           this.updateComponentPlacement(false);
           this.emit('change', this.form);
-
-
         }
       });
       /**
@@ -147,15 +135,9 @@ function formioWebFormBuilder() {
             event.stopPropagation();
             event.preventDefault();
             this.selectedComponent = component;
-            console.log('Edit Component', this.editComponent);
-            this.editComponent(
-              component.schema,
-              parent,
-              false,
-              false,
-              component.component,
-              { inDataGrid: component.isInDataGrid }
-            );
+            this.editComponent(component.schema, parent, false, false, component.component, {
+              inDataGrid: component.isInDataGrid,
+            });
           }
         });
       }
@@ -193,33 +175,23 @@ function formioWebFormBuilder() {
         // of essential-items
         const allChildNodes = element.querySelectorAll('*');
         //console.log([...allChildNodes])
-        allChildNodes.forEach(node => {
+        allChildNodes.forEach((node) => {
           if (node.classList.contains('component-settings-button-remove')) {
-            node.style.display = 'none'
+            node.style.display = 'none';
           }
-        })
+        });
 
-
-        const componentHoverElem = element.querySelector(
-          '[data-noattach="true"]'
-        );
+        const componentHoverElem = element.querySelector('[data-noattach="true"]');
         element.classList.add('no-drag');
         element.style.cursor = 'auto';
         element.classList.add('essential-item');
         element.querySelector('.widget-action-btn').remove();
         if (componentHoverElem) {
           //componentHoverElem.remove();
-          const removeComElem = componentHoverElem.querySelector(
-            '[ref="removeComponent"]'
-          );
-          const copyComponentElem = componentHoverElem.querySelector(
-            '[ref="copyComponent"]'
-          );
-          const moveComponentElem = componentHoverElem.querySelector(
-            '[ref="moveComponent"]'
-          );
-          const editComponentJSONElem =
-            componentHoverElem.querySelector('[ref="editJson"]');
+          const removeComElem = componentHoverElem.querySelector('[ref="removeComponent"]');
+          const copyComponentElem = componentHoverElem.querySelector('[ref="copyComponent"]');
+          const moveComponentElem = componentHoverElem.querySelector('[ref="moveComponent"]');
+          const editComponentJSONElem = componentHoverElem.querySelector('[ref="editJson"]');
           removeComElem.remove();
           copyComponentElem.remove();
           editComponentJSONElem.remove();
@@ -230,37 +202,24 @@ function formioWebFormBuilder() {
       if (component.refs.copyComponent) {
         this.attachTooltip(component.refs.copyComponent, this.t('Copy'));
 
-        component.addEventListener(component.refs.copyComponent, 'click', () =>
-          this.copyComponent(component)
-        );
+        component.addEventListener(component.refs.copyComponent, 'click', () => this.copyComponent(component));
       }
 
       if (component.refs.pasteComponent) {
-        const pasteToolTip = this.attachTooltip(
-          component.refs.pasteComponent,
-          this.t('Paste below')
-        );
+        const pasteToolTip = this.attachTooltip(component.refs.pasteComponent, this.t('Paste below'));
 
-        component.addEventListener(
-          component.refs.pasteComponent,
-          'click',
-          () => {
-            pasteToolTip.hide();
-            this.pasteComponent(component);
-          }
-        );
+        component.addEventListener(component.refs.pasteComponent, 'click', () => {
+          pasteToolTip.hide();
+          this.pasteComponent(component);
+        });
       }
 
       if (component.refs.moveComponent) {
         this.attachTooltip(component.refs.moveComponent, this.t('Move'));
         if (this.keyboardActionsEnabled) {
-          component.addEventListener(
-            component.refs.moveComponent,
-            'click',
-            () => {
-              this.moveComponent(component);
-            }
-          );
+          component.addEventListener(component.refs.moveComponent, 'click', () => {
+            this.moveComponent(component);
+          });
         }
       }
 
@@ -270,14 +229,9 @@ function formioWebFormBuilder() {
         this.attachTooltip(component.refs.editComponent, this.t('Edit'));
 
         component.addEventListener(component.refs.editComponent, 'click', () =>
-          this.editComponent(
-            component.schema,
-            parent,
-            false,
-            false,
-            component.component,
-            { inDataGrid: component.isInDataGrid }
-          )
+          this.editComponent(component.schema, parent, false, false, component.component, {
+            inDataGrid: component.isInDataGrid,
+          })
         );
       }
 
@@ -285,31 +239,29 @@ function formioWebFormBuilder() {
         this.attachTooltip(component.refs.editJson, this.t('Edit JSON'));
 
         component.addEventListener(component.refs.editJson, 'click', () =>
-          this.editComponent(
-            component.schema,
-            parent,
-            false,
-            true,
-            component.component
-          )
+          this.editComponent(component.schema, parent, false, true, component.component)
         );
       }
 
       if (component.refs.removeComponent) {
         this.attachTooltip(component.refs.removeComponent, this.t('Remove'));
 
-        component.addEventListener(
-          component.refs.removeComponent,
-          'click',
-          () =>
-            this.removeComponent(component.schema, parent, component.component)
+        component.addEventListener(component.refs.removeComponent, 'click', () =>
+          this.removeComponent(component.schema, parent, component.component)
         );
       }
 
       return element;
     };
 
-    WebformBuilder.default.prototype.editComponent = function (component, parent, isNew, isJsonEdit, original, flags = {}) {
+    WebformBuilder.default.prototype.editComponent = function (
+      component,
+      parent,
+      isNew,
+      isJsonEdit,
+      original,
+      flags = {}
+    ) {
       //console.log([component], [parent], original, flags);
       if (!component.key) {
         return;
@@ -344,13 +296,7 @@ function formioWebFormBuilder() {
       this.hook('editComponentParentInstance', editFormOptions, parent);
 
       this.editForm = new Webform({
-        ..._.omit(this.options, [
-          'hooks',
-          'builder',
-          'events',
-          'attachMode',
-          'skipInit',
-        ]),
+        ..._.omit(this.options, ['hooks', 'builder', 'events', 'attachMode', 'skipInit']),
         language: this.options.language,
         ...editFormOptions,
       });
@@ -360,24 +306,24 @@ function formioWebFormBuilder() {
       this.editForm.form =
         isJsonEdit && !isCustom
           ? {
-            components: [
-              {
-                type: 'textarea',
-                as: 'json',
-                editor: 'ace',
-                weight: 10,
-                input: true,
-                key: 'componentJson',
-                label: 'Component JSON',
-                tooltip: 'Edit the JSON for this component.',
-              },
-              {
-                type: 'checkbox',
-                key: 'showFullSchema',
-                label: 'Full Schema',
-              },
-            ],
-          }
+              components: [
+                {
+                  type: 'textarea',
+                  as: 'json',
+                  editor: 'ace',
+                  weight: 10,
+                  input: true,
+                  key: 'componentJson',
+                  label: 'Component JSON',
+                  tooltip: 'Edit the JSON for this component.',
+                },
+                {
+                  type: 'checkbox',
+                  key: 'showFullSchema',
+                  label: 'Full Schema',
+                },
+              ],
+            }
           : ComponentClass.editForm(_.cloneDeep(overrides));
       const instanceOptions = {
         inFormBuilder: true,
@@ -390,14 +336,14 @@ function formioWebFormBuilder() {
 
       this.editForm.submission = isJsonEdit
         ? {
-          data: {
-            componentJson: schema,
-            showFullSchema: this.options.showFullJsonSchema,
-          },
-        }
+            data: {
+              componentJson: schema,
+              showFullSchema: this.options.showFullJsonSchema,
+            },
+          }
         : {
-          data: instance.component,
-        };
+            data: instance.component,
+          };
 
       if (this.preview) {
         this.preview.destroy();
@@ -408,13 +354,7 @@ function formioWebFormBuilder() {
         ComponentClass.builderInfo.preview
       ) {
         this.preview = new Webform(
-          _.omit({ ...this.options, preview: true }, [
-            'hooks',
-            'builder',
-            'events',
-            'attachMode',
-            'calculateValue',
-          ])
+          _.omit({...this.options, preview: true}, ['hooks', 'builder', 'events', 'attachMode', 'calculateValue'])
         );
 
         this.hook('previewFormSettitngs', schema, isJsonEdit);
@@ -422,7 +362,7 @@ function formioWebFormBuilder() {
 
       this.showPreview = ComponentClass.builderInfo.showPreview ?? true;
 
-      this.componentEdit = this.ce('div', { class: 'component-edit-container' });
+      this.componentEdit = this.ce('div', {class: 'component-edit-container'});
       this.setContent(
         this.componentEdit,
         this.renderTemplate('builderEditForm', {
@@ -435,7 +375,6 @@ function formioWebFormBuilder() {
       );
       //console.log(this.componentEdit);
       if (parent.formioComponent) {
-
         const formioComponentOfParent = parent.formioComponent;
         //console.log('original', original)
         if (formioComponentOfParent.element.classList.contains('essential-item') || original?.showSidebar == false) {
@@ -448,10 +387,7 @@ function formioWebFormBuilder() {
         }
       }
 
-      this.dialog = this.createModal(
-        this.componentEdit,
-        _.get(this.options, 'dialogAttr', {})
-      );
+      this.dialog = this.createModal(this.componentEdit, _.get(this.options, 'dialogAttr', {}));
 
       // This is the attach step.
       this.editForm.attach(this.componentEdit.querySelector('[ref="editForm"]'));
@@ -462,11 +398,8 @@ function formioWebFormBuilder() {
 
       this.editForm.on('change', (event) => {
         if (event.changed) {
-          if (
-            event.changed.component &&
-            event.changed.component.key === 'showFullSchema'
-          ) {
-            const { value } = event.changed;
+          if (event.changed.component && event.changed.component.key === 'showFullSchema') {
+            const {value} = event.changed;
             this.editForm.submission = {
               data: {
                 componentJson: value ? instance.component : component,
@@ -476,22 +409,15 @@ function formioWebFormBuilder() {
             return;
           }
           // See if this is a manually modified key. Treat custom component keys as manually modified
-          if (
-            (event.changed.component && event.changed.component.key === 'key') ||
-            isJsonEdit
-          ) {
+          if ((event.changed.component && event.changed.component.key === 'key') || isJsonEdit) {
             componentCopy.keyModified = true;
           }
 
           let isComponentLabelChanged = false;
           if (event.changed.instance) {
-            isComponentLabelChanged = ['label', 'title'].includes(
-              event.changed.instance.path
-            );
+            isComponentLabelChanged = ['label', 'title'].includes(event.changed.instance.path);
           } else if (event.changed.component) {
-            isComponentLabelChanged = ['label', 'title'].includes(
-              event.changed.component.key
-            );
+            isComponentLabelChanged = ['label', 'title'].includes(event.changed.component.key);
           }
 
           if (isComponentLabelChanged) {
@@ -499,10 +425,7 @@ function formioWebFormBuilder() {
             if (isNew) {
               if (!event.data.keyModified) {
                 this.editForm.everyComponent((component) => {
-                  if (
-                    component.key === 'key' &&
-                    component.parent.component.key === 'tabs'
-                  ) {
+                  if (component.key === 'key' && component.parent.component.key === 'tabs') {
                     component.setValue(this.updateComponentKey(event.data));
                     return false;
                   }
@@ -510,13 +433,9 @@ function formioWebFormBuilder() {
               }
 
               if (this.form) {
-                let formComponents = this.findNamespaceRoot(
-                  parent.formioComponent
-                );
+                let formComponents = this.findNamespaceRoot(parent.formioComponent);
                 // excluding component which key uniqueness is to be checked to prevent the comparing of the same keys
-                formComponents = formComponents.filter(
-                  (comp) => editFormOptions.editComponent.id !== comp.id
-                );
+                formComponents = formComponents.filter((comp) => editFormOptions.editComponent.id !== comp.id);
 
                 // Set a unique key for this component.
                 BuilderUtils.uniquify(formComponents, event.data);
@@ -525,20 +444,11 @@ function formioWebFormBuilder() {
           }
 
           // Update the component.
-          this.updateComponent(
-            event.data.componentJson || event.data,
-            event.changed
-          );
+          this.updateComponent(event.data.componentJson || event.data, event.changed);
         }
       });
 
-      this.attachEditComponentControls(
-        component,
-        parent,
-        isNew,
-        original,
-        ComponentClass
-      );
+      this.attachEditComponentControls(component, parent, isNew, original, ComponentClass);
 
       const dialogClose = () => {
         this.editForm.destroy(true);
@@ -558,7 +468,7 @@ function formioWebFormBuilder() {
 
       // Called when we edit a component.
       this.emit('editComponent', component);
-    }
+    };
   });
 }
 
