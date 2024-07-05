@@ -41,6 +41,10 @@ const builderOptions: BuilderOptions = {
   },
 };
 
+interface BuilderReload extends HTMLElement {
+  component?: any;
+  formioComponent?: any;
+}
 type BuilderSettingsFn = (
   builder: HTMLElement,
   _formiojs: any,
@@ -55,7 +59,7 @@ type BuilderSettingsFn = (
 ) => void;
 
 const builderSettings: BuilderSettingsFn = (
-  builder,
+  builder: BuilderReload,
   _formiojs,
   _components,
   display,
@@ -111,6 +115,31 @@ const builderSettings: BuilderSettingsFn = (
         };
 
         instance.ready.then(onReady);
+
+        const builderStorage = window.localStorage.getItem('builder-state');
+
+        if (builderStorage === 'on-builder') {
+          // eslint-disable-next-line no-inner-declarations
+          async function removePreLoader() {
+            const preLoaderDiv = document.getElementById('preloaderDiv');
+
+            if (preLoaderDiv) {
+              preLoaderDiv.style.display = 'none';
+            }
+          }
+
+          console.log('Builder', [builder]);
+
+          if (builder.component) {
+            builder.component.redraw().then(() => {
+              removePreLoader();
+            });
+          } else {
+            builder.formioComponent.redraw().then(() => {
+              removePreLoader();
+            });
+          }
+        }
       });
   };
 
