@@ -16,7 +16,7 @@ import BasicModal from './_components/BasicModal';
 import CopyJSONButton from './_components/CopyJSONButton';
 import builderSettings from './builderSettings';
 import formioWebFormBuilder from './formioWebformBuilder';
-
+import Preloader from './Preloader';
 interface BuilderProps {
   defaultComponents: any;
   onCopy: (data: string) => void;
@@ -31,8 +31,10 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
   const [showCopied, setShowCopied] = useState(false);
   const [showPasted, setShowPasted] = useState(false);
   const [showRefresh, setShowRefresh] = useState(false);
+  const [builderState, setBuilderState] = useState('zero');
 
   const [copiedJSON, setCopiedJSON] = useState<string>('');
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSchemaChange = () => {
     setSchema(defaultComponents.components);
@@ -68,7 +70,6 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       window.addEventListener('load', handleLoad);
     }
 
-    // Cleanup the event listener when the component unmounts
     return () => window.removeEventListener('load', handleLoad);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultComp, defaultComponents]);
@@ -100,6 +101,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
 
   const navigateToFormRenderer = (e: any) => {
     secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
+
     if (typeof window !== 'undefined') {
       window.open(`/${RoutesEnum.FormRenderer}`, '_blank');
     }
@@ -138,10 +140,18 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
     };
   }, []);
 
+  useEffect(() => {
+    if (builderState === 'zero') {
+      setBuilderState('on-builder');
+      window.localStorage.setItem('builder-state', 'on-builder');
+    }
+  }, [builderState]);
+
   return (
     <>
+      {builderState === 'on-builder' && <Preloader />}
       <div style={{marginBottom: '16px'}}>
-        <Button variant='contained' onClick={navigateToFormRenderer}>
+        <Button variant='contained' data-ref={'_blank'} onClick={navigateToFormRenderer}>
           Preview
         </Button>
         <Button variant='contained' style={{display: 'none'}} onClick={updateSchemaForFormRenderer}>
