@@ -39,7 +39,7 @@ const BuilderPage = () => {
       stopReload();
       navigate(0);
     }
-  }, [reloadPage]);
+  }, [reloadPage, stopReload, navigate]);
 
   return (
     <Box sx={{width: '100%', padding: standalone ? '30px' : '0'}}>

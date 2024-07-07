@@ -19,6 +19,7 @@
     "@mui/x-charts": "^7.7.1",
     "@mui/x-date-pickers": "^7.7.1",
     "@types/lodash": "^4.17.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "@ukhomeoffice/formio-gds-template": "^1.0.13-alpha",
     "bcformiojs": "^1.0.0",
     "bootstrap": "^5.3.3",
