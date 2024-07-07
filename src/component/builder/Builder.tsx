@@ -1,7 +1,7 @@
+import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import ClipboardJS from 'clipboard';
 import PropTypes from 'prop-types';
-import {useEffect, useState} from 'react';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
@@ -15,7 +15,8 @@ import 'react-json-view-lite/dist/index.css';
 import BasicModal from './_components/BasicModal';
 import CopyJSONButton from './_components/CopyJSONButton';
 import builderSettings from './builderSettings';
-import formioWebFormBuilder from './formioWebformBuilder';
+import {formioWebFormBuilder} from './formioWebformBuilder';
+
 import Preloader from './Preloader';
 interface BuilderProps {
   defaultComponents: any;
@@ -23,7 +24,6 @@ interface BuilderProps {
 }
 
 function Builder({defaultComponents, onCopy}: BuilderProps) {
-  formioWebFormBuilder();
   const defaultComp = defaultComponents.components;
   // eslint-disable-next-line no-unused-vars
   const {schema, setSchema} = useSchemaStore();
@@ -34,12 +34,18 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
   const [builderState, setBuilderState] = useState('zero');
 
   const [copiedJSON, setCopiedJSON] = useState<string>('');
-
+  const [isFormioBuilderReady, setIsFormioBuilderReady] = useState(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSchemaChange = () => {
     setSchema(defaultComponents.components);
   };
-
+  useEffect(() => {
+    const loadFormioWebFormBuilder = async () => {
+      await formioWebFormBuilder();
+      setIsFormioBuilderReady(true);
+    };
+    loadFormioWebFormBuilder();
+  }, []);
   useEffect(() => {
     const handleLoad = () => {
       import('bcformiojs').then((module) => {
@@ -64,15 +70,18 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
         );
       });
     };
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
+    if (isFormioBuilderReady) {
+      if (document.readyState === 'complete') {
+        handleLoad();
+      } else {
+        window.addEventListener('load', handleLoad);
+      }
+
+      return () => window.removeEventListener('load', handleLoad);
     }
 
-    return () => window.removeEventListener('load', handleLoad);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultComp, defaultComponents]);
+  }, [defaultComp, defaultComponents, isFormioBuilderReady]);
   useEffect(() => {
     const clipboard = new ClipboardJS('#copyJSON');
 
