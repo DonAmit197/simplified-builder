@@ -8,6 +8,22 @@ export default {
   tableView: false,
   components: [
     {
+      html: `<p><strong>Confirmation message</strong></p>
+      <p>The What happens next message will appear on a new page once the form has been submitted. Some useful things you can add are:</p>
+      <ul>
+      <li>details of what happens next and when.</li><li>contact details for the service.</li>
+      <li>links to information or services that users are likely to need next.</li>
+      <li>a link to your feedback form.</li>
+      </ul>`,
+      label: 'Content',
+      refreshOnChange: false,
+      key: 'confirmation_information',
+      type: 'content',
+      input: false,
+      tableView: false,
+      hidden: true,
+    },
+    {
       html: '<h3>Your request has been successful.</h3>',
       label: 'Content',
       customClass: 'page-heading efPageHeading',

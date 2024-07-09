@@ -108,18 +108,18 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
     setShowPasted(true);
   };
 
-  const navigateToFormRenderer = (e: any) => {
+  const navigateToFormRenderer = () => {
     secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
 
     if (typeof window !== 'undefined') {
       window.open(`/${RoutesEnum.FormRenderer}`, '_blank');
     }
 
-    e.target.style.display = 'none';
-    e.target.nextElementSibling.style.display = 'block';
+    //e.target.style.display = 'none';
+    //e.target.nextElementSibling.style.display = 'block';
   };
 
-  const updateSchemaForFormRenderer = () => {
+  /*const updateSchemaForFormRenderer = () => {
     return new Promise<void>((resolve, reject) => {
       try {
         secureLocalStorage.setItem('formSchema', JSON.stringify({components: defaultComp}));
@@ -131,7 +131,7 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
     }).then(() => {
       setShowRefresh(true);
     });
-  };
+  }; */
 
   useEffect(() => {
     const builderTab = document.querySelector('#builderTabs') as HTMLElement;
@@ -161,11 +161,11 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
       {builderState === 'on-builder' && <Preloader />}
       <div style={{marginBottom: '16px'}}>
         <Button variant='contained' data-ref={'_blank'} onClick={navigateToFormRenderer}>
-          Preview
+          Preview in a new tab
         </Button>
-        <Button variant='contained' style={{display: 'none'}} onClick={updateSchemaForFormRenderer}>
+        {/*<Button variant='contained' style={{ display: 'none' }} onClick={updateSchemaForFormRenderer}>
           Update
-        </Button>
+        </Button>*/}
       </div>
 
       <Tabs defaultActiveKey='edit' id='builderTabs' className='mb-3'>
@@ -177,15 +177,15 @@ function Builder({defaultComponents, onCopy}: BuilderProps) {
           <BasicModal />
           <div id='formio'></div>
         </Tab>
-        <Tab eventKey='json' title='Export/Import JSON' className='builder-tab'>
+        <Tab eventKey='json' title='Import/Export JSON' className='builder-tab'>
           <Tabs defaultActiveKey='jsonData' id='formContent' className='mb-3'>
-            <Tab eventKey='jsonData' title='Copy Json'>
+            <Tab eventKey='jsonData' title='Form Json'>
               <CopyJSONButton targetId='#json' onClick={() => {}}>
                 Copy JSON
               </CopyJSONButton>
               <div id='json'></div>
             </Tab>
-            <Tab eventKey='placeJson' title='Paste Json'>
+            <Tab eventKey='placeJson' title='Load Json'>
               <FloatingLabel controlId='floatingTextarea2' label='' className='mb-12'>
                 <Form.Control
                   as='textarea'

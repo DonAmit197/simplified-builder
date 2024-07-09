@@ -8,7 +8,7 @@ export default {
   tableView: false,
   components: [
     {
-      html: '<h3>NZBN Section</h3>',
+      html: '<h3>Applicant details</h3>',
       label: 'Content',
       customClass: 'expressform-section_header',
       refreshOnChange: false,

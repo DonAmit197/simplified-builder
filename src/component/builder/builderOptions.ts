@@ -22,8 +22,7 @@ const builderOptions: BuilderOptions = {
       showSidebar: false,
     },
     {
-      label:
-        'Add a description to your form to set expectations for those filling it out.',
+      label: 'Add a description to your form to set expectations for those filling it out.',
       tableView: true,
       key: 'formDescription',
       type: 'textarea',
