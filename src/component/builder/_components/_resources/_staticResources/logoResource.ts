@@ -8,7 +8,7 @@ export default {
   tableView: false,
   components: [
     {
-      html: '<p>Logo here</p>',
+      html: '<p>Add your logo here,recommended size 100px wide.</p>',
       label: 'Content',
       customClass: 'expressform-service_logo expressform-hide_review',
       refreshOnChange: false,

@@ -2,14 +2,108 @@ import Webform from 'bcformiojs/Webform';
 import Components from 'bcformiojs/components/Components';
 import { fastCloneDeep } from 'bcformiojs/utils/utils';
 import BuilderUtils from 'bcformiojs/utils/builder';
+
 import _ from 'lodash';
+import dragula from 'dragula/dist/dragula';
+console.log(dragula)
+
 
 const formioWebFormBuilder = async () => {
 
   const module = await import('bcformiojs/WebformBuilder');
   const WebformBuilder = module;
-  //console.log('WebformBuilder', WebformBuilder)
+  console.log('WebformBuilder', WebformBuilder)
 
+
+
+  const dragContainerInit = (element) => {
+    const dropElements = element;
+    _.forEach(dropElements, (item) => {
+
+      if (item.element && item.element !== undefined) {
+        //console.log(item.element)
+        if (item.element.classList.contains('essential-item')) {
+
+          if (item) {
+            const dragComponent = item.element.querySelectorAll(`[ref="dragComponent"], .drag-container`);
+            if (dragComponent) {
+              dragComponent.forEach((component) => {
+                component.classList.add('no-drag');
+                component.classList.add('no-drop');
+              })
+            }
+
+          }
+
+        }
+      }
+
+    })
+  }
+
+  const seterrorUIToEssentials = (element) => {
+    const targetForm = element;
+    //console.log('TargetForm', targetForm);
+    const essenTialItems = targetForm.querySelectorAll('.essential-item');
+    _.forEach(essenTialItems, (essentialItem) => {
+      console.log(essentialItem)
+      essentialItem.classList.add('ag-error-class');
+      essentialItem.style.border = '2px dashed #dadada';
+      essentialItem.style.backgroundColor = 'rgba(252,251,251,1.0)';
+      essentialItem.style.opacity = '1.0'
+    })
+
+  }
+
+  WebformBuilder.default.prototype.initDragula = function () {
+    const options = this.options;
+
+
+    if (this.dragula) {
+      this.dragula.destroy();
+    }
+
+    const containersArray = Array.prototype.slice.call(this.refs['sidebar-container']).filter(item => {
+      return item.id !== 'group-container-resource';
+    });
+
+    if (!dragula) {
+      return;
+    }
+
+    this.dragula = dragula(containersArray, {
+      moves(el) {
+        let moves = true;
+
+        const list = Array.from(el.classList).filter(item => item.indexOf('formio-component-') === 0);
+        list.forEach(item => {
+          const key = item.slice('formio-component-'.length);
+          if (options.disabled && options.disabled.includes(key)) {
+            moves = false;
+          }
+        });
+
+        if (el.classList.contains('no-drag')) {
+          moves = false;
+        }
+        return moves;
+      },
+      copy(el) {
+        return el.classList.contains('drag-copy');
+      },
+      accepts(el, target) {
+
+        console.log([target])
+        seterrorUIToEssentials(target)
+
+        return !el.contains(target) && !target.classList.contains('no-drop');
+      }
+    }).on('drop', (element, target, source, sibling) => {
+
+      this.onDrop(element, target, source, sibling);
+
+    });
+  }
   WebformBuilder.default.prototype.attachComponent = function (element, component) {
 
     /**
@@ -179,6 +273,10 @@ const formioWebFormBuilder = async () => {
       const allChildNodes = element.querySelectorAll('*');
       //console.log([...allChildNodes])
       allChildNodes.forEach((node) => {
+        if (node.classList.contains('component-settings-button-move')) {
+          node.style.display = 'none';
+        }
+
         if (node.classList.contains('component-settings-button-remove')) {
           node.style.display = 'none';
         }
@@ -253,7 +351,7 @@ const formioWebFormBuilder = async () => {
         this.removeComponent(component.schema, parent, component.component)
       );
     }
-
+    dragContainerInit(element)
     return element;
   };
 

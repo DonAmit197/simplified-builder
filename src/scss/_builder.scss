@@ -41,14 +41,17 @@
   position: absolute;
   right: 0;
   top: 0;
-  background: #e3e9f3;
+  background: #67676c;
+  letter-spacing: 0.125rem;
   font-size: 11px;
-  font-weight: bold;
+  font-weight: 500;
   text-transform: uppercase;
   padding: 3px 12px;
   border-radius: 2px;
   border: 2px solid #ffffff;
-  color: #5d5d5d;
+  color: #fff;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .widget-action-btn {
@@ -221,5 +224,23 @@
     100% {
       clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
     }
+  }
+}
+
+#builder {
+  .form-check-input {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+  }
+}
+.formio-dialog {
+  .form-check-input {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+  }
+  .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  .form-check-label {
+    display: inline-block;
   }
 }

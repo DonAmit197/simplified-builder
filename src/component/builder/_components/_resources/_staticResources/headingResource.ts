@@ -8,7 +8,7 @@ export default {
   tableView: false,
   components: [
     {
-      html: '<h2>Heading here</h2>',
+      html: '<h2>Form title</h2>',
       label: 'Content',
       customClass: 'expressform-page_header',
       refreshOnChange: false,
@@ -18,13 +18,15 @@ export default {
       tableView: false,
     },
     {
-      html: '<p>Description content about the service and what you would like the customers to know....&nbsp;</p>',
+      html: `<p>Add a description to your form to help set expectations.</p>
+      <p>Description content about the service and what you would like the customers to know...</p>`,
       label: 'Content',
       refreshOnChange: false,
       key: 'content2',
       type: 'content',
       input: false,
       tableView: false,
+      hidden: true,
     },
   ],
 };
